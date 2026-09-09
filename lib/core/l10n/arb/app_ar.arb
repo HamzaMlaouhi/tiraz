@@ -214,6 +214,12 @@
   "sellerSlotsLeft": "{count} مكان متبقٍ",
   "@sellerSlotsLeft": { "placeholders": { "count": { "type": "String" } } },
   "sellerSlotsFull": "اكتمل الحجز",
+  "sellerEventFreeLabel": "الانضمام مجاني",
+  "sellerEventFeeLabel": "رسوم المشاركة",
+  "sellerEventTimeLabel": "الوقت",
+  "sellerEventAttendeesLabel": "الحضور المتوقّع",
+  "sellerEventAttendeesCount": "يحضرها {count} شخص",
+  "@sellerEventAttendeesCount": { "placeholders": { "count": { "type": "String" } } },
 
   "sellerAccountTitle": "حساب البائع",
   "sellerSwitchToBuyingCta": "التبديل إلى التسوّق",

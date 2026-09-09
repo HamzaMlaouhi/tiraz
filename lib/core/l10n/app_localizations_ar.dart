@@ -560,6 +560,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sellerSlotsFull => 'اكتمل الحجز';
 
   @override
+  String get sellerEventFreeLabel => 'الانضمام مجاني';
+
+  @override
+  String get sellerEventFeeLabel => 'رسوم المشاركة';
+
+  @override
+  String get sellerEventTimeLabel => 'الوقت';
+
+  @override
+  String get sellerEventAttendeesLabel => 'الحضور المتوقّع';
+
+  @override
+  String sellerEventAttendeesCount(String count) {
+    return 'يحضرها $count شخص';
+  }
+
+  @override
   String get sellerAccountTitle => 'حساب البائع';
 
   @override

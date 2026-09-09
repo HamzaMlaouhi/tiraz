@@ -214,6 +214,12 @@
   "sellerSlotsLeft": "{count} spots left",
   "@sellerSlotsLeft": { "placeholders": { "count": { "type": "String" } } },
   "sellerSlotsFull": "Fully booked",
+  "sellerEventFreeLabel": "Free to join",
+  "sellerEventFeeLabel": "Participation fee",
+  "sellerEventTimeLabel": "Time",
+  "sellerEventAttendeesLabel": "Expected attendance",
+  "sellerEventAttendeesCount": "{count} people attending",
+  "@sellerEventAttendeesCount": { "placeholders": { "count": { "type": "String" } } },
 
   "sellerAccountTitle": "Seller account",
   "sellerSwitchToBuyingCta": "Switch to buying",

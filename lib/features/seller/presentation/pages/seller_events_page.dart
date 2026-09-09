@@ -10,7 +10,9 @@ import '../widgets/market_event_card.dart';
 /// Market events a seller can reserve a booth at — "your reservations"
 /// up top (with the venue/emirate for each), the full catalog below.
 class SellerEventsPage extends StatelessWidget {
-  const SellerEventsPage({super.key});
+  final void Function(String eventId) onOpenEventDetail;
+
+  const SellerEventsPage({super.key, required this.onOpenEventDetail});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class SellerEventsPage extends StatelessWidget {
                         child: MarketEventCard(
                           event: event,
                           reserved: true,
+                          onTap: () => onOpenEventDetail(event.id),
                           onReserve: () {},
                           onCancel: () => sl<SellerCubit>().cancelReservation(event.id),
                         ),
@@ -52,6 +55,7 @@ class SellerEventsPage extends StatelessWidget {
                     child: MarketEventCard(
                       event: event,
                       reserved: isReserved,
+                      onTap: () => onOpenEventDetail(event.id),
                       onReserve: () => sl<SellerCubit>().reserveEvent(event.id),
                       onCancel: () => sl<SellerCubit>().cancelReservation(event.id),
                     ),

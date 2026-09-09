@@ -17,6 +17,7 @@ import '../../features/orders/presentation/pages/order_detail_page.dart';
 import '../../features/orders/presentation/pages/orders_list_page.dart';
 import '../../features/product/presentation/pages/product_page.dart';
 import '../../features/seller/presentation/pages/add_product_page.dart';
+import '../../features/seller/presentation/pages/event_detail_page.dart';
 import '../../features/seller/presentation/pages/seller_account_page.dart';
 import '../../features/seller/presentation/pages/seller_dashboard_page.dart';
 import '../../features/seller/presentation/pages/seller_events_page.dart';
@@ -54,6 +55,17 @@ final GoRouter appRouter = GoRouter(
       path: '/seller/products/add',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => AddProductPage(onBack: () => context.pop(), onSaved: () => context.pop()),
+    ),
+    // Reachable from both the seller dashboard and the events tab, so —
+    // like the add-product route above — it escapes the seller shell
+    // rather than living under one branch's route tree.
+    GoRoute(
+      path: '/seller/events/:id',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => EventDetailPage(
+        eventId: state.pathParameters['id']!,
+        onBack: () => context.pop(),
+      ),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
@@ -201,6 +213,7 @@ final GoRouter appRouter = GoRouter(
                 onOpenProducts: () => context.go('/seller/products'),
                 onOpenEvents: () => context.go('/seller/events'),
                 onAddProduct: () => context.push('/seller/products/add'),
+                onOpenEventDetail: (id) => context.push('/seller/events/$id'),
               ),
             ),
           ],
@@ -217,7 +230,11 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           navigatorKey: _sellerEventsBranchKey,
           routes: [
-            GoRoute(path: '/seller/events', builder: (context, state) => const SellerEventsPage()),
+            GoRoute(
+              path: '/seller/events',
+              builder: (context, state) =>
+                  SellerEventsPage(onOpenEventDetail: (id) => context.push('/seller/events/$id')),
+            ),
           ],
         ),
         StatefulShellBranch(

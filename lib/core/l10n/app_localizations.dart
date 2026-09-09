@@ -1143,6 +1143,36 @@ abstract class AppLocalizations {
   /// **'اكتمل الحجز'**
   String get sellerSlotsFull;
 
+  /// No description provided for @sellerEventFreeLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الانضمام مجاني'**
+  String get sellerEventFreeLabel;
+
+  /// No description provided for @sellerEventFeeLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'رسوم المشاركة'**
+  String get sellerEventFeeLabel;
+
+  /// No description provided for @sellerEventTimeLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الوقت'**
+  String get sellerEventTimeLabel;
+
+  /// No description provided for @sellerEventAttendeesLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحضور المتوقّع'**
+  String get sellerEventAttendeesLabel;
+
+  /// No description provided for @sellerEventAttendeesCount.
+  ///
+  /// In ar, this message translates to:
+  /// **'يحضرها {count} شخص'**
+  String sellerEventAttendeesCount(String count);
+
   /// No description provided for @sellerAccountTitle.
   ///
   /// In ar, this message translates to:

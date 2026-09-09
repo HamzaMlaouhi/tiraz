@@ -19,12 +19,14 @@ class SellerDashboardPage extends StatelessWidget {
   final VoidCallback onOpenProducts;
   final VoidCallback onOpenEvents;
   final VoidCallback onAddProduct;
+  final void Function(String eventId) onOpenEventDetail;
 
   const SellerDashboardPage({
     super.key,
     required this.onOpenProducts,
     required this.onOpenEvents,
     required this.onAddProduct,
+    required this.onOpenEventDetail,
   });
 
   @override
@@ -87,6 +89,7 @@ class SellerDashboardPage extends StatelessWidget {
                       child: MarketEventCard(
                         event: event,
                         reserved: reserved,
+                        onTap: () => onOpenEventDetail(event.id),
                         onReserve: () => sl<SellerCubit>().reserveEvent(event.id),
                         onCancel: () => sl<SellerCubit>().cancelReservation(event.id),
                       ),

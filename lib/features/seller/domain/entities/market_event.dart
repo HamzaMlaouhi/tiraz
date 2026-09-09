@@ -11,8 +11,12 @@ class MarketEvent extends Equatable {
   final LocalizedText emirate;
   final LocalizedText venue;
   final LocalizedText dateLabel;
+  final LocalizedText timeLabel;
   final int totalSlots;
   final int reservedSlots;
+  final int attendeeCount;
+  final bool isFree;
+  final double feeAed;
   final String imageUrl;
   final List<Color> fallbackGradient;
 
@@ -22,8 +26,12 @@ class MarketEvent extends Equatable {
     required this.emirate,
     required this.venue,
     required this.dateLabel,
+    required this.timeLabel,
     required this.totalSlots,
     required this.reservedSlots,
+    required this.attendeeCount,
+    required this.isFree,
+    required this.feeAed,
     required this.imageUrl,
     required this.fallbackGradient,
   });
@@ -31,6 +39,19 @@ class MarketEvent extends Equatable {
   int get slotsLeft => totalSlots - reservedSlots;
 
   @override
-  List<Object?> get props =>
-      [id, name, emirate, venue, dateLabel, totalSlots, reservedSlots, imageUrl, fallbackGradient];
+  List<Object?> get props => [
+        id,
+        name,
+        emirate,
+        venue,
+        dateLabel,
+        timeLabel,
+        totalSlots,
+        reservedSlots,
+        attendeeCount,
+        isFree,
+        feeAed,
+        imageUrl,
+        fallbackGradient,
+      ];
 }

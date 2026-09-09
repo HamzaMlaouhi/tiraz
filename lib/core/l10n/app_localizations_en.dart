@@ -560,6 +560,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sellerSlotsFull => 'Fully booked';
 
   @override
+  String get sellerEventFreeLabel => 'Free to join';
+
+  @override
+  String get sellerEventFeeLabel => 'Participation fee';
+
+  @override
+  String get sellerEventTimeLabel => 'Time';
+
+  @override
+  String get sellerEventAttendeesLabel => 'Expected attendance';
+
+  @override
+  String sellerEventAttendeesCount(String count) {
+    return '$count people attending';
+  }
+
+  @override
   String get sellerAccountTitle => 'Seller account';
 
   @override
