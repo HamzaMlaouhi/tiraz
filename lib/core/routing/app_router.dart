@@ -5,6 +5,7 @@ import '../../features/account/presentation/pages/profile_page.dart';
 import '../../features/addresses/presentation/pages/addresses_page.dart';
 import '../../features/auth/presentation/pages/auth_page.dart';
 import '../../features/auth/presentation/pages/otp_page.dart';
+import '../../features/auth/presentation/pages/role_picker_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/cart/presentation/pages/cart_page.dart';
 import '../../features/checkout/presentation/pages/checkout_page.dart';
@@ -15,25 +16,48 @@ import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/orders/presentation/pages/order_detail_page.dart';
 import '../../features/orders/presentation/pages/orders_list_page.dart';
 import '../../features/product/presentation/pages/product_page.dart';
+import '../../features/seller/presentation/pages/add_product_page.dart';
+import '../../features/seller/presentation/pages/seller_account_page.dart';
+import '../../features/seller/presentation/pages/seller_dashboard_page.dart';
+import '../../features/seller/presentation/pages/seller_events_page.dart';
+import '../../features/seller/presentation/pages/seller_products_page.dart';
 import '../../features/shell/presentation/pages/app_shell.dart';
 import '../../features/wallet/presentation/pages/wallet_page.dart';
 import '../../features/wishlist/presentation/pages/wishlist_page.dart';
+import '../di/injection_container.dart';
+import '../l10n/app_localizations.dart';
+import '../role/role_cubit.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _homeBranchKey = GlobalKey<NavigatorState>(debugLabel: 'homeBranch');
 final GlobalKey<NavigatorState> _myFitBranchKey = GlobalKey<NavigatorState>(debugLabel: 'myFitBranch');
 final GlobalKey<NavigatorState> _ordersBranchKey = GlobalKey<NavigatorState>(debugLabel: 'ordersBranch');
 final GlobalKey<NavigatorState> _accountBranchKey = GlobalKey<NavigatorState>(debugLabel: 'accountBranch');
+final GlobalKey<NavigatorState> _sellerHomeBranchKey = GlobalKey<NavigatorState>(debugLabel: 'sellerHomeBranch');
+final GlobalKey<NavigatorState> _sellerProductsBranchKey =
+    GlobalKey<NavigatorState>(debugLabel: 'sellerProductsBranch');
+final GlobalKey<NavigatorState> _sellerEventsBranchKey = GlobalKey<NavigatorState>(debugLabel: 'sellerEventsBranch');
+final GlobalKey<NavigatorState> _sellerAccountBranchKey = GlobalKey<NavigatorState>(debugLabel: 'sellerAccountBranch');
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
   initialLocation: '/splash',
   routes: [
     GoRoute(path: '/splash', builder: (context, state) => const SplashPage()),
+    GoRoute(path: '/role', builder: (context, state) => const RolePickerPage()),
     GoRoute(path: '/auth', builder: (context, state) => const AuthPage()),
     GoRoute(path: '/otp', builder: (context, state) => const OtpPage()),
+    // Reachable from both the seller dashboard and the products tab, so it
+    // escapes the seller shell entirely rather than living under one
+    // branch's route tree.
+    GoRoute(
+      path: '/seller/products/add',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => AddProductPage(onBack: () => context.pop(), onSaved: () => context.pop()),
+    ),
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) => AppShell(navigationShell: navigationShell),
+      builder: (context, state, navigationShell) =>
+          AppShell(navigationShell: navigationShell, tabs: buyerNavTabs(AppLocalizations.of(context))),
       branches: [
         StatefulShellBranch(
           navigatorKey: _homeBranchKey,
@@ -139,11 +163,16 @@ final GoRouter appRouter = GoRouter(
                 onOpenWishlist: () => context.push('/account/wishlist'),
                 onOpenWallet: () => context.push('/account/wallet'),
                 onOpenAddresses: () => context.push('/account/addresses'),
+                onBecomeSeller: () {
+                  sl<RoleCubit>().choose(UserRole.seller);
+                  context.go('/seller');
+                },
               ),
               routes: [
                 GoRoute(
                   path: 'wishlist',
-                  builder: (context, state) => WishlistPage(onBack: () => context.pop(), onBrowse: () => context.go('/home')),
+                  builder: (context, state) =>
+                      WishlistPage(onBack: () => context.pop(), onBrowse: () => context.go('/home')),
                 ),
                 GoRoute(
                   path: 'wallet',
@@ -154,6 +183,54 @@ final GoRouter appRouter = GoRouter(
                   builder: (context, state) => AddressesPage(onBack: () => context.pop()),
                 ),
               ],
+            ),
+          ],
+        ),
+      ],
+    ),
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) =>
+          AppShell(navigationShell: navigationShell, tabs: sellerNavTabs(AppLocalizations.of(context))),
+      branches: [
+        StatefulShellBranch(
+          navigatorKey: _sellerHomeBranchKey,
+          routes: [
+            GoRoute(
+              path: '/seller',
+              builder: (context, state) => SellerDashboardPage(
+                onOpenProducts: () => context.go('/seller/products'),
+                onOpenEvents: () => context.go('/seller/events'),
+                onAddProduct: () => context.push('/seller/products/add'),
+              ),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _sellerProductsBranchKey,
+          routes: [
+            GoRoute(
+              path: '/seller/products',
+              builder: (context, state) => SellerProductsPage(onAddProduct: () => context.push('/seller/products/add')),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _sellerEventsBranchKey,
+          routes: [
+            GoRoute(path: '/seller/events', builder: (context, state) => const SellerEventsPage()),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _sellerAccountBranchKey,
+          routes: [
+            GoRoute(
+              path: '/seller/account',
+              builder: (context, state) => SellerAccountPage(
+                onSwitchToBuying: () {
+                  sl<RoleCubit>().choose(UserRole.buyer);
+                  context.go('/home');
+                },
+              ),
             ),
           ],
         ),

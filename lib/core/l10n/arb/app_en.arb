@@ -25,6 +25,14 @@
   "otpVerifyCta": "Verify and continue",
   "otpInvalid": "Incorrect code — try again",
 
+  "roleTitle": "How would you like to use Tiraz?",
+  "roleSubtitle": "You can switch anytime from your account.",
+  "roleBuyerTitle": "Shop",
+  "roleBuyerSubtitle": "Browse jalabiyas and kaftans from UAE designers",
+  "roleSellerTitle": "Sell",
+  "roleSellerSubtitle": "List your pieces and reserve a spot at market events",
+  "roleContinueCta": "Continue",
+
   "eidTitle": "Eid is {days} days away",
   "@eidTitle": { "placeholders": { "days": { "type": "String" } } },
   "eidSubtitle": "Last day for made-to-measure orders: January 26",
@@ -165,5 +173,49 @@
   "accountLanguageRow": "Language",
   "currentLanguageName": "English",
   "accountNotificationsRow": "Notifications",
-  "accountNotificationsSubtitle": "Silent during prayer times and iftar"
+  "accountNotificationsSubtitle": "Silent during prayer times and iftar",
+  "accountBecomeSellerRow": "Become a seller",
+  "accountBecomeSellerSubtitle": "List your own pieces on Tiraz",
+
+  "navSellerHome": "Dashboard",
+  "navSellerProducts": "Products",
+  "navSellerEvents": "Events",
+
+  "sellerDashboardTitle": "Your dashboard",
+  "sellerYourStoreLabel": "Your store",
+  "sellerProductsPreviewTitle": "Your products",
+  "sellerEventsPreviewTitle": "Upcoming events",
+  "seeAllCta": "See all",
+
+  "sellerProductsTitle": "Your products",
+  "sellerProductsSubtitle": "{count} pieces listed",
+  "@sellerProductsSubtitle": { "placeholders": { "count": { "type": "String" } } },
+  "sellerAddProductCta": "Add a product",
+  "sellerNoProducts": "No products yet — add your first piece.",
+  "sellerRemoveProductCta": "Remove",
+  "sellerProductRemoved": "Product removed",
+
+  "sellerAddProductTitle": "Add a product",
+  "sellerProductNameLabel": "Product name",
+  "sellerProductNameHint": "e.g. Amal jalabiya",
+  "sellerPriceLabel": "Price (AED)",
+  "sellerPriceHint": "0",
+  "sellerProductTypeLabel": "Type",
+  "sellerSaveProductCta": "Save product",
+  "sellerProductAdded": "Added to your store",
+
+  "sellerEventsTitle": "Market events",
+  "sellerEventsSubtitle": "Reserve a spot to showcase your pieces in person",
+  "sellerYourReservationsTitle": "Your reservations",
+  "sellerNoReservations": "No reservations yet.",
+  "sellerReserveCta": "Reserve your spot",
+  "sellerReservedLabel": "Reserved",
+  "sellerCancelReservationCta": "Cancel reservation",
+  "sellerSlotsLeft": "{count} spots left",
+  "@sellerSlotsLeft": { "placeholders": { "count": { "type": "String" } } },
+  "sellerSlotsFull": "Fully booked",
+
+  "sellerAccountTitle": "Seller account",
+  "sellerSwitchToBuyingCta": "Switch to buying",
+  "sellerSwitchToBuyingSubtitle": "Go back to shopping as a buyer"
 }

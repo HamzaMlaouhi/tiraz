@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/locale/locale_cubit.dart';
+import '../../../../core/role/role_cubit.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/primary_button.dart';
@@ -165,7 +166,7 @@ class _AuthView extends StatelessWidget {
                 const SizedBox(height: 8),
                 Center(
                   child: TextButton(
-                    onPressed: () => context.go('/home'),
+                    onPressed: () => context.go(roleHomePath(sl<RoleCubit>().state)),
                     child: Text(
                       l10n.browseAsGuest,
                       style: AppTextStyles.buttonSecondary.copyWith(

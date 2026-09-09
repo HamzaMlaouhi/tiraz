@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Timer(const Duration(milliseconds: 2200), () {
-      if (mounted) context.go('/auth');
+      if (mounted) context.go('/role');
     });
   }
 

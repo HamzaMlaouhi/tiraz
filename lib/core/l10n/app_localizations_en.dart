@@ -66,6 +66,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otpInvalid => 'Incorrect code — try again';
 
   @override
+  String get roleTitle => 'How would you like to use Tiraz?';
+
+  @override
+  String get roleSubtitle => 'You can switch anytime from your account.';
+
+  @override
+  String get roleBuyerTitle => 'Shop';
+
+  @override
+  String get roleBuyerSubtitle => 'Browse jalabiyas and kaftans from UAE designers';
+
+  @override
+  String get roleSellerTitle => 'Sell';
+
+  @override
+  String get roleSellerSubtitle => 'List your pieces and reserve a spot at market events';
+
+  @override
+  String get roleContinueCta => 'Continue';
+
+  @override
   String eidTitle(String days) {
     return 'Eid is $days days away';
   }
@@ -434,4 +455,116 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountNotificationsSubtitle => 'Silent during prayer times and iftar';
+
+  @override
+  String get accountBecomeSellerRow => 'Become a seller';
+
+  @override
+  String get accountBecomeSellerSubtitle => 'List your own pieces on Tiraz';
+
+  @override
+  String get navSellerHome => 'Dashboard';
+
+  @override
+  String get navSellerProducts => 'Products';
+
+  @override
+  String get navSellerEvents => 'Events';
+
+  @override
+  String get sellerDashboardTitle => 'Your dashboard';
+
+  @override
+  String get sellerYourStoreLabel => 'Your store';
+
+  @override
+  String get sellerProductsPreviewTitle => 'Your products';
+
+  @override
+  String get sellerEventsPreviewTitle => 'Upcoming events';
+
+  @override
+  String get seeAllCta => 'See all';
+
+  @override
+  String get sellerProductsTitle => 'Your products';
+
+  @override
+  String sellerProductsSubtitle(String count) {
+    return '$count pieces listed';
+  }
+
+  @override
+  String get sellerAddProductCta => 'Add a product';
+
+  @override
+  String get sellerNoProducts => 'No products yet — add your first piece.';
+
+  @override
+  String get sellerRemoveProductCta => 'Remove';
+
+  @override
+  String get sellerProductRemoved => 'Product removed';
+
+  @override
+  String get sellerAddProductTitle => 'Add a product';
+
+  @override
+  String get sellerProductNameLabel => 'Product name';
+
+  @override
+  String get sellerProductNameHint => 'e.g. Amal jalabiya';
+
+  @override
+  String get sellerPriceLabel => 'Price (AED)';
+
+  @override
+  String get sellerPriceHint => '0';
+
+  @override
+  String get sellerProductTypeLabel => 'Type';
+
+  @override
+  String get sellerSaveProductCta => 'Save product';
+
+  @override
+  String get sellerProductAdded => 'Added to your store';
+
+  @override
+  String get sellerEventsTitle => 'Market events';
+
+  @override
+  String get sellerEventsSubtitle => 'Reserve a spot to showcase your pieces in person';
+
+  @override
+  String get sellerYourReservationsTitle => 'Your reservations';
+
+  @override
+  String get sellerNoReservations => 'No reservations yet.';
+
+  @override
+  String get sellerReserveCta => 'Reserve your spot';
+
+  @override
+  String get sellerReservedLabel => 'Reserved';
+
+  @override
+  String get sellerCancelReservationCta => 'Cancel reservation';
+
+  @override
+  String sellerSlotsLeft(String count) {
+    return '$count spots left';
+  }
+
+  @override
+  String get sellerSlotsFull => 'Fully booked';
+
+  @override
+  String get sellerAccountTitle => 'Seller account';
+
+  @override
+  String get sellerSwitchToBuyingCta => 'Switch to buying';
+
+  @override
+  String get sellerSwitchToBuyingSubtitle => 'Go back to shopping as a buyer';
 }

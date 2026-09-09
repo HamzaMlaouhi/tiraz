@@ -25,6 +25,14 @@
   "otpVerifyCta": "تأكيد ومتابعة",
   "otpInvalid": "رمز غير صحيح — حاولي مرة أخرى",
 
+  "roleTitle": "كيف تودّين استخدام طِراز؟",
+  "roleSubtitle": "يمكنك التبديل في أي وقت من حسابك.",
+  "roleBuyerTitle": "التسوّق",
+  "roleBuyerSubtitle": "تصفّحي الجلابيات والقفاطين من مصمّمات الإمارات",
+  "roleSellerTitle": "البيع",
+  "roleSellerSubtitle": "اعرضي قطعك واحجزي مكانك في أسواق الفعاليات",
+  "roleContinueCta": "متابعة",
+
   "eidTitle": "العيد بعد {days} يوماً",
   "@eidTitle": { "placeholders": { "days": { "type": "String" } } },
   "eidSubtitle": "آخر موعد لطلبات التفصيل حسب المقاس: 26 يناير",
@@ -165,5 +173,49 @@
   "accountLanguageRow": "اللغة",
   "currentLanguageName": "العربية",
   "accountNotificationsRow": "الإشعارات",
-  "accountNotificationsSubtitle": "صامتة وقت الصلاة والإفطار"
+  "accountNotificationsSubtitle": "صامتة وقت الصلاة والإفطار",
+  "accountBecomeSellerRow": "كوني بائعة",
+  "accountBecomeSellerSubtitle": "اعرضي قطعك الخاصة على طِراز",
+
+  "navSellerHome": "لوحتي",
+  "navSellerProducts": "منتجاتي",
+  "navSellerEvents": "الفعاليات",
+
+  "sellerDashboardTitle": "لوحتك",
+  "sellerYourStoreLabel": "متجرك",
+  "sellerProductsPreviewTitle": "منتجاتك",
+  "sellerEventsPreviewTitle": "الفعاليات القادمة",
+  "seeAllCta": "عرض الكل",
+
+  "sellerProductsTitle": "منتجاتك",
+  "sellerProductsSubtitle": "{count} قطعة معروضة",
+  "@sellerProductsSubtitle": { "placeholders": { "count": { "type": "String" } } },
+  "sellerAddProductCta": "أضيفي منتجًا",
+  "sellerNoProducts": "لا منتجات بعد — أضيفي أول قطعة.",
+  "sellerRemoveProductCta": "إزالة",
+  "sellerProductRemoved": "تمّت إزالة المنتج",
+
+  "sellerAddProductTitle": "إضافة منتج",
+  "sellerProductNameLabel": "اسم المنتج",
+  "sellerProductNameHint": "مثال: جلابية أمل",
+  "sellerPriceLabel": "السعر (د.إ)",
+  "sellerPriceHint": "0",
+  "sellerProductTypeLabel": "النوع",
+  "sellerSaveProductCta": "حفظ المنتج",
+  "sellerProductAdded": "أُضيف إلى متجرك",
+
+  "sellerEventsTitle": "أسواق الفعاليات",
+  "sellerEventsSubtitle": "احجزي مكانًا لعرض قطعك حضوريًا",
+  "sellerYourReservationsTitle": "حجوزاتك",
+  "sellerNoReservations": "لا حجوزات بعد.",
+  "sellerReserveCta": "احجزي مكانك",
+  "sellerReservedLabel": "محجوز",
+  "sellerCancelReservationCta": "إلغاء الحجز",
+  "sellerSlotsLeft": "{count} مكان متبقٍ",
+  "@sellerSlotsLeft": { "placeholders": { "count": { "type": "String" } } },
+  "sellerSlotsFull": "اكتمل الحجز",
+
+  "sellerAccountTitle": "حساب البائع",
+  "sellerSwitchToBuyingCta": "التبديل إلى التسوّق",
+  "sellerSwitchToBuyingSubtitle": "عودي للتسوّق كمشترية"
 }

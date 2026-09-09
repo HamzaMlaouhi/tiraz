@@ -66,6 +66,27 @@ class AppLocalizationsAr extends AppLocalizations {
   String get otpInvalid => 'رمز غير صحيح — حاولي مرة أخرى';
 
   @override
+  String get roleTitle => 'كيف تودّين استخدام طِراز؟';
+
+  @override
+  String get roleSubtitle => 'يمكنك التبديل في أي وقت من حسابك.';
+
+  @override
+  String get roleBuyerTitle => 'التسوّق';
+
+  @override
+  String get roleBuyerSubtitle => 'تصفّحي الجلابيات والقفاطين من مصمّمات الإمارات';
+
+  @override
+  String get roleSellerTitle => 'البيع';
+
+  @override
+  String get roleSellerSubtitle => 'اعرضي قطعك واحجزي مكانك في أسواق الفعاليات';
+
+  @override
+  String get roleContinueCta => 'متابعة';
+
+  @override
   String eidTitle(String days) {
     return 'العيد بعد $days يوماً';
   }
@@ -434,4 +455,116 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get accountNotificationsSubtitle => 'صامتة وقت الصلاة والإفطار';
+
+  @override
+  String get accountBecomeSellerRow => 'كوني بائعة';
+
+  @override
+  String get accountBecomeSellerSubtitle => 'اعرضي قطعك الخاصة على طِراز';
+
+  @override
+  String get navSellerHome => 'لوحتي';
+
+  @override
+  String get navSellerProducts => 'منتجاتي';
+
+  @override
+  String get navSellerEvents => 'الفعاليات';
+
+  @override
+  String get sellerDashboardTitle => 'لوحتك';
+
+  @override
+  String get sellerYourStoreLabel => 'متجرك';
+
+  @override
+  String get sellerProductsPreviewTitle => 'منتجاتك';
+
+  @override
+  String get sellerEventsPreviewTitle => 'الفعاليات القادمة';
+
+  @override
+  String get seeAllCta => 'عرض الكل';
+
+  @override
+  String get sellerProductsTitle => 'منتجاتك';
+
+  @override
+  String sellerProductsSubtitle(String count) {
+    return '$count قطعة معروضة';
+  }
+
+  @override
+  String get sellerAddProductCta => 'أضيفي منتجًا';
+
+  @override
+  String get sellerNoProducts => 'لا منتجات بعد — أضيفي أول قطعة.';
+
+  @override
+  String get sellerRemoveProductCta => 'إزالة';
+
+  @override
+  String get sellerProductRemoved => 'تمّت إزالة المنتج';
+
+  @override
+  String get sellerAddProductTitle => 'إضافة منتج';
+
+  @override
+  String get sellerProductNameLabel => 'اسم المنتج';
+
+  @override
+  String get sellerProductNameHint => 'مثال: جلابية أمل';
+
+  @override
+  String get sellerPriceLabel => 'السعر (د.إ)';
+
+  @override
+  String get sellerPriceHint => '0';
+
+  @override
+  String get sellerProductTypeLabel => 'النوع';
+
+  @override
+  String get sellerSaveProductCta => 'حفظ المنتج';
+
+  @override
+  String get sellerProductAdded => 'أُضيف إلى متجرك';
+
+  @override
+  String get sellerEventsTitle => 'أسواق الفعاليات';
+
+  @override
+  String get sellerEventsSubtitle => 'احجزي مكانًا لعرض قطعك حضوريًا';
+
+  @override
+  String get sellerYourReservationsTitle => 'حجوزاتك';
+
+  @override
+  String get sellerNoReservations => 'لا حجوزات بعد.';
+
+  @override
+  String get sellerReserveCta => 'احجزي مكانك';
+
+  @override
+  String get sellerReservedLabel => 'محجوز';
+
+  @override
+  String get sellerCancelReservationCta => 'إلغاء الحجز';
+
+  @override
+  String sellerSlotsLeft(String count) {
+    return '$count مكان متبقٍ';
+  }
+
+  @override
+  String get sellerSlotsFull => 'اكتمل الحجز';
+
+  @override
+  String get sellerAccountTitle => 'حساب البائع';
+
+  @override
+  String get sellerSwitchToBuyingCta => 'التبديل إلى التسوّق';
+
+  @override
+  String get sellerSwitchToBuyingSubtitle => 'عودي للتسوّق كمشترية';
 }

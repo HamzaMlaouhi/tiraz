@@ -28,8 +28,10 @@ import '../../features/product/data/repositories/product_repository_impl.dart';
 import '../../features/product/domain/repositories/product_repository.dart';
 import '../../features/product/domain/usecases/get_product_detail.dart';
 import '../../features/product/presentation/cubit/product_cubit.dart';
+import '../../features/seller/presentation/cubit/seller_cubit.dart';
 import '../../features/wallet/presentation/cubit/wallet_cubit.dart';
 import '../../features/wishlist/presentation/cubit/wishlist_cubit.dart';
+import '../role/role_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -41,6 +43,11 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton(() => AddressesCubit());
   sl.registerLazySingleton(() => WishlistCubit());
   sl.registerLazySingleton(() => WalletCubit());
+  sl.registerLazySingleton(() => RoleCubit());
+
+  // ---- Seller (buyer/seller are both singletons: local, mutable,
+  // session-lived state — no repository, like Cart/Wishlist/Wallet) ----
+  sl.registerLazySingleton(() => SellerCubit());
 
   // ---- Auth ----
   sl.registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl());

@@ -207,6 +207,48 @@ abstract class AppLocalizations {
   /// **'رمز غير صحيح — حاولي مرة أخرى'**
   String get otpInvalid;
 
+  /// No description provided for @roleTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'كيف تودّين استخدام طِراز؟'**
+  String get roleTitle;
+
+  /// No description provided for @roleSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'يمكنك التبديل في أي وقت من حسابك.'**
+  String get roleSubtitle;
+
+  /// No description provided for @roleBuyerTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'التسوّق'**
+  String get roleBuyerTitle;
+
+  /// No description provided for @roleBuyerSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تصفّحي الجلابيات والقفاطين من مصمّمات الإمارات'**
+  String get roleBuyerSubtitle;
+
+  /// No description provided for @roleSellerTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'البيع'**
+  String get roleSellerTitle;
+
+  /// No description provided for @roleSellerSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'اعرضي قطعك واحجزي مكانك في أسواق الفعاليات'**
+  String get roleSellerSubtitle;
+
+  /// No description provided for @roleContinueCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'متابعة'**
+  String get roleContinueCta;
+
   /// No description provided for @eidTitle.
   ///
   /// In ar, this message translates to:
@@ -902,6 +944,222 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'صامتة وقت الصلاة والإفطار'**
   String get accountNotificationsSubtitle;
+
+  /// No description provided for @accountBecomeSellerRow.
+  ///
+  /// In ar, this message translates to:
+  /// **'كوني بائعة'**
+  String get accountBecomeSellerRow;
+
+  /// No description provided for @accountBecomeSellerSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'اعرضي قطعك الخاصة على طِراز'**
+  String get accountBecomeSellerSubtitle;
+
+  /// No description provided for @navSellerHome.
+  ///
+  /// In ar, this message translates to:
+  /// **'لوحتي'**
+  String get navSellerHome;
+
+  /// No description provided for @navSellerProducts.
+  ///
+  /// In ar, this message translates to:
+  /// **'منتجاتي'**
+  String get navSellerProducts;
+
+  /// No description provided for @navSellerEvents.
+  ///
+  /// In ar, this message translates to:
+  /// **'الفعاليات'**
+  String get navSellerEvents;
+
+  /// No description provided for @sellerDashboardTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لوحتك'**
+  String get sellerDashboardTitle;
+
+  /// No description provided for @sellerYourStoreLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'متجرك'**
+  String get sellerYourStoreLabel;
+
+  /// No description provided for @sellerProductsPreviewTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'منتجاتك'**
+  String get sellerProductsPreviewTitle;
+
+  /// No description provided for @sellerEventsPreviewTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الفعاليات القادمة'**
+  String get sellerEventsPreviewTitle;
+
+  /// No description provided for @seeAllCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'عرض الكل'**
+  String get seeAllCta;
+
+  /// No description provided for @sellerProductsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'منتجاتك'**
+  String get sellerProductsTitle;
+
+  /// No description provided for @sellerProductsSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count} قطعة معروضة'**
+  String sellerProductsSubtitle(String count);
+
+  /// No description provided for @sellerAddProductCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'أضيفي منتجًا'**
+  String get sellerAddProductCta;
+
+  /// No description provided for @sellerNoProducts.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا منتجات بعد — أضيفي أول قطعة.'**
+  String get sellerNoProducts;
+
+  /// No description provided for @sellerRemoveProductCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'إزالة'**
+  String get sellerRemoveProductCta;
+
+  /// No description provided for @sellerProductRemoved.
+  ///
+  /// In ar, this message translates to:
+  /// **'تمّت إزالة المنتج'**
+  String get sellerProductRemoved;
+
+  /// No description provided for @sellerAddProductTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة منتج'**
+  String get sellerAddProductTitle;
+
+  /// No description provided for @sellerProductNameLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'اسم المنتج'**
+  String get sellerProductNameLabel;
+
+  /// No description provided for @sellerProductNameHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'مثال: جلابية أمل'**
+  String get sellerProductNameHint;
+
+  /// No description provided for @sellerPriceLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر (د.إ)'**
+  String get sellerPriceLabel;
+
+  /// No description provided for @sellerPriceHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'0'**
+  String get sellerPriceHint;
+
+  /// No description provided for @sellerProductTypeLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'النوع'**
+  String get sellerProductTypeLabel;
+
+  /// No description provided for @sellerSaveProductCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'حفظ المنتج'**
+  String get sellerSaveProductCta;
+
+  /// No description provided for @sellerProductAdded.
+  ///
+  /// In ar, this message translates to:
+  /// **'أُضيف إلى متجرك'**
+  String get sellerProductAdded;
+
+  /// No description provided for @sellerEventsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'أسواق الفعاليات'**
+  String get sellerEventsTitle;
+
+  /// No description provided for @sellerEventsSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'احجزي مكانًا لعرض قطعك حضوريًا'**
+  String get sellerEventsSubtitle;
+
+  /// No description provided for @sellerYourReservationsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'حجوزاتك'**
+  String get sellerYourReservationsTitle;
+
+  /// No description provided for @sellerNoReservations.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا حجوزات بعد.'**
+  String get sellerNoReservations;
+
+  /// No description provided for @sellerReserveCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'احجزي مكانك'**
+  String get sellerReserveCta;
+
+  /// No description provided for @sellerReservedLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'محجوز'**
+  String get sellerReservedLabel;
+
+  /// No description provided for @sellerCancelReservationCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'إلغاء الحجز'**
+  String get sellerCancelReservationCta;
+
+  /// No description provided for @sellerSlotsLeft.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count} مكان متبقٍ'**
+  String sellerSlotsLeft(String count);
+
+  /// No description provided for @sellerSlotsFull.
+  ///
+  /// In ar, this message translates to:
+  /// **'اكتمل الحجز'**
+  String get sellerSlotsFull;
+
+  /// No description provided for @sellerAccountTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'حساب البائع'**
+  String get sellerAccountTitle;
+
+  /// No description provided for @sellerSwitchToBuyingCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'التبديل إلى التسوّق'**
+  String get sellerSwitchToBuyingCta;
+
+  /// No description provided for @sellerSwitchToBuyingSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'عودي للتسوّق كمشترية'**
+  String get sellerSwitchToBuyingSubtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/role/role_cubit.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/primary_button.dart';
@@ -32,7 +33,7 @@ class _OtpView extends StatelessWidget {
 
     return BlocListener<AuthCubit, AuthState>(
       listenWhen: (prev, curr) => curr.status == AuthStatus.verified && prev.status != AuthStatus.verified,
-      listener: (context, state) => context.go('/home'),
+      listener: (context, state) => context.go(roleHomePath(sl<RoleCubit>().state)),
       child: Scaffold(
         body: SafeArea(
           child: Padding(

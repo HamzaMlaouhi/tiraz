@@ -1,15 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:tiraz/app.dart';
 import 'package:tiraz/core/di/injection_container.dart';
 
+import 'support/fake_network_images.dart';
+
 void main() {
   setUp(() async {
+    HttpOverrides.global = FakeNetworkImageHttpOverrides();
     await initDependencies();
   });
 
   tearDown(() async {
+    HttpOverrides.global = null;
     await sl.reset();
   });
 
@@ -22,7 +28,14 @@ void main() {
 
     expect(tester.takeException(), isNull);
 
-    // Auth page (Arabic is the default locale) -> browse as guest -> home.
+    // Role picker (Arabic is the default locale) -> pick "shop" -> continue.
+    await tester.tap(find.text('التسوّق'));
+    await tester.pump();
+    await tester.tap(find.text('متابعة'));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+
+    // Auth page -> browse as guest -> home.
     final guestFinder = find.text('أو تصفّحي كضيفة');
     expect(guestFinder, findsOneWidget);
     await tester.tap(guestFinder);

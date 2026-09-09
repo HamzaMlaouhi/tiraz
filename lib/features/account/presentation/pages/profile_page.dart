@@ -20,6 +20,7 @@ class ProfilePage extends StatelessWidget {
   final VoidCallback onOpenWishlist;
   final VoidCallback onOpenWallet;
   final VoidCallback onOpenAddresses;
+  final VoidCallback onBecomeSeller;
 
   const ProfilePage({
     super.key,
@@ -28,6 +29,7 @@ class ProfilePage extends StatelessWidget {
     required this.onOpenWishlist,
     required this.onOpenWallet,
     required this.onOpenAddresses,
+    required this.onBecomeSeller,
   });
 
   @override
@@ -78,7 +80,8 @@ class ProfilePage extends StatelessWidget {
                       final inProgress = state.orders.where((o) => o.status == OrderStatusKind.inProduction).length;
                       return _Row(
                         name: l10n.accountOrdersRow,
-                        sub: inProgress > 0 ? l10n.accountOrdersInProgress(inProgress.toString()) : l10n.accountNoOrders,
+                        sub:
+                            inProgress > 0 ? l10n.accountOrdersInProgress(inProgress.toString()) : l10n.accountNoOrders,
                         onTap: onOpenOrders,
                       );
                     },
@@ -132,6 +135,36 @@ class ProfilePage extends StatelessWidget {
                     isLast: true,
                   ),
                 ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Material(
+              color: AppColors.tealBg,
+              borderRadius: BorderRadius.circular(16),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: onBecomeSeller,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.storefront_outlined, size: 18, color: AppColors.teal),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(l10n.accountBecomeSellerRow,
+                                style: AppTextStyles.label.copyWith(color: AppColors.tealDark, fontSize: 13.5)),
+                            Text(l10n.accountBecomeSellerSubtitle,
+                                style: AppTextStyles.caption.copyWith(color: AppColors.tealMuted, fontSize: 11)),
+                          ],
+                        ),
+                      ),
+                      const Icon(Icons.chevron_right_rounded, color: AppColors.teal, size: 20),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
