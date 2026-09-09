@@ -10,8 +10,9 @@ import '../widgets/seller_product_tile.dart';
 
 class SellerProductsPage extends StatelessWidget {
   final VoidCallback onAddProduct;
+  final void Function(String productId) onOpenProductDetail;
 
-  const SellerProductsPage({super.key, required this.onAddProduct});
+  const SellerProductsPage({super.key, required this.onAddProduct, required this.onOpenProductDetail});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,11 @@ class SellerProductsPage extends StatelessWidget {
                     spacing: 12,
                     runSpacing: 16,
                     children: state.products.map((p) {
-                      return SellerProductTile(product: p, onRemove: () => sl<SellerCubit>().removeProduct(p.id));
+                      return SellerProductTile(
+                        product: p,
+                        onTap: () => onOpenProductDetail(p.id),
+                        onRemove: () => sl<SellerCubit>().removeProduct(p.id),
+                      );
                     }).toList(),
                   ),
               ],

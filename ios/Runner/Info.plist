@@ -45,5 +45,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Tiraz needs access to your photos so sellers can add a picture of their pieces.</string>
 </dict>
 </plist>

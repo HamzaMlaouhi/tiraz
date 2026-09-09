@@ -21,6 +21,7 @@ import '../../features/seller/presentation/pages/event_detail_page.dart';
 import '../../features/seller/presentation/pages/seller_account_page.dart';
 import '../../features/seller/presentation/pages/seller_dashboard_page.dart';
 import '../../features/seller/presentation/pages/seller_events_page.dart';
+import '../../features/seller/presentation/pages/seller_product_detail_page.dart';
 import '../../features/seller/presentation/pages/seller_products_page.dart';
 import '../../features/shell/presentation/pages/app_shell.dart';
 import '../../features/wallet/presentation/pages/wallet_page.dart';
@@ -55,6 +56,17 @@ final GoRouter appRouter = GoRouter(
       path: '/seller/products/add',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => AddProductPage(onBack: () => context.pop(), onSaved: () => context.pop()),
+    ),
+    // Reachable from both the seller dashboard and the products tab, so —
+    // like the routes above — it escapes the seller shell rather than
+    // living under one branch's route tree.
+    GoRoute(
+      path: '/seller/products/:id',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => SellerProductDetailPage(
+        productId: state.pathParameters['id']!,
+        onBack: () => context.pop(),
+      ),
     ),
     // Reachable from both the seller dashboard and the events tab, so —
     // like the add-product route above — it escapes the seller shell
@@ -214,6 +226,7 @@ final GoRouter appRouter = GoRouter(
                 onOpenEvents: () => context.go('/seller/events'),
                 onAddProduct: () => context.push('/seller/products/add'),
                 onOpenEventDetail: (id) => context.push('/seller/events/$id'),
+                onOpenProductDetail: (id) => context.push('/seller/products/$id'),
               ),
             ),
           ],
@@ -223,7 +236,10 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/seller/products',
-              builder: (context, state) => SellerProductsPage(onAddProduct: () => context.push('/seller/products/add')),
+              builder: (context, state) => SellerProductsPage(
+                onAddProduct: () => context.push('/seller/products/add'),
+                onOpenProductDetail: (id) => context.push('/seller/products/$id'),
+              ),
             ),
           ],
         ),

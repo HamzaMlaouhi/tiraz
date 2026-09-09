@@ -54,9 +54,15 @@ void main() {
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
 
+    // Name, description, dimensions (length/chest/sleeve), then price.
     await tester.enterText(find.byType(TextField).at(0), 'Layla jalabiya');
-    await tester.enterText(find.byType(TextField).at(1), '399');
+    await tester.enterText(find.byType(TextField).at(1), 'A lightweight everyday piece.');
+    await tester.enterText(find.byType(TextField).at(2), '140');
+    await tester.enterText(find.byType(TextField).at(3), '106');
+    await tester.enterText(find.byType(TextField).at(4), '56');
+    await tester.enterText(find.byType(TextField).at(5), '399');
     await tester.pump();
+    expect(tester.takeException(), isNull);
     await tester.tap(find.text('حفظ المنتج'));
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);

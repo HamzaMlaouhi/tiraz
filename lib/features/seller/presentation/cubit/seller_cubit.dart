@@ -1,9 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/models/market_event_model.dart';
 import '../../data/models/seller_product_model.dart';
 import '../../data/models/seller_store_profile_model.dart';
+import '../../domain/entities/jalabiya_quality.dart';
 import '../../domain/entities/market_event.dart';
 import '../../domain/entities/seller_product.dart';
 import '../../domain/entities/seller_store_profile.dart';
@@ -23,14 +26,34 @@ class SellerCubit extends Cubit<SellerState> {
           reservedEventIds: const {},
         ));
 
-  void addProduct({required String name, required double priceAed, required bool isMadeToMeasure}) {
-    final seed = Uri.encodeComponent('${name.trim()}-${state.products.length}');
+  void addProduct({
+    required String name,
+    required String description,
+    required double priceAed,
+    required bool isMadeToMeasure,
+    required bool isHandmade,
+    required double handmadeExtraCostAed,
+    required double lengthCm,
+    required double chestCm,
+    required double sleeveCm,
+    required JalabiyaQuality quality,
+    required String imageUrl,
+    Uint8List? imageBytes,
+  }) {
     final product = SellerProduct(
       id: 'seller-product-${DateTime.now().microsecondsSinceEpoch}',
       name: name.trim(),
+      description: description.trim(),
       priceAed: priceAed,
       isMadeToMeasure: isMadeToMeasure,
-      imageUrl: 'https://picsum.photos/seed/tiraz-seller-$seed/500/650',
+      isHandmade: isHandmade,
+      handmadeExtraCostAed: isHandmade ? handmadeExtraCostAed : 0,
+      lengthCm: lengthCm,
+      chestCm: chestCm,
+      sleeveCm: sleeveCm,
+      quality: quality,
+      imageUrl: imageUrl,
+      imageBytes: imageBytes,
     );
     emit(state.copyWith(products: [...state.products, product]));
   }

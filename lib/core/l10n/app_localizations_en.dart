@@ -531,6 +531,69 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sellerProductAdded => 'Added to your store';
 
   @override
+  String get sellerHandmadeBadge => 'Handmade';
+
+  @override
+  String get sellerPhotoLabel => 'Photo';
+
+  @override
+  String get sellerPhotoGalleryLabel => 'Choose a style';
+
+  @override
+  String get sellerPhotoUploadCta => 'Upload from device';
+
+  @override
+  String get sellerPhotoUploadError => 'Couldn\'t load that photo — try another.';
+
+  @override
+  String get sellerDetailsLabel => 'Details';
+
+  @override
+  String get sellerDetailsHint => 'Fabric, fit, care instructions…';
+
+  @override
+  String get sellerDimensionsLabel => 'Dimensions (cm)';
+
+  @override
+  String get sellerLengthLabel => 'Length';
+
+  @override
+  String get sellerChestLabel => 'Chest';
+
+  @override
+  String get sellerSleeveLabel => 'Sleeve';
+
+  @override
+  String get sellerHandmadeToggleLabel => 'Handmade piece';
+
+  @override
+  String get sellerHandmadeToggleSubtitle => 'Adds an extra cost for hand craftsmanship';
+
+  @override
+  String get sellerHandmadeExtraCostLabel => 'Extra cost (AED)';
+
+  @override
+  String get sellerQualityLabel => 'Quality';
+
+  @override
+  String get sellerQualityStandard => 'Standard';
+
+  @override
+  String get sellerQualityPremium => 'Premium';
+
+  @override
+  String get sellerQualityLuxury => 'Luxury';
+
+  @override
+  String get sellerBasePriceLabel => 'Base price';
+
+  @override
+  String get sellerHandmadeExtraLabel => 'Handmade extra';
+
+  @override
+  String get sellerTotalPriceLabel => 'Total price';
+
+  @override
   String get sellerEventsTitle => 'Market events';
 
   @override

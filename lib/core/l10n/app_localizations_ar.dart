@@ -531,6 +531,69 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sellerProductAdded => 'أُضيف إلى متجرك';
 
   @override
+  String get sellerHandmadeBadge => 'صناعة يدوية';
+
+  @override
+  String get sellerPhotoLabel => 'الصورة';
+
+  @override
+  String get sellerPhotoGalleryLabel => 'اختاري نمطًا';
+
+  @override
+  String get sellerPhotoUploadCta => 'رفع من الجهاز';
+
+  @override
+  String get sellerPhotoUploadError => 'تعذّر تحميل الصورة — جرّبي غيرها.';
+
+  @override
+  String get sellerDetailsLabel => 'التفاصيل';
+
+  @override
+  String get sellerDetailsHint => 'القماش، القصّة، تعليمات العناية…';
+
+  @override
+  String get sellerDimensionsLabel => 'القياسات (سم)';
+
+  @override
+  String get sellerLengthLabel => 'الطول';
+
+  @override
+  String get sellerChestLabel => 'الصدر';
+
+  @override
+  String get sellerSleeveLabel => 'الكم';
+
+  @override
+  String get sellerHandmadeToggleLabel => 'قطعة مصنوعة يدويًا';
+
+  @override
+  String get sellerHandmadeToggleSubtitle => 'تضيف تكلفة إضافية مقابل الصنعة اليدوية';
+
+  @override
+  String get sellerHandmadeExtraCostLabel => 'تكلفة إضافية (د.إ)';
+
+  @override
+  String get sellerQualityLabel => 'الجودة';
+
+  @override
+  String get sellerQualityStandard => 'عادية';
+
+  @override
+  String get sellerQualityPremium => 'ممتازة';
+
+  @override
+  String get sellerQualityLuxury => 'فاخرة';
+
+  @override
+  String get sellerBasePriceLabel => 'السعر الأساسي';
+
+  @override
+  String get sellerHandmadeExtraLabel => 'إضافة الصنعة اليدوية';
+
+  @override
+  String get sellerTotalPriceLabel => 'السعر الإجمالي';
+
+  @override
   String get sellerEventsTitle => 'أسواق الفعاليات';
 
   @override

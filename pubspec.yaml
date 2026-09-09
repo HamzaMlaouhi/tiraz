@@ -33,6 +33,9 @@ dependencies:
 
   intl: any
 
+  # Seller product photos — pick an existing image from the device
+  image_picker: ^1.1.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1089,6 +1089,132 @@ abstract class AppLocalizations {
   /// **'أُضيف إلى متجرك'**
   String get sellerProductAdded;
 
+  /// No description provided for @sellerHandmadeBadge.
+  ///
+  /// In ar, this message translates to:
+  /// **'صناعة يدوية'**
+  String get sellerHandmadeBadge;
+
+  /// No description provided for @sellerPhotoLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الصورة'**
+  String get sellerPhotoLabel;
+
+  /// No description provided for @sellerPhotoGalleryLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'اختاري نمطًا'**
+  String get sellerPhotoGalleryLabel;
+
+  /// No description provided for @sellerPhotoUploadCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'رفع من الجهاز'**
+  String get sellerPhotoUploadCta;
+
+  /// No description provided for @sellerPhotoUploadError.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذّر تحميل الصورة — جرّبي غيرها.'**
+  String get sellerPhotoUploadError;
+
+  /// No description provided for @sellerDetailsLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'التفاصيل'**
+  String get sellerDetailsLabel;
+
+  /// No description provided for @sellerDetailsHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'القماش، القصّة، تعليمات العناية…'**
+  String get sellerDetailsHint;
+
+  /// No description provided for @sellerDimensionsLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'القياسات (سم)'**
+  String get sellerDimensionsLabel;
+
+  /// No description provided for @sellerLengthLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الطول'**
+  String get sellerLengthLabel;
+
+  /// No description provided for @sellerChestLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الصدر'**
+  String get sellerChestLabel;
+
+  /// No description provided for @sellerSleeveLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الكم'**
+  String get sellerSleeveLabel;
+
+  /// No description provided for @sellerHandmadeToggleLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'قطعة مصنوعة يدويًا'**
+  String get sellerHandmadeToggleLabel;
+
+  /// No description provided for @sellerHandmadeToggleSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تضيف تكلفة إضافية مقابل الصنعة اليدوية'**
+  String get sellerHandmadeToggleSubtitle;
+
+  /// No description provided for @sellerHandmadeExtraCostLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'تكلفة إضافية (د.إ)'**
+  String get sellerHandmadeExtraCostLabel;
+
+  /// No description provided for @sellerQualityLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الجودة'**
+  String get sellerQualityLabel;
+
+  /// No description provided for @sellerQualityStandard.
+  ///
+  /// In ar, this message translates to:
+  /// **'عادية'**
+  String get sellerQualityStandard;
+
+  /// No description provided for @sellerQualityPremium.
+  ///
+  /// In ar, this message translates to:
+  /// **'ممتازة'**
+  String get sellerQualityPremium;
+
+  /// No description provided for @sellerQualityLuxury.
+  ///
+  /// In ar, this message translates to:
+  /// **'فاخرة'**
+  String get sellerQualityLuxury;
+
+  /// No description provided for @sellerBasePriceLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر الأساسي'**
+  String get sellerBasePriceLabel;
+
+  /// No description provided for @sellerHandmadeExtraLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة الصنعة اليدوية'**
+  String get sellerHandmadeExtraLabel;
+
+  /// No description provided for @sellerTotalPriceLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر الإجمالي'**
+  String get sellerTotalPriceLabel;
+
   /// No description provided for @sellerEventsTitle.
   ///
   /// In ar, this message translates to:

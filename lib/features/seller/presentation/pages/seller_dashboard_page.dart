@@ -20,6 +20,7 @@ class SellerDashboardPage extends StatelessWidget {
   final VoidCallback onOpenEvents;
   final VoidCallback onAddProduct;
   final void Function(String eventId) onOpenEventDetail;
+  final void Function(String productId) onOpenProductDetail;
 
   const SellerDashboardPage({
     super.key,
@@ -27,6 +28,7 @@ class SellerDashboardPage extends StatelessWidget {
     required this.onOpenEvents,
     required this.onAddProduct,
     required this.onOpenEventDetail,
+    required this.onOpenProductDetail,
   });
 
   @override
@@ -67,7 +69,10 @@ class SellerDashboardPage extends StatelessWidget {
                             itemBuilder: (context, i) {
                               final p = previewProducts[i];
                               return SellerProductTile(
-                                  product: p, onRemove: () => sl<SellerCubit>().removeProduct(p.id));
+                                product: p,
+                                onTap: () => onOpenProductDetail(p.id),
+                                onRemove: () => sl<SellerCubit>().removeProduct(p.id),
+                              );
                             },
                           ),
                         ),
