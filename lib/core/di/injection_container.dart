@@ -1,7 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/addresses/presentation/cubit/addresses_cubit.dart';
-import '../../features/auth/data/datasources/auth_local_data_source.dart';
+import '../../features/auth/data/datasources/auth_remote_data_source.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/domain/usecases/send_otp.dart';
@@ -13,7 +14,7 @@ import '../../features/fit/data/repositories/fit_repository_impl.dart';
 import '../../features/fit/domain/repositories/fit_repository.dart';
 import '../../features/fit/domain/usecases/get_measurement_profiles.dart';
 import '../../features/fit/presentation/cubit/fit_cubit.dart';
-import '../../features/home/data/datasources/home_local_data_source.dart';
+import '../../features/home/data/datasources/home_remote_data_source.dart';
 import '../../features/home/data/repositories/home_repository_impl.dart';
 import '../../features/home/domain/repositories/home_repository.dart';
 import '../../features/home/domain/usecases/get_home_data.dart';
@@ -23,7 +24,7 @@ import '../../features/orders/data/repositories/orders_repository_impl.dart';
 import '../../features/orders/domain/repositories/orders_repository.dart';
 import '../../features/orders/domain/usecases/get_orders.dart';
 import '../../features/orders/presentation/cubit/orders_cubit.dart';
-import '../../features/product/data/datasources/product_local_data_source.dart';
+import '../../features/product/data/datasources/product_remote_data_source.dart';
 import '../../features/product/data/repositories/product_repository_impl.dart';
 import '../../features/product/domain/repositories/product_repository.dart';
 import '../../features/product/domain/usecases/get_product_detail.dart';
@@ -31,13 +32,22 @@ import '../../features/product/presentation/cubit/product_cubit.dart';
 import '../../features/seller/presentation/cubit/seller_cubit.dart';
 import '../../features/wallet/presentation/cubit/wallet_cubit.dart';
 import '../../features/wishlist/presentation/cubit/wishlist_cubit.dart';
+import '../network/api_client.dart';
 import '../role/role_cubit.dart';
+import '../session/session_store.dart';
 
 final sl = GetIt.instance;
 
 /// Wires every layer for every feature: data sources -> repositories ->
 /// use cases -> cubits. Call once from `main()` before `runApp`.
 Future<void> initDependencies() async {
+  // ---- Networking / session (every remote data source depends on these) ----
+  final sessionStore = SessionStore();
+  await sessionStore.hydrate();
+  sl.registerSingleton(sessionStore);
+  sl.registerSingleton(ApiClient(sessionStore));
+  sl.registerLazySingleton<Dio>(() => sl<ApiClient>().dio);
+
   // ---- App-wide (shared across tabs, so registered as singletons) ----
   sl.registerLazySingleton(() => CartCubit());
   sl.registerLazySingleton(() => AddressesCubit());
@@ -50,7 +60,7 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton(() => SellerCubit());
 
   // ---- Auth ----
-  sl.registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl());
+  sl.registerLazySingleton<AuthDataSource>(() => AuthRemoteDataSourceImpl(sl(), sl()));
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
   sl.registerLazySingleton(() => SendOtp(sl()));
   sl.registerLazySingleton(() => VerifyOtp(sl()));
@@ -59,13 +69,13 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton(() => AuthCubit(sendOtp: sl(), verifyOtp: sl()));
 
   // ---- Home ----
-  sl.registerLazySingleton<HomeLocalDataSource>(() => HomeLocalDataSourceImpl());
+  sl.registerLazySingleton<HomeDataSource>(() => HomeRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(sl()));
   sl.registerLazySingleton(() => GetHomeData(sl()));
   sl.registerFactory(() => HomeCubit(getHomeData: sl()));
 
   // ---- Product ----
-  sl.registerLazySingleton<ProductLocalDataSource>(() => ProductLocalDataSourceImpl());
+  sl.registerLazySingleton<ProductDataSource>(() => ProductRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl(sl()));
   sl.registerLazySingleton(() => GetProductDetail(sl()));
   sl.registerFactory(() => ProductCubit(getProductDetail: sl()));

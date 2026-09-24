@@ -11,6 +11,11 @@ class LocalizedText extends Equatable {
 
   const LocalizedText({required this.ar, required this.en});
 
+  /// Parses the `{ar, en}` shape every bilingual field in the backend's
+  /// API responses uses (see `localized()` on the server side).
+  factory LocalizedText.fromJson(Map<String, dynamic> json) =>
+      LocalizedText(ar: json['ar'] as String, en: json['en'] as String);
+
   String resolve(Locale locale) => locale.languageCode == 'ar' ? ar : en;
 
   String of(BuildContext context) => resolve(Localizations.localeOf(context));

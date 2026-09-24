@@ -33,7 +33,9 @@ void main() {
     await tester.tap(find.text('متابعة'));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('أو تصفّحي كضيفة'));
+    final guestFinder = find.text('أو تصفّحي كضيفة');
+    await tester.ensureVisible(guestFinder);
+    await tester.tap(guestFinder);
     await tester.pump();
     await tester.pumpAndSettle(const Duration(milliseconds: 500));
     expect(tester.takeException(), isNull);

@@ -17,7 +17,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authWelcome => 'Welcome to Tiraz';
 
   @override
-  String get authSubtitle => 'Sign in with your phone number — one verification code, no passwords.';
+  String get authSubtitle => 'Discover the latest abayas and fashion designs';
+
+  @override
+  String get authFormSubtitle => 'Enter your phone number to sign in or create an account';
 
   @override
   String get phoneNumberLabel => 'Phone number';

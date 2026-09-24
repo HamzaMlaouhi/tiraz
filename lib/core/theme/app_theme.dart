@@ -30,6 +30,10 @@ abstract final class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.teal,
           foregroundColor: AppColors.card,
+          // A branded muted tone instead of Material's default grey, so a
+          // disabled CTA still reads as part of this palette.
+          disabledBackgroundColor: AppColors.tealBg,
+          disabledForegroundColor: AppColors.tealMuted.withOpacity(0.6),
           padding: const EdgeInsets.symmetric(vertical: 15),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           elevation: 0,

@@ -34,7 +34,9 @@ void main() {
     expect(tester.takeException(), isNull);
 
     // Auth -> browse as guest -> seller dashboard.
-    await tester.tap(find.text('أو تصفّحي كضيفة'));
+    final guestFinder = find.text('أو تصفّحي كضيفة');
+    await tester.ensureVisible(guestFinder);
+    await tester.tap(guestFinder);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500)); // no cubit delay, but let animations settle
     await tester.pumpAndSettle(const Duration(milliseconds: 500));

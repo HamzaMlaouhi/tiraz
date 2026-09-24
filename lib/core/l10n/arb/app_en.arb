@@ -6,7 +6,8 @@
   "splashTagline": "The UAE’s designers — every piece made to fit",
 
   "authWelcome": "Welcome to Tiraz",
-  "authSubtitle": "Sign in with your phone number — one verification code, no passwords.",
+  "authSubtitle": "Discover the latest abayas and fashion designs",
+  "authFormSubtitle": "Enter your phone number to sign in or create an account",
   "phoneNumberLabel": "Phone number",
   "phoneHint": "50 123 4567",
   "emirateLabel": "Emirate",

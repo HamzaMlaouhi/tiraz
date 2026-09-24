@@ -17,7 +17,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get authWelcome => 'أهلاً بك في طِراز';
 
   @override
-  String get authSubtitle => 'سجّلي الدخول برقم هاتفك — رمز تحقق واحد، دون كلمات مرور.';
+  String get authSubtitle => 'اكتشفي أحدث العبايات وتصاميم الأزياء';
+
+  @override
+  String get authFormSubtitle => 'أدخلي رقم هاتفك لتسجيل الدخول أو إنشاء حساب';
 
   @override
   String get phoneNumberLabel => 'رقم الهاتف';

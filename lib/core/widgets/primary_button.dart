@@ -2,16 +2,32 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
+import '../utils/icon_utils.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
   final bool loading;
 
-  const PrimaryButton({super.key, required this.label, required this.onPressed, this.loading = false});
+  /// Optional trailing flourish (e.g. a forward arrow on a CTA). Placed
+  /// after the label in the Row — lands on the reading-direction side
+  /// automatically under RTL — and rendered via [MirroredIcon] so the
+  /// glyph itself points the right way too.
+  final IconData? icon;
+
+  const PrimaryButton({super.key, required this.label, required this.onPressed, this.loading = false, this.icon});
 
   @override
   Widget build(BuildContext context) {
+    // buttonPrimary hardcodes white, which reads fine on the enabled
+    // teal/burgundy fill but goes near-invisible on the theme's disabled
+    // fill (a light tint) — so, unlike most of this label's other uses,
+    // the disabled case needs its own color rather than inheriting the
+    // button's disabledForegroundColor (a hardcoded TextStyle color wins
+    // over that regardless).
+    final disabled = onPressed == null && !loading;
+    final fgColor = disabled ? AppColors.tealMuted.withOpacity(0.6) : AppColors.card;
+
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
@@ -22,7 +38,16 @@ class PrimaryButton extends StatelessWidget {
                 width: 18,
                 child: CircularProgressIndicator(strokeWidth: 2.4, color: AppColors.card),
               )
-            : Text(label, style: AppTextStyles.buttonPrimary),
+            : icon == null
+                ? Text(label, style: AppTextStyles.buttonPrimary.copyWith(color: fgColor))
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(label, style: AppTextStyles.buttonPrimary.copyWith(color: fgColor)),
+                      const SizedBox(width: 10),
+                      MirroredIcon(icon!, size: 18, color: fgColor),
+                    ],
+                  ),
       ),
     );
   }

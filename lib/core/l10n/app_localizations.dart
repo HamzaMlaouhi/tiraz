@@ -120,8 +120,14 @@ abstract class AppLocalizations {
   /// No description provided for @authSubtitle.
   ///
   /// In ar, this message translates to:
-  /// **'سجّلي الدخول برقم هاتفك — رمز تحقق واحد، دون كلمات مرور.'**
+  /// **'اكتشفي أحدث العبايات وتصاميم الأزياء'**
   String get authSubtitle;
+
+  /// No description provided for @authFormSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'أدخلي رقم هاتفك لتسجيل الدخول أو إنشاء حساب'**
+  String get authFormSubtitle;
 
   /// No description provided for @phoneNumberLabel.
   ///

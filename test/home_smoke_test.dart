@@ -38,6 +38,7 @@ void main() {
     // Auth page -> browse as guest -> home.
     final guestFinder = find.text('أو تصفّحي كضيفة');
     expect(guestFinder, findsOneWidget);
+    await tester.ensureVisible(guestFinder);
     await tester.tap(guestFinder);
     await tester.pump();
     // HomeCubit.load() has a 400ms mock delay.

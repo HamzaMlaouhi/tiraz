@@ -3,10 +3,10 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failure.dart';
 import '../../domain/repositories/auth_repository.dart';
-import '../datasources/auth_local_data_source.dart';
+import '../datasources/auth_remote_data_source.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthLocalDataSource localDataSource;
+  final AuthDataSource localDataSource;
   const AuthRepositoryImpl(this.localDataSource);
 
   @override

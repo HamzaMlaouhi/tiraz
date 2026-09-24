@@ -4,10 +4,10 @@ import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failure.dart';
 import '../../domain/entities/home_data.dart';
 import '../../domain/repositories/home_repository.dart';
-import '../datasources/home_local_data_source.dart';
+import '../datasources/home_remote_data_source.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
-  final HomeLocalDataSource localDataSource;
+  final HomeDataSource localDataSource;
   const HomeRepositoryImpl(this.localDataSource);
 
   @override

@@ -28,6 +28,12 @@ dependencies:
   # Functional error handling
   dartz: ^0.10.1
 
+  # Backend HTTP client
+  dio: ^5.7.0
+
+  # Secure JWT/session persistence
+  flutter_secure_storage: ^9.2.2
+
   # Typography (IBM Plex Sans Arabic)
   google_fonts: ^6.2.1
 
