@@ -1,0 +1,79 @@
+{
+ "id": "TRZ-2790",
+ "itemName": {
+  "ar": "قفطان الفجر — جاهز",
+  "en": "Fajr kaftan — ready-to-wear"
+ },
+ "sellerMeta": {
+  "ar": "TRZ-2790 · دار الشيماء",
+  "en": "TRZ-2790 · Dar Al Shaima"
+ },
+ "date": {
+  "ar": "طلب في 10 ديسمبر",
+  "en": "Ordered Dec 10"
+ },
+ "etaLabel": {
+  "ar": "تم التوصيل",
+  "en": "Delivered"
+ },
+ "status": "delivered",
+ "review": null,
+ "canReview": true,
+ "timeline": [
+  {
+   "name": {
+    "ar": "مؤكّد",
+    "en": "Confirmed"
+   },
+   "sub": {
+    "ar": "اليوم، 2:14 م",
+    "en": "Today, 2:14 pm"
+   },
+   "stage": "done"
+  },
+  {
+   "name": {
+    "ar": "قيد التنفيذ",
+    "en": "In production"
+   },
+   "sub": {
+    "ar": "لدى الخيّاطة — يومان متبقّيان",
+    "en": "With the tailor — 2 days left"
+   },
+   "stage": "done"
+  },
+  {
+   "name": {
+    "ar": "فحص الجودة",
+    "en": "Quality check"
+   },
+   "sub": {
+    "ar": "موثّق من طِراز",
+    "en": "Tiraz verified"
+   },
+   "stage": "done"
+  },
+  {
+   "name": {
+    "ar": "شُحنت",
+    "en": "Shipped"
+   },
+   "sub": {
+    "ar": "أرامكس",
+    "en": "Aramex"
+   },
+   "stage": "done"
+  },
+  {
+   "name": {
+    "ar": "تم التوصيل",
+    "en": "Delivered"
+   },
+   "sub": {
+    "ar": "مضمون قبل 8 فبراير",
+    "en": "Guaranteed before Feb 8"
+   },
+   "stage": "done"
+  }
+ ]
+}

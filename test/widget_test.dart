@@ -1,16 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:tiraz/app.dart';
-import 'package:tiraz/core/di/injection_container.dart';
+
+import 'support/test_app.dart';
 
 void main() {
-  setUp(() async {
-    await initDependencies();
-  });
+  setUp(setUpTestApp);
 
-  tearDown(() async {
-    await sl.reset();
-  });
+  tearDown(tearDownTestApp);
 
   testWidgets('App boots to the splash screen showing the Tiraz wordmark', (WidgetTester tester) async {
     await tester.pumpWidget(const TirazApp());

@@ -45,6 +45,11 @@ class OrderCard extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(order.sellerMeta.resolve(locale), style: AppTextStyles.caption.copyWith(fontSize: 11.5)),
                     Text(order.date.resolve(locale), style: AppTextStyles.caption.copyWith(fontSize: 11)),
+                    if (order.canReview) ...[
+                      const SizedBox(height: 4),
+                      Text(l10n.orderRateNudge,
+                          style: AppTextStyles.label.copyWith(fontSize: 11.5, color: AppColors.goldMuted)),
+                    ],
                   ],
                 ),
               ),

@@ -38,6 +38,9 @@ class CartRemoteDataSourceImpl implements CartDataSource {
             .map((item) => CartItemModel.fromJson(item as Map<String, dynamic>))
             .toList(),
         giftWrap: data['giftWrap'] as bool,
+        // Older servers don't send it (the fee was the same flat 20 AED).
+        shippingAed: data['shippingAed'] as int? ?? CartSnapshot.defaultShippingAed,
+        delivery: _delivery(data['delivery'] as Map<String, dynamic>?),
       );
     });
   }
@@ -81,6 +84,13 @@ class CartRemoteDataSourceImpl implements CartDataSource {
 
   @override
   Future<void> clear() => guardApiCall(() => _dio.delete<void>('/cart'));
+
+  static CartDelivery? _delivery(Map<String, dynamic>? json) => json == null
+      ? null
+      : CartDelivery(
+          etaLabel: LocalizedText.fromJson(json['etaLabel'] as Map<String, dynamic>),
+          beforeEid: json['beforeEid'] as bool,
+        );
 
   static Map<String, String> _json(LocalizedText text) => {'ar': text.ar, 'en': text.en};
 }

@@ -6,6 +6,7 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/locale/locale_cubit.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../account/presentation/cubit/account_cubit.dart';
 import '../cubit/seller_cubit.dart';
 
 class SellerAccountPage extends StatelessWidget {
@@ -28,28 +29,7 @@ class SellerAccountPage extends StatelessWidget {
               children: [
                 Text(l10n.sellerAccountTitle, style: AppTextStyles.h2),
                 const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      width: 56,
-                      height: 56,
-                      decoration: const BoxDecoration(color: AppColors.tealBg, shape: BoxShape.circle),
-                      alignment: Alignment.center,
-                      child: Text(
-                        l10n.accountUserName.substring(0, 1),
-                        style: AppTextStyles.h1.copyWith(fontSize: 20, color: AppColors.teal),
-                      ),
-                    ),
-                    const SizedBox(width: 14),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(l10n.accountUserName, style: AppTextStyles.h3),
-                        Text(state.store?.name.resolve(locale) ?? '', style: AppTextStyles.caption.copyWith(fontSize: 11.5)),
-                      ],
-                    ),
-                  ],
-                ),
+                _SellerHeader(storeName: state.store?.name.resolve(locale) ?? ''),
                 const SizedBox(height: 16),
                 Container(
                   decoration: BoxDecoration(
@@ -148,6 +128,66 @@ class _Row extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// The signed-in user's name (from their profile, falling back to their
+/// phone number) above the store they sell as.
+class _SellerHeader extends StatefulWidget {
+  final String storeName;
+
+  const _SellerHeader({required this.storeName});
+
+  @override
+  State<_SellerHeader> createState() => _SellerHeaderState();
+}
+
+class _SellerHeaderState extends State<_SellerHeader> {
+  @override
+  void initState() {
+    super.initState();
+    sl<AccountCubit>().load();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AccountCubit, AccountState>(
+      bloc: sl<AccountCubit>(),
+      builder: (context, account) {
+        final name = account.profile?.name?.trim();
+        final hasName = name != null && name.isNotEmpty;
+        return Row(
+          children: [
+            Container(
+              width: 56,
+              height: 56,
+              decoration: const BoxDecoration(color: AppColors.tealBg, shape: BoxShape.circle),
+              alignment: Alignment.center,
+              child: hasName
+                  ? Text(
+                      name.characters.first.toUpperCase(),
+                      style: AppTextStyles.h1.copyWith(fontSize: 20, color: AppColors.teal),
+                    )
+                  : const Icon(Icons.storefront_outlined, color: AppColors.teal),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    hasName ? name : (account.profile?.phone ?? ''),
+                    style: AppTextStyles.h3,
+                    textDirection: hasName ? null : TextDirection.ltr,
+                  ),
+                  Text(widget.storeName, style: AppTextStyles.caption.copyWith(fontSize: 11.5)),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

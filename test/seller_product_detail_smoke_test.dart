@@ -1,25 +1,16 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:tiraz/app.dart';
-import 'package:tiraz/core/di/injection_container.dart';
 
-import 'support/fake_network_images.dart';
+import 'support/test_app.dart';
 
 // Kept in its own file — see event_detail_smoke_test.dart for why
 // (appRouter is a module-level singleton shared within a test file).
 void main() {
-  setUp(() async {
-    HttpOverrides.global = FakeNetworkImageHttpOverrides();
-    await initDependencies();
-  });
+  setUp(setUpTestApp);
 
-  tearDown(() async {
-    HttpOverrides.global = null;
-    await sl.reset();
-  });
+  tearDown(tearDownTestApp);
 
   testWidgets(
     'Add product: photo gallery, dimensions, handmade extra cost, and quality all show on the detail page',

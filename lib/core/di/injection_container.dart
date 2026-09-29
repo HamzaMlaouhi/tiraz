@@ -55,6 +55,7 @@ import '../../features/orders/domain/repositories/orders_repository.dart';
 import '../../features/orders/domain/usecases/get_order.dart';
 import '../../features/orders/domain/usecases/get_orders.dart';
 import '../../features/orders/domain/usecases/place_order.dart';
+import '../../features/orders/domain/usecases/submit_order_review.dart';
 import '../../features/orders/presentation/cubit/orders_cubit.dart';
 import '../../features/product/data/datasources/product_remote_data_source.dart';
 import '../../features/product/data/repositories/product_repository_impl.dart';
@@ -217,9 +218,10 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton(() => GetOrders(sl()));
   sl.registerLazySingleton(() => GetOrder(sl()));
   sl.registerLazySingleton(() => PlaceOrder(sl()));
+  sl.registerLazySingleton(() => SubmitOrderReview(sl()));
   // Not loaded eagerly: /orders is JWT-guarded, so pages load it once the
   // user is signed in.
-  sl.registerLazySingleton(() => OrdersCubit(getOrders: sl(), getOrder: sl(), placeOrder: sl()));
+  sl.registerLazySingleton(() => OrdersCubit(getOrders: sl(), getOrder: sl(), placeOrder: sl(), submitOrderReview: sl()));
 
   // ---- Fit / measurement profiles (singleton: Account's row count
   // reads the same list the My Fit tab loads) ----

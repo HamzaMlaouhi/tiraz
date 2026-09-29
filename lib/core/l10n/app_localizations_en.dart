@@ -272,7 +272,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checkoutEtaTitle => 'Arrives before Eid — guaranteed';
 
   @override
-  String get checkoutEtaSubtitle => 'MTM before February 8, ready-to-wear tomorrow. A missed date means a partial refund.';
+  String checkoutEtaSubtitle(String date) {
+    return 'Estimated delivery: $date. A missed date means a partial refund.';
+  }
+
+  @override
+  String get checkoutEtaTitleEstimate => 'Estimated delivery';
 
   @override
   String get checkoutPaymentTitle => 'Payment';
@@ -391,6 +396,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderGuarantee => 'This order carries the free alteration guarantee: if the fit is off, we alter it at a partner tailor at no cost.';
 
   @override
+  String get orderRateTitle => 'How was your order?';
+
+  @override
+  String get orderRateSubtitle => 'Your rating helps other shoppers — and the designer.';
+
+  @override
+  String get orderRateCommentHint => 'Tell others about the fit and fabric (optional)';
+
+  @override
+  String get orderRateSubmit => 'Submit review';
+
+  @override
+  String get orderRateThanks => 'Thanks for your review!';
+
+  @override
+  String get orderYourReview => 'Your review';
+
+  @override
+  String get orderRateNudge => '★ Rate this order';
+
+  @override
   String get fitSubtitle => 'Measure once, then order made-to-measure from any designer on Tiraz.';
 
   @override
@@ -460,9 +486,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get familyOrderCta => 'Order the set';
-
-  @override
-  String get accountUserName => 'Hamza';
 
   @override
   String accountMemberSince(String year, String emirate) {

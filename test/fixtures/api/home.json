@@ -1,0 +1,418 @@
+{
+    "eidDaysAway": 161,
+    "occasions": [
+        {
+            "name": {
+                "ar": "صباح العيد",
+                "en": "Eid morning"
+            },
+            "itemCount": {
+                "ar": "214 قطعة",
+                "en": "214 pieces"
+            },
+            "imageUrl": "https://picsum.photos/seed/tiraz-occasion-eid/400/280"
+        },
+        {
+            "name": {
+                "ar": "إفطار رمضان",
+                "en": "Ramadan iftar"
+            },
+            "itemCount": {
+                "ar": "368 قطعة",
+                "en": "368 pieces"
+            },
+            "imageUrl": "https://picsum.photos/seed/tiraz-occasion-iftar/400/280"
+        },
+        {
+            "name": {
+                "ar": "خطوبة وأعراس",
+                "en": "Engagements"
+            },
+            "itemCount": {
+                "ar": "156 قطعة",
+                "en": "156 pieces"
+            },
+            "imageUrl": "https://picsum.photos/seed/tiraz-occasion-engagement/400/280"
+        },
+        {
+            "name": {
+                "ar": "المجلس",
+                "en": "Majlis"
+            },
+            "itemCount": {
+                "ar": "290 قطعة",
+                "en": "290 pieces"
+            },
+            "imageUrl": "https://picsum.photos/seed/tiraz-occasion-majlis/400/280"
+        }
+    ],
+    "newDrops": [
+        {
+            "id": "cmummk0u60007ss9ke35m1taj",
+            "name": {
+                "ar": "جلابية نور — شيفون مطرّز",
+                "en": "Noor jalabiya — embroidered chiffon"
+            },
+            "seller": {
+                "ar": "أتيليه نورة",
+                "en": "Atelier Noura"
+            },
+            "price": {
+                "ar": "780 د.إ",
+                "en": "AED 780"
+            },
+            "isMadeToMeasure": true,
+            "imageUrl": "https://picsum.photos/seed/tiraz-noor-jalabiya/500/650"
+        },
+        {
+            "id": "cmummk0ub000bss9kp11pr6an",
+            "name": {
+                "ar": "قفطان الفجر",
+                "en": "Fajr kaftan"
+            },
+            "seller": {
+                "ar": "دار الشيماء",
+                "en": "Dar Al Shaima"
+            },
+            "price": {
+                "ar": "420 د.إ",
+                "en": "AED 420"
+            },
+            "isMadeToMeasure": false,
+            "imageUrl": "https://picsum.photos/seed/tiraz-fajr-kaftan/500/650"
+        },
+        {
+            "id": "cmummk0uf000fss9kdul4c9ej",
+            "name": {
+                "ar": "جلابية ياسمين",
+                "en": "Yasmeen jalabiya"
+            },
+            "seller": {
+                "ar": "بيت الحرير",
+                "en": "Silk House"
+            },
+            "price": {
+                "ar": "1150 د.إ",
+                "en": "AED 1150"
+            },
+            "isMadeToMeasure": true,
+            "imageUrl": "https://picsum.photos/seed/tiraz-yasmeen-jalabiya/500/650"
+        }
+    ],
+    "stores": [
+        {
+            "id": "cmummk0t20000ss9k6zw5wjdr",
+            "name": {
+                "ar": "أتيليه نورة",
+                "en": "Atelier Noura"
+            },
+            "emirate": {
+                "ar": "دبي",
+                "en": "Dubai"
+            },
+            "productCount": {
+                "ar": "2 قطعة",
+                "en": "2 pieces"
+            },
+            "rating": 4.9,
+            "reviewCount": 132,
+            "logoImageUrl": "https://picsum.photos/seed/tiraz-atelier-noura-logo/160/160",
+            "bannerImageUrl": "https://picsum.photos/seed/tiraz-atelier-noura-banner/700/420",
+            "offer": {
+                "ar": "خصم 20% على التفصيل",
+                "en": "20% off made-to-measure"
+            },
+            "products": [
+                {
+                    "id": "cmummk0u60007ss9ke35m1taj",
+                    "name": {
+                        "ar": "جلابية نور — شيفون مطرّز",
+                        "en": "Noor jalabiya — embroidered chiffon"
+                    },
+                    "seller": {
+                        "ar": "أتيليه نورة",
+                        "en": "Atelier Noura"
+                    },
+                    "price": {
+                        "ar": "780 د.إ",
+                        "en": "AED 780"
+                    },
+                    "isMadeToMeasure": true,
+                    "imageUrl": "https://picsum.photos/seed/tiraz-noor-jalabiya/500/650"
+                },
+                {
+                    "id": "cmummk0ui000jss9kiu5olkkj",
+                    "name": {
+                        "ar": "جلابية وداد — كتّان مطرّز",
+                        "en": "Widad jalabiya — embroidered linen"
+                    },
+                    "seller": {
+                        "ar": "أتيليه نورة",
+                        "en": "Atelier Noura"
+                    },
+                    "price": {
+                        "ar": "650 د.إ",
+                        "en": "AED 650"
+                    },
+                    "isMadeToMeasure": true,
+                    "imageUrl": "https://picsum.photos/seed/tiraz-widad-jalabiya/500/650"
+                }
+            ]
+        },
+        {
+            "id": "cmummk0t80001ss9k22q0fo4i",
+            "name": {
+                "ar": "دار الشيماء",
+                "en": "Dar Al Shaima"
+            },
+            "emirate": {
+                "ar": "أبوظبي",
+                "en": "Abu Dhabi"
+            },
+            "productCount": {
+                "ar": "2 قطعة",
+                "en": "2 pieces"
+            },
+            "rating": 4.6,
+            "reviewCount": 74,
+            "logoImageUrl": "https://picsum.photos/seed/tiraz-dar-al-shaima-logo/160/160",
+            "bannerImageUrl": "https://picsum.photos/seed/tiraz-dar-al-shaima-banner/700/420",
+            "offer": null,
+            "products": [
+                {
+                    "id": "cmummk0ub000bss9kp11pr6an",
+                    "name": {
+                        "ar": "قفطان الفجر",
+                        "en": "Fajr kaftan"
+                    },
+                    "seller": {
+                        "ar": "دار الشيماء",
+                        "en": "Dar Al Shaima"
+                    },
+                    "price": {
+                        "ar": "420 د.إ",
+                        "en": "AED 420"
+                    },
+                    "isMadeToMeasure": false,
+                    "imageUrl": "https://picsum.photos/seed/tiraz-fajr-kaftan/500/650"
+                },
+                {
+                    "id": "cmummk0ul000nss9kpjx5p33k",
+                    "name": {
+                        "ar": "عباية ليالي — تطريز يدوي",
+                        "en": "Layali abaya — hand-beaded"
+                    },
+                    "seller": {
+                        "ar": "دار الشيماء",
+                        "en": "Dar Al Shaima"
+                    },
+                    "price": {
+                        "ar": "560 د.إ",
+                        "en": "AED 560"
+                    },
+                    "isMadeToMeasure": false,
+                    "imageUrl": "https://picsum.photos/seed/tiraz-layali-abaya/500/650"
+                }
+            ]
+        },
+        {
+            "id": "cmummk0td0002ss9khdj5d513",
+            "name": {
+                "ar": "بيت الحرير",
+                "en": "Silk House"
+            },
+            "emirate": {
+                "ar": "الشارقة",
+                "en": "Sharjah"
+            },
+            "productCount": {
+                "ar": "2 قطعة",
+                "en": "2 pieces"
+            },
+            "rating": 4.8,
+            "reviewCount": 168,
+            "logoImageUrl": "https://picsum.photos/seed/tiraz-silk-house-logo/160/160",
+            "bannerImageUrl": "https://picsum.photos/seed/tiraz-silk-house-banner/700/420",
+            "offer": {
+                "ar": "تعديل مجاني مع كل طلب",
+                "en": "Free alterations on every order"
+            },
+            "products": [
+                {
+                    "id": "cmummk0uf000fss9kdul4c9ej",
+                    "name": {
+                        "ar": "جلابية ياسمين",
+                        "en": "Yasmeen jalabiya"
+                    },
+                    "seller": {
+                        "ar": "بيت الحرير",
+                        "en": "Silk House"
+                    },
+                    "price": {
+                        "ar": "1150 د.إ",
+                        "en": "AED 1150"
+                    },
+                    "isMadeToMeasure": true,
+                    "imageUrl": "https://picsum.photos/seed/tiraz-yasmeen-jalabiya/500/650"
+                },
+                {
+                    "id": "cmummk0up000rss9knyzdzvxk",
+                    "name": {
+                        "ar": "قفطان لولوة — خيط ذهبي",
+                        "en": "Lulwa kaftan — gold thread"
+                    },
+                    "seller": {
+                        "ar": "بيت الحرير",
+                        "en": "Silk House"
+                    },
+                    "price": {
+                        "ar": "980 د.إ",
+                        "en": "AED 980"
+                    },
+                    "isMadeToMeasure": true,
+                    "imageUrl": "https://picsum.photos/seed/tiraz-lulwa-kaftan/500/650"
+                }
+            ]
+        },
+        {
+            "id": "cmummk0tj0003ss9kfws2odbo",
+            "name": {
+                "ar": "بيت العباية",
+                "en": "Bait Al Abaya"
+            },
+            "emirate": {
+                "ar": "عجمان",
+                "en": "Ajman"
+            },
+            "productCount": {
+                "ar": "2 قطعة",
+                "en": "2 pieces"
+            },
+            "rating": 4.5,
+            "reviewCount": 51,
+            "logoImageUrl": "https://picsum.photos/seed/tiraz-bait-al-abaya-logo/160/160",
+            "bannerImageUrl": "https://picsum.photos/seed/tiraz-bait-al-abaya-banner/700/420",
+            "offer": null,
+            "products": [
+                {
+                    "id": "cmummk0us000vss9kc0su229w",
+                    "name": {
+                        "ar": "جلابية مها — قطن يومي",
+                        "en": "Maha jalabiya — everyday cotton"
+                    },
+                    "seller": {
+                        "ar": "بيت العباية",
+                        "en": "Bait Al Abaya"
+                    },
+                    "price": {
+                        "ar": "260 د.إ",
+                        "en": "AED 260"
+                    },
+                    "isMadeToMeasure": false,
+                    "imageUrl": "https://picsum.photos/seed/tiraz-maha-jalabiya/500/650"
+                },
+                {
+                    "id": "cmummk0uw000zss9kg5f89dy9",
+                    "name": {
+                        "ar": "جلابية ريم — مقلّمة",
+                        "en": "Reem jalabiya — striped daily wear"
+                    },
+                    "seller": {
+                        "ar": "بيت العباية",
+                        "en": "Bait Al Abaya"
+                    },
+                    "price": {
+                        "ar": "290 د.إ",
+                        "en": "AED 290"
+                    },
+                    "isMadeToMeasure": false,
+                    "imageUrl": "https://picsum.photos/seed/tiraz-reem-jalabiya/500/650"
+                }
+            ]
+        },
+        {
+            "id": "cmummk0to0004ss9kdbf0mhn6",
+            "name": {
+                "ar": "أتيليه الرمال",
+                "en": "Rimal Atelier"
+            },
+            "emirate": {
+                "ar": "رأس الخيمة",
+                "en": "Ras Al Khaimah"
+            },
+            "productCount": {
+                "ar": "2 قطعة",
+                "en": "2 pieces"
+            },
+            "rating": 4.7,
+            "reviewCount": 89,
+            "logoImageUrl": "https://picsum.photos/seed/tiraz-rimal-atelier-logo/160/160",
+            "bannerImageUrl": "https://picsum.photos/seed/tiraz-rimal-atelier-banner/700/420",
+            "offer": {
+                "ar": "اشتري قطعتين ووفّري 10%",
+                "en": "Buy 2 pieces, save 10%"
+            },
+            "products": [
+                {
+                    "id": "cmummk0uz0013ss9kkh7tmc5w",
+                    "name": {
+                        "ar": "طقم الجوهرة — احتفالي",
+                        "en": "Aljawhara set — festive two-piece"
+                    },
+                    "seller": {
+                        "ar": "أتيليه الرمال",
+                        "en": "Rimal Atelier"
+                    },
+                    "price": {
+                        "ar": "890 د.إ",
+                        "en": "AED 890"
+                    },
+                    "isMadeToMeasure": true,
+                    "imageUrl": "https://picsum.photos/seed/tiraz-aljawhara-set/500/650"
+                }
+            ]
+        },
+        {
+            "id": "cmummk0tt0005ss9k40xkdkgh",
+            "name": {
+                "ar": "أتيليه لمى",
+                "en": "Atelier Lama"
+            },
+            "emirate": {
+                "ar": "الشارقة",
+                "en": "Sharjah"
+            },
+            "productCount": {
+                "ar": "1 قطعة",
+                "en": "1 piece"
+            },
+            "rating": 4.6,
+            "reviewCount": 40,
+            "logoImageUrl": "https://picsum.photos/seed/tiraz-atelier-lama-logo/160/160",
+            "bannerImageUrl": "https://picsum.photos/seed/tiraz-atelier-lama-banner/700/420",
+            "offer": null,
+            "products": []
+        },
+        {
+            "id": "cmummk0tx0006ss9kj7hugtsr",
+            "name": {
+                "ar": "أتيليه حمزة",
+                "en": "Hamza's Atelier"
+            },
+            "emirate": {
+                "ar": "أبوظبي",
+                "en": "Abu Dhabi"
+            },
+            "productCount": {
+                "ar": "2 قطعة",
+                "en": "2 pieces"
+            },
+            "rating": 4.7,
+            "reviewCount": 12,
+            "logoImageUrl": "https://picsum.photos/seed/tiraz-hamzas-atelier-logo/160/160",
+            "bannerImageUrl": "https://picsum.photos/seed/tiraz-hamzas-atelier-banner/700/420",
+            "offer": null,
+            "products": []
+        }
+    ]
+}

@@ -594,8 +594,14 @@ abstract class AppLocalizations {
   /// No description provided for @checkoutEtaSubtitle.
   ///
   /// In ar, this message translates to:
-  /// **'التفصيل قبل 8 فبراير، والجاهز غداً. تأخّر الموعد يعني استرداداً جزئياً.'**
-  String get checkoutEtaSubtitle;
+  /// **'موعد التوصيل المتوقّع: {date}. تأخّر الموعد يعني استرداداً جزئياً.'**
+  String checkoutEtaSubtitle(String date);
+
+  /// No description provided for @checkoutEtaTitleEstimate.
+  ///
+  /// In ar, this message translates to:
+  /// **'موعد التوصيل المتوقّع'**
+  String get checkoutEtaTitleEstimate;
 
   /// No description provided for @checkoutPaymentTitle.
   ///
@@ -825,6 +831,48 @@ abstract class AppLocalizations {
   /// **'هذا الطلب مشمول بضمان التعديل المجاني: إن لم تضبط القصّة، نعدّلها لدى خيّاط شريك دون أي تكلفة.'**
   String get orderGuarantee;
 
+  /// No description provided for @orderRateTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'كيف كان طلبك؟'**
+  String get orderRateTitle;
+
+  /// No description provided for @orderRateSubtitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقييمك يساعد المتسوّقات الأخريات — والمصمّمة.'**
+  String get orderRateSubtitle;
+
+  /// No description provided for @orderRateCommentHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'أخبري الأخريات عن المقاس والقماش (اختياري)'**
+  String get orderRateCommentHint;
+
+  /// No description provided for @orderRateSubmit.
+  ///
+  /// In ar, this message translates to:
+  /// **'إرسال التقييم'**
+  String get orderRateSubmit;
+
+  /// No description provided for @orderRateThanks.
+  ///
+  /// In ar, this message translates to:
+  /// **'شكراً على تقييمك!'**
+  String get orderRateThanks;
+
+  /// No description provided for @orderYourReview.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقييمك'**
+  String get orderYourReview;
+
+  /// No description provided for @orderRateNudge.
+  ///
+  /// In ar, this message translates to:
+  /// **'★ قيّمي هذا الطلب'**
+  String get orderRateNudge;
+
   /// No description provided for @fitSubtitle.
   ///
   /// In ar, this message translates to:
@@ -962,12 +1010,6 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'اطلبي الطقم'**
   String get familyOrderCta;
-
-  /// No description provided for @accountUserName.
-  ///
-  /// In ar, this message translates to:
-  /// **'حمزة'**
-  String get accountUserName;
 
   /// No description provided for @accountMemberSince.
   ///

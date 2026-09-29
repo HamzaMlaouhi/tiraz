@@ -16,6 +16,12 @@ class Order extends Equatable {
   final List<Color> imageGradient;
   final List<OrderTimelineStep> timeline;
 
+  /// The buyer's rating, once they've left one.
+  final OrderReview? review;
+
+  /// Delivered and not yet reviewed.
+  final bool canReview;
+
   const Order({
     required this.id,
     required this.itemName,
@@ -25,8 +31,22 @@ class Order extends Equatable {
     required this.status,
     required this.imageGradient,
     required this.timeline,
+    this.review,
+    this.canReview = false,
   });
 
   @override
-  List<Object?> get props => [id, itemName, sellerMeta, date, etaLabel, status, imageGradient, timeline];
+  List<Object?> get props =>
+      [id, itemName, sellerMeta, date, etaLabel, status, imageGradient, timeline, review, canReview];
+}
+
+class OrderReview extends Equatable {
+  /// 1–5 stars.
+  final int rating;
+  final String? comment;
+
+  const OrderReview({required this.rating, this.comment});
+
+  @override
+  List<Object?> get props => [rating, comment];
 }

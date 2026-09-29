@@ -1,5 +1,6 @@
 import '../../../../core/theme/placeholder_palette.dart';
 import '../../../../core/value_objects/localized_text.dart';
+import '../../domain/entities/eid_deadline.dart';
 import '../../domain/entities/fit_zone.dart';
 import '../../domain/entities/product_detail.dart';
 
@@ -23,11 +24,14 @@ class ProductDetailModel extends ProductDetail {
     required super.reviewBy,
     required super.imageGradient,
     required super.mtmLeadDays,
+    super.eidDeadlineRtw,
+    super.eidDeadlineMtm,
   });
 
   /// Mirrors `ProductsService.toDetailDto` on the backend.
   factory ProductDetailModel.fromJson(Map<String, dynamic> json) {
     final id = json['id'] as String;
+    final eid = json['eidDeadline'] as Map<String, dynamic>?;
     return ProductDetailModel(
       id: id,
       name: LocalizedText.fromJson(json['name'] as Map<String, dynamic>),
@@ -49,8 +53,18 @@ class ProductDetailModel extends ProductDetail {
       reviewBy: LocalizedText.fromJson(json['reviewBy'] as Map<String, dynamic>),
       imageGradient: PlaceholderPalette.gradientFor(id),
       mtmLeadDays: json['mtmLeadDays'] as int,
+      eidDeadlineRtw: eid == null ? null : _eidDeadlineFromJson(eid['rtw'] as Map<String, dynamic>),
+      eidDeadlineMtm: eid == null ? null : _eidDeadlineFromJson(eid['mtm'] as Map<String, dynamic>),
     );
   }
+
+  /// Mirrors `EidDeadline` in the backend's eid.util.ts.
+  static EidDeadline _eidDeadlineFromJson(Map<String, dynamic> json) => EidDeadline(
+        orderBy: DateTime.parse(json['orderBy'] as String),
+        daysLeft: json['daysLeft'] as int,
+        status: EidDeadlineStatus.values.byName(json['status'] as String),
+        label: LocalizedText.fromJson(json['label'] as Map<String, dynamic>),
+      );
 
   static FitZone _fitZoneFromJson(Map<String, dynamic> json) => FitZone(
         name: LocalizedText.fromJson(json['name'] as Map<String, dynamic>),

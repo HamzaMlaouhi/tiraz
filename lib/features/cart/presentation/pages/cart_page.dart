@@ -171,7 +171,7 @@ class _CartPageState extends State<CartPage> {
                     children: [
                       _summaryRow(l10n.cartSubtotal, formatAed(state.subtotalAed, locale)),
                       const SizedBox(height: 7),
-                      _summaryRow(l10n.cartShipping, formatAed(CartState.shippingAed, locale)),
+                      _summaryRow(l10n.cartShipping, formatAed(state.shippingAed, locale)),
                       const Divider(height: 24),
                       _summaryRow(l10n.cartTotal, formatAed(state.totalAed, locale), emphasized: true),
                     ],

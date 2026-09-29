@@ -1,26 +1,17 @@
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:tiraz/app.dart';
-import 'package:tiraz/core/di/injection_container.dart';
 
-import 'support/fake_network_images.dart';
+import 'support/test_app.dart';
 
 // Kept in its own file (not appended to seller_smoke_test.dart): `appRouter`
 // is a module-level singleton, so two `testWidgets` in the same file would
 // share its navigation state across tests — a fresh file gets a fresh
 // isolate, and so a fresh router.
 void main() {
-  setUp(() async {
-    HttpOverrides.global = FakeNetworkImageHttpOverrides();
-    await initDependencies();
-  });
+  setUp(setUpTestApp);
 
-  tearDown(() async {
-    HttpOverrides.global = null;
-    await sl.reset();
-  });
+  tearDown(tearDownTestApp);
 
   testWidgets('Event detail: tapping an event card shows place, time, price, and attendance', (tester) async {
     await tester.pumpWidget(const TirazApp());

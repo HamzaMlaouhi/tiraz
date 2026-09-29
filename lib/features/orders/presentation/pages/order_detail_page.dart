@@ -7,6 +7,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/round_icon_button.dart';
 import '../cubit/orders_cubit.dart';
+import '../widgets/order_review_card.dart';
 import '../widgets/timeline_row.dart';
 
 class OrderDetailPage extends StatefulWidget {
@@ -169,6 +170,10 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     ],
                   ),
                 ),
+                if (order.canReview || order.review != null) ...[
+                  const SizedBox(height: 16),
+                  OrderReviewCard(order: order),
+                ],
                 const SizedBox(height: 16),
                 Container(
                   width: double.infinity,

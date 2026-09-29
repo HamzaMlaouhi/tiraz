@@ -73,6 +73,7 @@ Status legend: ✅ done · ⏳ in progress · ⬜ todo · ➖ intentionally not 
 | ✅ | GET | `/orders` | – | OrdersListPage |
 | ✅ | GET | `/orders/:id` | – | OrderDetailPage (timeline) |
 | ✅ | POST | `/orders` | `{addressId, paymentMethod: applePay\|bankCard\|tabby\|cod}` | CheckoutPage |
+| ✅ | POST | `/orders/:id/review` | `{rating: 1–5, comment?}` (delivered orders, once) | OrderDetailPage review card |
 
 ## 8. Wallet — `features/wallet`
 | Status | Method | Path | Body | Used by |
@@ -119,16 +120,24 @@ Status legend: ✅ done · ⏳ in progress · ⬜ todo · ➖ intentionally not 
 9. Seller: `/sellers/me` → uploads → seller products
 10. Events + reservations
 
-Total: **42 endpoints** (including health): **40 wired**, 2 intentionally unused (`/stores`, `/stores/:id` — see §2).
+Total: **43 endpoints** (including health): **41 wired**, 2 intentionally unused (`/stores`, `/stores/:id` — see §2).
 
 ## Backend changes made during integration (tiraz-backend, uncommitted)
 - `wishlist.service.ts` — DTO now includes `productId` (needed for the product-page heart / un-save).
 - `addresses.service.ts` — deleting the default address promotes the oldest remaining one (keeps "exactly one default").
 - `cart` DTO + service — optional `mode: 'rtw' | 'mtm'` on `POST /cart/items`; MTM lines are now charged `priceMtmAed` instead of the RTW price. Omitting it keeps the old behaviour.
 
+## Features added after the integration
+- **Recently viewed** (app only, shared_preferences) and **Share a product** (share_plus 10.x).
+- **Eid order-by dates** — `GET /products/:id` returns `eidDeadline.{rtw,mtm}`; shown as a pill on the product page.
+- **Reviews after delivery** — `OrderReview` table, `POST /orders/:id/review`, order DTO gains `review` + `canReview`. Ratings fold into product/seller aggregates.
+- **Honest delivery dates** — cart/order items store `leadDays`; order ETA = slowest item's production + 2 days; `GET /cart` returns `delivery` (ETA + `beforeEid`) for the checkout banner.
+- **Shipping in totals** — orders store `totalAed` incl. the 20 AED fee; `GET /cart` returns `subtotalAed`/`shippingAed`/`totalAed`.
+- Test-deployment flags: `OTP_TEST_CODE`, `SEED_ONLY_IF_EMPTY`, `ORDER_AUTO_DELIVER_MINUTES`.
+
 ## Known issues / follow-ups
 - `POST /uploads/product-image` returns `http://localhost:<port>/…`, which fails the create-product `@IsUrl()` check and doesn't resolve on emulators/devices. The app rewrites the host to the API host (loopback → `127.0.0.1`) in `seller_remote_data_source.dart`. A backend fix (echo the request host, `@IsUrl({ require_tld: false })`) was proposed but not applied.
-- `POST /orders` stores `totalAed` without the 20 AED shipping the app displays.
 - `GET /sellers/me` answers 403 (not 404) when there is no store; the app falls back to `POST /sellers/me`.
-- Seller account header still shows the hard-coded `accountUserName` l10n string.
-- Widget tests (`flutter test`) were already failing before this work (`flutter_secure_storage` has no test mock, and they assume mock data); they need a fake `ApiClient`/HTTP layer.
+- Seller mode needs a signed-in user (every seller route is JWT-guarded), but the auth page still offers "browse as guest" after picking the seller role — that path ends on a dashboard error.
+- The Eid date is a hard-coded constant (`EID_TARGET_DATE` in `src/common/utils/eid.util.ts`).
+- Widget tests run against `test/support/fake_api.dart` (fixtures in `test/fixtures/api`, captured from a freshly seeded server). Re-capture them if the seed data or DTOs change.

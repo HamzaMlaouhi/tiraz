@@ -27,7 +27,7 @@ class CheckoutPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<CheckoutCubit>(create: (_) => CheckoutCubit()),
-        BlocProvider<CartCubit>.value(value: sl<CartCubit>()),
+        BlocProvider<CartCubit>.value(value: sl<CartCubit>()..load()),
         BlocProvider<AddressesCubit>.value(value: sl<AddressesCubit>()..load()),
         BlocProvider<OrdersCubit>.value(value: sl<OrdersCubit>()),
       ],
@@ -136,19 +136,27 @@ class _CheckoutViewState extends State<_CheckoutView> {
             else
               const SizedBox(height: 48, child: Center(child: CircularProgressIndicator())),
             const SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              decoration: BoxDecoration(color: AppColors.tealBg, borderRadius: BorderRadius.circular(14)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(l10n.checkoutEtaTitle, style: AppTextStyles.label.copyWith(color: AppColors.tealDark, fontSize: 12.5)),
-                  const SizedBox(height: 4),
-                  Text(l10n.checkoutEtaSubtitle, style: AppTextStyles.bodyMuted.copyWith(color: AppColors.tealMuted, fontSize: 11.5)),
-                ],
+            if (cart.delivery case final delivery?) ...[
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+                decoration: BoxDecoration(color: AppColors.tealBg, borderRadius: BorderRadius.circular(14)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      delivery.beforeEid ? l10n.checkoutEtaTitle : l10n.checkoutEtaTitleEstimate,
+                      style: AppTextStyles.label.copyWith(color: AppColors.tealDark, fontSize: 12.5),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      l10n.checkoutEtaSubtitle(delivery.etaLabel.resolve(locale)),
+                      style: AppTextStyles.bodyMuted.copyWith(color: AppColors.tealMuted, fontSize: 11.5),
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
             const SizedBox(height: 16),
             Text(l10n.checkoutPaymentTitle, style: AppTextStyles.label),
             const SizedBox(height: 10),

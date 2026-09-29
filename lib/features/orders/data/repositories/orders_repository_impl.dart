@@ -20,6 +20,10 @@ class OrdersRepositoryImpl implements OrdersRepository {
   Future<Either<Failure, Order>> placeOrder({required String addressId, required String paymentMethod}) =>
       _run(() => remoteDataSource.placeOrder(addressId: addressId, paymentMethod: paymentMethod));
 
+  @override
+  Future<Either<Failure, Order>> submitReview(String orderId, {required int rating, String? comment}) =>
+      _run(() => remoteDataSource.submitReview(orderId, rating: rating, comment: comment));
+
   Future<Either<Failure, T>> _run<T>(Future<T> Function() call) async {
     try {
       return Right(await call());

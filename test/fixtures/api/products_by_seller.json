@@ -1,0 +1,237 @@
+{
+    "cmummk0t20000ss9k6zw5wjdr": [
+        {
+            "id": "cmummk0ui000jss9kiu5olkkj",
+            "name": {
+                "ar": "جلابية وداد — كتّان مطرّز",
+                "en": "Widad jalabiya — embroidered linen"
+            },
+            "seller": {
+                "ar": "أتيليه نورة",
+                "en": "Atelier Noura"
+            },
+            "price": {
+                "ar": "650 د.إ",
+                "en": "AED 650"
+            },
+            "isMadeToMeasure": true,
+            "imageUrl": "https://picsum.photos/seed/tiraz-widad-jalabiya/500/650"
+        },
+        {
+            "id": "cmummk0u60007ss9ke35m1taj",
+            "name": {
+                "ar": "جلابية نور — شيفون مطرّز",
+                "en": "Noor jalabiya — embroidered chiffon"
+            },
+            "seller": {
+                "ar": "أتيليه نورة",
+                "en": "Atelier Noura"
+            },
+            "price": {
+                "ar": "780 د.إ",
+                "en": "AED 780"
+            },
+            "isMadeToMeasure": true,
+            "imageUrl": "https://picsum.photos/seed/tiraz-noor-jalabiya/500/650"
+        }
+    ],
+    "cmummk0t80001ss9k22q0fo4i": [
+        {
+            "id": "cmummk0ul000nss9kpjx5p33k",
+            "name": {
+                "ar": "عباية ليالي — تطريز يدوي",
+                "en": "Layali abaya — hand-beaded"
+            },
+            "seller": {
+                "ar": "دار الشيماء",
+                "en": "Dar Al Shaima"
+            },
+            "price": {
+                "ar": "560 د.إ",
+                "en": "AED 560"
+            },
+            "isMadeToMeasure": false,
+            "imageUrl": "https://picsum.photos/seed/tiraz-layali-abaya/500/650"
+        },
+        {
+            "id": "cmummk0ub000bss9kp11pr6an",
+            "name": {
+                "ar": "قفطان الفجر",
+                "en": "Fajr kaftan"
+            },
+            "seller": {
+                "ar": "دار الشيماء",
+                "en": "Dar Al Shaima"
+            },
+            "price": {
+                "ar": "420 د.إ",
+                "en": "AED 420"
+            },
+            "isMadeToMeasure": false,
+            "imageUrl": "https://picsum.photos/seed/tiraz-fajr-kaftan/500/650"
+        }
+    ],
+    "cmummk0td0002ss9khdj5d513": [
+        {
+            "id": "cmummk0up000rss9knyzdzvxk",
+            "name": {
+                "ar": "قفطان لولوة — خيط ذهبي",
+                "en": "Lulwa kaftan — gold thread"
+            },
+            "seller": {
+                "ar": "بيت الحرير",
+                "en": "Silk House"
+            },
+            "price": {
+                "ar": "980 د.إ",
+                "en": "AED 980"
+            },
+            "isMadeToMeasure": true,
+            "imageUrl": "https://picsum.photos/seed/tiraz-lulwa-kaftan/500/650"
+        },
+        {
+            "id": "cmummk0uf000fss9kdul4c9ej",
+            "name": {
+                "ar": "جلابية ياسمين",
+                "en": "Yasmeen jalabiya"
+            },
+            "seller": {
+                "ar": "بيت الحرير",
+                "en": "Silk House"
+            },
+            "price": {
+                "ar": "1150 د.إ",
+                "en": "AED 1150"
+            },
+            "isMadeToMeasure": true,
+            "imageUrl": "https://picsum.photos/seed/tiraz-yasmeen-jalabiya/500/650"
+        }
+    ],
+    "cmummk0tj0003ss9kfws2odbo": [
+        {
+            "id": "cmummk0uw000zss9kg5f89dy9",
+            "name": {
+                "ar": "جلابية ريم — مقلّمة",
+                "en": "Reem jalabiya — striped daily wear"
+            },
+            "seller": {
+                "ar": "بيت العباية",
+                "en": "Bait Al Abaya"
+            },
+            "price": {
+                "ar": "290 د.إ",
+                "en": "AED 290"
+            },
+            "isMadeToMeasure": false,
+            "imageUrl": "https://picsum.photos/seed/tiraz-reem-jalabiya/500/650"
+        },
+        {
+            "id": "cmummk0us000vss9kc0su229w",
+            "name": {
+                "ar": "جلابية مها — قطن يومي",
+                "en": "Maha jalabiya — everyday cotton"
+            },
+            "seller": {
+                "ar": "بيت العباية",
+                "en": "Bait Al Abaya"
+            },
+            "price": {
+                "ar": "260 د.إ",
+                "en": "AED 260"
+            },
+            "isMadeToMeasure": false,
+            "imageUrl": "https://picsum.photos/seed/tiraz-maha-jalabiya/500/650"
+        }
+    ],
+    "cmummk0to0004ss9kdbf0mhn6": [
+        {
+            "id": "cmummk0v10017ss9kj64ywqb8",
+            "name": {
+                "ar": "عباية نوف — طبقات مفتوحة",
+                "en": "Noof abaya — open-front layering"
+            },
+            "seller": {
+                "ar": "أتيليه الرمال",
+                "en": "Rimal Atelier"
+            },
+            "price": {
+                "ar": "480 د.إ",
+                "en": "AED 480"
+            },
+            "isMadeToMeasure": false,
+            "imageUrl": "https://picsum.photos/seed/tiraz-noof-abaya/500/650"
+        },
+        {
+            "id": "cmummk0uz0013ss9kkh7tmc5w",
+            "name": {
+                "ar": "طقم الجوهرة — احتفالي",
+                "en": "Aljawhara set — festive two-piece"
+            },
+            "seller": {
+                "ar": "أتيليه الرمال",
+                "en": "Rimal Atelier"
+            },
+            "price": {
+                "ar": "890 د.إ",
+                "en": "AED 890"
+            },
+            "isMadeToMeasure": true,
+            "imageUrl": "https://picsum.photos/seed/tiraz-aljawhara-set/500/650"
+        }
+    ],
+    "cmummk0tt0005ss9k40xkdkgh": [
+        {
+            "id": "cmummk0v4001bss9kf2z28mg0",
+            "name": {
+                "ar": "جلابية زهرة",
+                "en": "Zahra jalabiya"
+            },
+            "seller": {
+                "ar": "أتيليه لمى",
+                "en": "Atelier Lama"
+            },
+            "price": {
+                "ar": "650 د.إ",
+                "en": "AED 650"
+            },
+            "isMadeToMeasure": false,
+            "imageUrl": "https://picsum.photos/seed/tiraz-zahra-jalabiya/500/650"
+        }
+    ],
+    "cmummk0tx0006ss9kj7hugtsr": [
+        {
+            "id": "cmummk0v7001dss9kwc3b3f44",
+            "name": {
+                "ar": "Rawan kaftan",
+                "en": "Rawan kaftan"
+            },
+            "seller": {
+                "ar": "أتيليه حمزة",
+                "en": "Hamza's Atelier"
+            },
+            "price": {
+                "ar": "380 د.إ",
+                "en": "AED 380"
+            },
+            "isMadeToMeasure": false,
+            "imageUrl": "https://picsum.photos/seed/tiraz-my-product-2/500/650"
+        },
+        {
+            "id": "cmummk0v6001css9k6wnpga3s",
+            "name": {
+                "ar": "Amal jalabiya",
+                "en": "Amal jalabiya"
+            },
+            "seller": {
+                "ar": "أتيليه حمزة",
+                "en": "Hamza's Atelier"
+            },
+            "price": {
+                "ar": "540 د.إ",
+                "en": "AED 540"
+            },
+            "isMadeToMeasure": true,
+            "imageUrl": "https://picsum.photos/seed/tiraz-my-product-1/500/650"
+        }
+    ]
+}

@@ -1,26 +1,17 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:tiraz/app.dart';
-import 'package:tiraz/core/di/injection_container.dart';
 
-import 'support/fake_network_images.dart';
+import 'support/test_app.dart';
 
 // The new auth hero leans on Directionality-sensitive bits (an arch drawn
 // with CustomPaint, MirroredIcon, wordmark ordering) that the other smoke
 // tests never exercise in English — they all stay on the Arabic default.
 void main() {
-  setUp(() async {
-    HttpOverrides.global = FakeNetworkImageHttpOverrides();
-    await initDependencies();
-  });
+  setUp(setUpTestApp);
 
-  tearDown(() async {
-    HttpOverrides.global = null;
-    await sl.reset();
-  });
+  tearDown(tearDownTestApp);
 
   testWidgets('Auth page renders without exceptions in both Arabic (RTL) and English (LTR)', (tester) async {
     await tester.pumpWidget(const TirazApp());

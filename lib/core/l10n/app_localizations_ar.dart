@@ -272,7 +272,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get checkoutEtaTitle => 'يصل قبل العيد — مضمون';
 
   @override
-  String get checkoutEtaSubtitle => 'التفصيل قبل 8 فبراير، والجاهز غداً. تأخّر الموعد يعني استرداداً جزئياً.';
+  String checkoutEtaSubtitle(String date) {
+    return 'موعد التوصيل المتوقّع: $date. تأخّر الموعد يعني استرداداً جزئياً.';
+  }
+
+  @override
+  String get checkoutEtaTitleEstimate => 'موعد التوصيل المتوقّع';
 
   @override
   String get checkoutPaymentTitle => 'طريقة الدفع';
@@ -391,6 +396,27 @@ class AppLocalizationsAr extends AppLocalizations {
   String get orderGuarantee => 'هذا الطلب مشمول بضمان التعديل المجاني: إن لم تضبط القصّة، نعدّلها لدى خيّاط شريك دون أي تكلفة.';
 
   @override
+  String get orderRateTitle => 'كيف كان طلبك؟';
+
+  @override
+  String get orderRateSubtitle => 'تقييمك يساعد المتسوّقات الأخريات — والمصمّمة.';
+
+  @override
+  String get orderRateCommentHint => 'أخبري الأخريات عن المقاس والقماش (اختياري)';
+
+  @override
+  String get orderRateSubmit => 'إرسال التقييم';
+
+  @override
+  String get orderRateThanks => 'شكراً على تقييمك!';
+
+  @override
+  String get orderYourReview => 'تقييمك';
+
+  @override
+  String get orderRateNudge => '★ قيّمي هذا الطلب';
+
+  @override
   String get fitSubtitle => 'قيسي مرّة واحدة، واطلبي تفصيلاً من أي مصمّمة على طِراز.';
 
   @override
@@ -460,9 +486,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get familyOrderCta => 'اطلبي الطقم';
-
-  @override
-  String get accountUserName => 'حمزة';
 
   @override
   String accountMemberSince(String year, String emirate) {

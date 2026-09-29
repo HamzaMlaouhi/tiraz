@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/value_objects/localized_text.dart';
 import '../../domain/entities/cart_item.dart';
+import '../../domain/entities/cart_snapshot.dart';
 import '../../domain/usecases/add_custom_items_to_cart.dart';
 import '../../domain/usecases/add_product_to_cart.dart';
 import '../../domain/usecases/get_cart.dart';
@@ -44,7 +45,13 @@ class CartCubit extends Cubit<CartState> {
     final result = await _getCart(const NoParams());
     result.fold(
       (failure) => emit(state.copyWith(status: CartStatus.error, errorMessage: failure.message)),
-      (cart) => emit(CartState(status: CartStatus.loaded, items: cart.items, giftWrap: cart.giftWrap)),
+      (cart) => emit(CartState(
+        status: CartStatus.loaded,
+        items: cart.items,
+        giftWrap: cart.giftWrap,
+        shippingAed: cart.shippingAed,
+        delivery: cart.delivery,
+      )),
     );
   }
 

@@ -1,0 +1,126 @@
+[
+    {
+        "id": "cmummk0va001iss9kquezfnpv",
+        "name": {
+            "ar": "سوق رمضان",
+            "en": "Ramadan Souq"
+        },
+        "emirate": {
+            "ar": "دبي",
+            "en": "Dubai"
+        },
+        "venue": {
+            "ar": "مدينة جميرا الرياضية",
+            "en": "Dubai Sports City"
+        },
+        "dateLabel": {
+            "ar": "12–14 مارس",
+            "en": "Mar 12–14"
+        },
+        "timeLabel": {
+            "ar": "4:00 م – 11:00 م",
+            "en": "4:00 PM – 11:00 PM"
+        },
+        "totalSlots": 40,
+        "reservedSlots": 3,
+        "attendeeCount": 2400,
+        "isFree": false,
+        "feeAed": 250,
+        "imageUrl": "https://picsum.photos/seed/tiraz-event-ramadan-souq/700/420",
+        "slotsLeft": 37,
+        "reservedByMe": false
+    },
+    {
+        "id": "cmummk0vf001mss9kz58ymzaw",
+        "name": {
+            "ar": "بازار العيد",
+            "en": "Eid Bazaar"
+        },
+        "emirate": {
+            "ar": "الشارقة",
+            "en": "Sharjah"
+        },
+        "venue": {
+            "ar": "مركز إكسبو الشارقة",
+            "en": "Expo Centre Sharjah"
+        },
+        "dateLabel": {
+            "ar": "20–22 مارس",
+            "en": "Mar 20–22"
+        },
+        "timeLabel": {
+            "ar": "10:00 ص – 10:00 م",
+            "en": "10:00 AM – 10:00 PM"
+        },
+        "totalSlots": 25,
+        "reservedSlots": 2,
+        "attendeeCount": 5100,
+        "isFree": false,
+        "feeAed": 400,
+        "imageUrl": "https://picsum.photos/seed/tiraz-event-eid-bazaar/700/420",
+        "slotsLeft": 23,
+        "reservedByMe": false
+    },
+    {
+        "id": "cmummk0vi001pss9kln6wfbd8",
+        "name": {
+            "ar": "سوق المصمّمات",
+            "en": "Designer Market"
+        },
+        "emirate": {
+            "ar": "أبوظبي",
+            "en": "Abu Dhabi"
+        },
+        "venue": {
+            "ar": "جزيرة السعديات",
+            "en": "Saadiyat Island"
+        },
+        "dateLabel": {
+            "ar": "2–3 أبريل",
+            "en": "Apr 2–3"
+        },
+        "timeLabel": {
+            "ar": "12:00 م – 9:00 م",
+            "en": "12:00 PM – 9:00 PM"
+        },
+        "totalSlots": 18,
+        "reservedSlots": 1,
+        "attendeeCount": 900,
+        "isFree": true,
+        "feeAed": 0,
+        "imageUrl": "https://picsum.photos/seed/tiraz-event-designer-market/700/420",
+        "slotsLeft": 17,
+        "reservedByMe": false
+    },
+    {
+        "id": "cmummk0vj001rss9kuw1cigq2",
+        "name": {
+            "ar": "يوم العائلة",
+            "en": "Family Day Market"
+        },
+        "emirate": {
+            "ar": "عجمان",
+            "en": "Ajman"
+        },
+        "venue": {
+            "ar": "كورنيش عجمان",
+            "en": "Ajman Corniche"
+        },
+        "dateLabel": {
+            "ar": "15 أبريل",
+            "en": "Apr 15"
+        },
+        "timeLabel": {
+            "ar": "5:00 م – 10:00 م",
+            "en": "5:00 PM – 10:00 PM"
+        },
+        "totalSlots": 30,
+        "reservedSlots": 0,
+        "attendeeCount": 1200,
+        "isFree": true,
+        "feeAed": 0,
+        "imageUrl": "https://picsum.photos/seed/tiraz-event-family-day/700/420",
+        "slotsLeft": 30,
+        "reservedByMe": false
+    }
+]

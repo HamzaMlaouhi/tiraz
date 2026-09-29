@@ -103,7 +103,9 @@
 
   "checkoutTitle": "الدفع",
   "checkoutEtaTitle": "يصل قبل العيد — مضمون",
-  "checkoutEtaSubtitle": "التفصيل قبل 8 فبراير، والجاهز غداً. تأخّر الموعد يعني استرداداً جزئياً.",
+  "checkoutEtaSubtitle": "موعد التوصيل المتوقّع: {date}. تأخّر الموعد يعني استرداداً جزئياً.",
+  "@checkoutEtaSubtitle": { "placeholders": { "date": { "type": "String" } } },
+  "checkoutEtaTitleEstimate": "موعد التوصيل المتوقّع",
   "checkoutPaymentTitle": "طريقة الدفع",
   "checkoutPlaceOrderCta": "تأكيد الطلب · {total}",
   "@checkoutPlaceOrderCta": { "placeholders": { "total": { "type": "String" } } },
@@ -147,6 +149,13 @@
   "orderChatCta": "محادثة البائعة",
   "orderTrackCta": "تتبّع الشحنة",
   "orderGuarantee": "هذا الطلب مشمول بضمان التعديل المجاني: إن لم تضبط القصّة، نعدّلها لدى خيّاط شريك دون أي تكلفة.",
+  "orderRateTitle": "كيف كان طلبك؟",
+  "orderRateSubtitle": "تقييمك يساعد المتسوّقات الأخريات — والمصمّمة.",
+  "orderRateCommentHint": "أخبري الأخريات عن المقاس والقماش (اختياري)",
+  "orderRateSubmit": "إرسال التقييم",
+  "orderRateThanks": "شكراً على تقييمك!",
+  "orderYourReview": "تقييمك",
+  "orderRateNudge": "★ قيّمي هذا الطلب",
 
   "fitSubtitle": "قيسي مرّة واحدة، واطلبي تفصيلاً من أي مصمّمة على طِراز.",
   "fitAddProfileCta": "+ إضافة ملف مقاسات",
@@ -175,7 +184,6 @@
   "familyTotalLabel": "المجموع — طلب واحد، توصيل واحد",
   "familyOrderCta": "اطلبي الطقم",
 
-  "accountUserName": "حمزة",
   "accountMemberSince": "عضو منذ {year} · {emirate}",
   "@accountMemberSince": { "placeholders": { "year": { "type": "String" }, "emirate": { "type": "String" } } },
   "accountEditNameTitle": "اسمك",

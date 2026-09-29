@@ -6,6 +6,7 @@ import '../../domain/entities/order.dart';
 import '../../domain/usecases/get_order.dart';
 import '../../domain/usecases/get_orders.dart';
 import '../../domain/usecases/place_order.dart';
+import '../../domain/usecases/submit_order_review.dart';
 
 part 'orders_state.dart';
 
@@ -15,11 +16,17 @@ class OrdersCubit extends Cubit<OrdersState> {
   final GetOrders _getOrders;
   final GetOrder _getOrder;
   final PlaceOrder _placeOrder;
+  final SubmitOrderReview _submitOrderReview;
 
-  OrdersCubit({required GetOrders getOrders, required GetOrder getOrder, required PlaceOrder placeOrder})
-      : _getOrders = getOrders,
+  OrdersCubit({
+    required GetOrders getOrders,
+    required GetOrder getOrder,
+    required PlaceOrder placeOrder,
+    required SubmitOrderReview submitOrderReview,
+  })  : _getOrders = getOrders,
         _getOrder = getOrder,
         _placeOrder = placeOrder,
+        _submitOrderReview = submitOrderReview,
         super(const OrdersState());
 
   Future<void> load() async {
@@ -56,6 +63,15 @@ class OrdersCubit extends Cubit<OrdersState> {
         return (orderId: order.id, error: null);
       },
     );
+  }
+
+  /// Returns the failure message, or null once the review is saved.
+  Future<String?> submitReview(String orderId, {required int rating, String? comment}) async {
+    final result = await _submitOrderReview(OrderReviewParams(orderId: orderId, rating: rating, comment: comment));
+    return result.fold((failure) => failure.message, (order) {
+      emit(state.copyWith(orders: _upsert(order)));
+      return null;
+    });
   }
 
   void acknowledgePlacement() => emit(state.copyWith(clearJustPlaced: true));

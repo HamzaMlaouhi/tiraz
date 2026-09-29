@@ -13,12 +13,15 @@ class OrderModel extends Order {
     required super.status,
     required super.imageGradient,
     required super.timeline,
+    super.review,
+    super.canReview,
   });
 
   /// Mirrors `OrdersService.toDto` on the backend. Orders carry no image,
   /// so the tile keeps a placeholder gradient keyed by order id.
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     final id = json['id'] as String;
+    final review = json['review'] as Map<String, dynamic>?;
     return OrderModel(
       id: id,
       itemName: _text(json['itemName']),
@@ -35,6 +38,11 @@ class OrderModel extends Order {
           stage: TimelineStage.values.byName(map['stage'] as String),
         );
       }).toList(),
+      review: review == null
+          ? null
+          : OrderReview(rating: review['rating'] as int, comment: review['comment'] as String?),
+      // Absent on servers that predate reviews.
+      canReview: json['canReview'] as bool? ?? false,
     );
   }
 

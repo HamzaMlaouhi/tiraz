@@ -1,0 +1,71 @@
+{
+ "id": "cmub7jzgu00010n9k0nyhyd4b",
+ "name": {
+  "ar": "Test jalabiya",
+  "en": "Test jalabiya"
+ },
+ "seller": {
+  "ar": "أتيليه تجريبي",
+  "en": "Test Atelier"
+ },
+ "priceRtw": {
+  "ar": "300 د.إ",
+  "en": "AED 300"
+ },
+ "priceMtm": {
+  "ar": "300 د.إ",
+  "en": "AED 300"
+ },
+ "priceRtwAed": 300,
+ "priceMtmAed": 300,
+ "ratingValue": "New",
+ "reviewCount": "0",
+ "fitAccuracyLabel": {
+  "ar": "",
+  "en": ""
+ },
+ "sizes": [
+  "S",
+  "M",
+  "L",
+  "XL"
+ ],
+ "fabricShort": {
+  "ar": "",
+  "en": ""
+ },
+ "fabricBody": {
+  "ar": "",
+  "en": ""
+ },
+ "fitZones": [],
+ "reviewQuote": {
+  "ar": "",
+  "en": ""
+ },
+ "reviewBy": {
+  "ar": "",
+  "en": ""
+ },
+ "mtmLeadDays": 10,
+ "eidDeadline": {
+  "rtw": {
+   "orderBy": "2027-03-07T00:00:00.000Z",
+   "daysLeft": 159,
+   "status": "open",
+   "label": {
+    "ar": "اطلبي قبل 7 مارس لتصلك قبل العيد",
+    "en": "Order by Mar 7 to receive before Eid"
+   }
+  },
+  "mtm": {
+   "orderBy": "2027-02-25T00:00:00.000Z",
+   "daysLeft": 149,
+   "status": "closingSoon",
+   "label": {
+    "ar": "اطلبي قبل 25 فبراير لتصلك قبل العيد",
+    "en": "Order by Feb 25 to receive before Eid"
+   }
+  }
+ }
+}

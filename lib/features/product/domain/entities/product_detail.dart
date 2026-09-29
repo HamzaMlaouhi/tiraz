@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/value_objects/localized_text.dart';
+import 'eid_deadline.dart';
 import 'fit_zone.dart';
 
 class ProductDetail extends Equatable {
@@ -24,6 +25,11 @@ class ProductDetail extends Equatable {
   final List<Color> imageGradient;
   final int mtmLeadDays;
 
+  /// Order-by dates for Eid delivery per mode; null when the server has no
+  /// upcoming Eid (or predates this field).
+  final EidDeadline? eidDeadlineRtw;
+  final EidDeadline? eidDeadlineMtm;
+
   const ProductDetail({
     required this.id,
     required this.name,
@@ -43,6 +49,8 @@ class ProductDetail extends Equatable {
     required this.reviewBy,
     required this.imageGradient,
     required this.mtmLeadDays,
+    this.eidDeadlineRtw,
+    this.eidDeadlineMtm,
   });
 
   @override
@@ -65,5 +73,7 @@ class ProductDetail extends Equatable {
         reviewBy,
         imageGradient,
         mtmLeadDays,
+        eidDeadlineRtw,
+        eidDeadlineMtm,
       ];
 }

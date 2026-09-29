@@ -17,6 +17,7 @@ import '../../../cart/presentation/cubit/cart_cubit.dart';
 import '../../../wishlist/domain/entities/wishlist_item.dart';
 import '../../../wishlist/presentation/cubit/wishlist_cubit.dart';
 import '../cubit/product_cubit.dart';
+import '../widgets/eid_deadline_pill.dart';
 import '../widgets/fit_zone_bar.dart';
 import '../widgets/mode_tabs.dart';
 
@@ -166,6 +167,10 @@ class _ProductView extends StatelessWidget {
                           onChanged: (m) => context.read<ProductCubit>().setMode(m),
                         ),
                         const SizedBox(height: 12),
+                        if ((isMtm ? d.eidDeadlineMtm : d.eidDeadlineRtw) case final eid?) ...[
+                          EidDeadlinePill(deadline: eid),
+                          const SizedBox(height: 12),
+                        ],
                         if (!isMtm) ...[
                           Row(
                             children: List.generate(d.sizes.length, (i) {
