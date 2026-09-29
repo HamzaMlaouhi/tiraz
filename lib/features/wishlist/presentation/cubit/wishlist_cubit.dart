@@ -1,36 +1,52 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/value_objects/localized_text.dart';
+import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/wishlist_item.dart';
+import '../../domain/usecases/add_to_wishlist.dart';
+import '../../domain/usecases/get_wishlist.dart';
+import '../../domain/usecases/remove_from_wishlist.dart';
 
 /// Registered as a lazy singleton so the Account row's saved-piece
-/// count stays in sync with removals made on the Wishlist page itself.
+/// count, the Wishlist page, and the product page's heart all share one
+/// list. Mutations are optimistic: the UI updates immediately and rolls
+/// back if the server call fails.
 class WishlistCubit extends Cubit<List<WishlistItem>> {
-  WishlistCubit()
-      : super(const [
-          WishlistItem(
-            id: 'yasmeen-jalabiya',
-            name: LocalizedText(ar: 'جلابية ياسمين', en: 'Yasmeen jalabiya'),
-            seller: LocalizedText(ar: 'بيت الحرير', en: 'Silk House'),
-            priceAed: 1150,
-            imageGradient: [Color(0xFFE8DDD2), Color(0xFFD4C3B4)],
-          ),
-          WishlistItem(
-            id: 'fajr-kaftan',
-            name: LocalizedText(ar: 'قفطان الفجر', en: 'Fajr kaftan'),
-            seller: LocalizedText(ar: 'دار الشيماء', en: 'Dar Al Shaima'),
-            priceAed: 420,
-            imageGradient: [Color(0xFFDFE9E7), Color(0xFFC6D8D4)],
-          ),
-          WishlistItem(
-            id: 'zahra-jalabiya',
-            name: LocalizedText(ar: 'جلابية زهرة', en: 'Zahra jalabiya'),
-            seller: LocalizedText(ar: 'أتيليه لمى', en: 'Atelier Lama'),
-            priceAed: 650,
-            imageGradient: [Color(0xFFE6D9C0), Color(0xFFD8C6A6)],
-          ),
-        ]);
+  final GetWishlist _getWishlist;
+  final AddToWishlist _addToWishlist;
+  final RemoveFromWishlist _removeFromWishlist;
 
-  void remove(String id) => emit(state.where((item) => item.id != id).toList());
+  WishlistCubit({
+    required GetWishlist getWishlist,
+    required AddToWishlist addToWishlist,
+    required RemoveFromWishlist removeFromWishlist,
+  })  : _getWishlist = getWishlist,
+        _addToWishlist = addToWishlist,
+        _removeFromWishlist = removeFromWishlist,
+        super(const []);
+
+  /// On failure the last known list is kept rather than blanked.
+  Future<void> load() async {
+    final result = await _getWishlist(const NoParams());
+    result.fold((_) {}, emit);
+  }
+
+  bool isSaved(String productId) => state.any((item) => item.productId == productId);
+
+  Future<void> remove(String id) async {
+    final previous = state;
+    emit(state.where((item) => item.id != id).toList());
+    final result = await _removeFromWishlist(id);
+    result.fold((_) => emit(previous), (_) {});
+  }
+
+  /// Saves [productId] if it isn't saved yet, otherwise un-saves it.
+  Future<void> toggle(String productId) async {
+    final existing = state.where((item) => item.productId == productId).firstOrNull;
+    if (existing != null) return remove(existing.id);
+
+    final result = await _addToWishlist(productId);
+    result.fold((_) {}, (item) {
+      if (!isSaved(item.productId)) emit([item, ...state]);
+    });
+  }
 }

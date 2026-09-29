@@ -12,8 +12,8 @@ class ApiClient {
   ApiClient(SessionStore sessionStore)
       : dio = Dio(BaseOptions(
           baseUrl: ApiConfig.baseUrl,
-          connectTimeout: const Duration(seconds: 15),
-          receiveTimeout: const Duration(seconds: 15),
+          connectTimeout: ApiConfig.timeout,
+          receiveTimeout: ApiConfig.timeout,
         )) {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {

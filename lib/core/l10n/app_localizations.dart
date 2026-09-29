@@ -285,6 +285,18 @@ abstract class AppLocalizations {
   /// **'جديد من مصمّماتك'**
   String get newFromDesigners;
 
+  /// No description provided for @recentlyViewedTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'شاهدتِها مؤخراً'**
+  String get recentlyViewedTitle;
+
+  /// No description provided for @recentlyViewedClear.
+  ///
+  /// In ar, this message translates to:
+  /// **'مسح'**
+  String get recentlyViewedClear;
+
   /// No description provided for @mtmBadge.
   ///
   /// In ar, this message translates to:
@@ -471,6 +483,12 @@ abstract class AppLocalizations {
   /// **'أُضيفت إلى السلة'**
   String get addedToCart;
 
+  /// No description provided for @shareProductText.
+  ///
+  /// In ar, this message translates to:
+  /// **'{name} من {seller} — {price}\nوجدتها على طِراز، سوق الجلابيات في الإمارات.'**
+  String shareProductText(String name, String seller, String price);
+
   /// No description provided for @comingSoon.
   ///
   /// In ar, this message translates to:
@@ -651,6 +669,72 @@ abstract class AppLocalizations {
   /// **'+ إضافة عنوان جديد'**
   String get addressAddCta;
 
+  /// No description provided for @addressesEmpty.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد عناوين محفوظة بعد.'**
+  String get addressesEmpty;
+
+  /// No description provided for @addressFormAddTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'عنوان جديد'**
+  String get addressFormAddTitle;
+
+  /// No description provided for @addressFormEditTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل العنوان'**
+  String get addressFormEditTitle;
+
+  /// No description provided for @addressLabelHome.
+  ///
+  /// In ar, this message translates to:
+  /// **'المنزل'**
+  String get addressLabelHome;
+
+  /// No description provided for @addressLabelWork.
+  ///
+  /// In ar, this message translates to:
+  /// **'العمل'**
+  String get addressLabelWork;
+
+  /// No description provided for @addressLabelOther.
+  ///
+  /// In ar, this message translates to:
+  /// **'أخرى'**
+  String get addressLabelOther;
+
+  /// No description provided for @addressLineHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'الشارع، المنطقة، الإمارة'**
+  String get addressLineHint;
+
+  /// No description provided for @addressSaveCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'حفظ العنوان'**
+  String get addressSaveCta;
+
+  /// No description provided for @addressEditAction.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل'**
+  String get addressEditAction;
+
+  /// No description provided for @addressDeleteAction.
+  ///
+  /// In ar, this message translates to:
+  /// **'حذف'**
+  String get addressDeleteAction;
+
+  /// No description provided for @checkoutAddAddressPrompt.
+  ///
+  /// In ar, this message translates to:
+  /// **'أضف عنوان التوصيل'**
+  String get checkoutAddAddressPrompt;
+
   /// No description provided for @wishlistTitle.
   ///
   /// In ar, this message translates to:
@@ -752,6 +836,24 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'+ إضافة ملف مقاسات'**
   String get fitAddProfileCta;
+
+  /// No description provided for @fitNewProfileTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'ملف مقاسات جديد'**
+  String get fitNewProfileTitle;
+
+  /// No description provided for @fitProfileNameHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'لمن هذا الملف؟ (مثلاً: أنا، سارة)'**
+  String get fitProfileNameHint;
+
+  /// No description provided for @fitCreateProfileCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'إنشاء الملف'**
+  String get fitCreateProfileCta;
 
   /// No description provided for @fitTip.
   ///
@@ -870,8 +972,32 @@ abstract class AppLocalizations {
   /// No description provided for @accountMemberSince.
   ///
   /// In ar, this message translates to:
-  /// **'عضو منذ 2026 · أبوظبي'**
-  String get accountMemberSince;
+  /// **'عضو منذ {year} · {emirate}'**
+  String accountMemberSince(String year, String emirate);
+
+  /// No description provided for @accountEditNameTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'اسمك'**
+  String get accountEditNameTitle;
+
+  /// No description provided for @accountNameHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'أدخل اسمك'**
+  String get accountNameHint;
+
+  /// No description provided for @accountSaveCta.
+  ///
+  /// In ar, this message translates to:
+  /// **'حفظ'**
+  String get accountSaveCta;
+
+  /// No description provided for @accountAddNamePrompt.
+  ///
+  /// In ar, this message translates to:
+  /// **'أضف اسمك'**
+  String get accountAddNamePrompt;
 
   /// No description provided for @accountOrdersRow.
   ///

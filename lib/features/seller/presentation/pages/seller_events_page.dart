@@ -5,6 +5,7 @@ import '../../../../core/di/injection_container.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../cubit/seller_cubit.dart';
+import '../widgets/seller_action.dart';
 import '../widgets/market_event_card.dart';
 
 /// Market events a seller can reserve a booth at — "your reservations"
@@ -44,7 +45,7 @@ class SellerEventsPage extends StatelessWidget {
                           reserved: true,
                           onTap: () => onOpenEventDetail(event.id),
                           onReserve: () {},
-                          onCancel: () => sl<SellerCubit>().cancelReservation(event.id),
+                          onCancel: () => runSellerAction(context, sl<SellerCubit>().cancelReservation(event.id)),
                         ),
                       )),
                 const Divider(height: 32),
@@ -56,8 +57,8 @@ class SellerEventsPage extends StatelessWidget {
                       event: event,
                       reserved: isReserved,
                       onTap: () => onOpenEventDetail(event.id),
-                      onReserve: () => sl<SellerCubit>().reserveEvent(event.id),
-                      onCancel: () => sl<SellerCubit>().cancelReservation(event.id),
+                      onReserve: () => runSellerAction(context, sl<SellerCubit>().reserveEvent(event.id)),
+                      onCancel: () => runSellerAction(context, sl<SellerCubit>().cancelReservation(event.id)),
                     ),
                   );
                 }),

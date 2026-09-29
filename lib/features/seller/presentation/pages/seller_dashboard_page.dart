@@ -10,12 +10,13 @@ import '../../../../core/widgets/fade_in_network_image.dart';
 import '../../../../core/widgets/fade_slide_in.dart';
 import '../../domain/entities/seller_store_profile.dart';
 import '../cubit/seller_cubit.dart';
+import '../widgets/seller_action.dart';
 import '../widgets/market_event_card.dart';
 import '../widgets/seller_product_tile.dart';
 
 /// The seller-side home page: a snapshot of "your store", a preview of
 /// your listings, and the market events you might reserve a spot at.
-class SellerDashboardPage extends StatelessWidget {
+class SellerDashboardPage extends StatefulWidget {
   final VoidCallback onOpenProducts;
   final VoidCallback onOpenEvents;
   final VoidCallback onAddProduct;
@@ -32,6 +33,19 @@ class SellerDashboardPage extends StatelessWidget {
   });
 
   @override
+  State<SellerDashboardPage> createState() => _SellerDashboardPageState();
+}
+
+class _SellerDashboardPageState extends State<SellerDashboardPage> {
+  @override
+  void initState() {
+    super.initState();
+    // The seller landing page: loading here also creates the user's store
+    // on their first visit, and fills the state every other seller tab reads.
+    sl<SellerCubit>().load();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
@@ -40,6 +54,23 @@ class SellerDashboardPage extends StatelessWidget {
         child: BlocBuilder<SellerCubit, SellerState>(
           bloc: sl<SellerCubit>(),
           builder: (context, state) {
+            final store = state.store;
+            if (store == null) {
+              if (state.status == SellerStatus.error) {
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(state.errorMessage ?? l10n.genericError,
+                          style: AppTextStyles.bodyMuted, textAlign: TextAlign.center),
+                      const SizedBox(height: 12),
+                      OutlinedButton(onPressed: sl<SellerCubit>().load, child: Text(l10n.retry)),
+                    ],
+                  ),
+                );
+              }
+              return const Center(child: CircularProgressIndicator(color: AppColors.teal));
+            }
             final previewProducts = state.products.take(4).toList();
             final previewEvents = state.events.take(2).toList();
 
@@ -48,18 +79,18 @@ class SellerDashboardPage extends StatelessWidget {
               children: [
                 Text(l10n.sellerDashboardTitle, style: AppTextStyles.h1),
                 const SizedBox(height: 16),
-                FadeSlideIn(child: _StoreHero(store: state.store)),
+                FadeSlideIn(child: _StoreHero(store: store)),
                 const SizedBox(height: 24),
                 FadeSlideIn(
                   delay: const Duration(milliseconds: 80),
                   child: _SectionHeader(
-                      title: l10n.sellerProductsPreviewTitle, seeAllLabel: l10n.seeAllCta, onSeeAll: onOpenProducts),
+                      title: l10n.sellerProductsPreviewTitle, seeAllLabel: l10n.seeAllCta, onSeeAll: widget.onOpenProducts),
                 ),
                 const SizedBox(height: 12),
                 FadeSlideIn(
                   delay: const Duration(milliseconds: 130),
                   child: previewProducts.isEmpty
-                      ? GestureDetector(onTap: onAddProduct, child: DottedAddButton(label: l10n.sellerAddProductCta))
+                      ? GestureDetector(onTap: widget.onAddProduct, child: DottedAddButton(label: l10n.sellerAddProductCta))
                       : SizedBox(
                           height: 256,
                           child: ListView.separated(
@@ -70,8 +101,8 @@ class SellerDashboardPage extends StatelessWidget {
                               final p = previewProducts[i];
                               return SellerProductTile(
                                 product: p,
-                                onTap: () => onOpenProductDetail(p.id),
-                                onRemove: () => sl<SellerCubit>().removeProduct(p.id),
+                                onTap: () => widget.onOpenProductDetail(p.id),
+                                onRemove: () => runSellerAction(context, sl<SellerCubit>().removeProduct(p.id)),
                               );
                             },
                           ),
@@ -81,7 +112,7 @@ class SellerDashboardPage extends StatelessWidget {
                 FadeSlideIn(
                   delay: const Duration(milliseconds: 180),
                   child: _SectionHeader(
-                      title: l10n.sellerEventsPreviewTitle, seeAllLabel: l10n.seeAllCta, onSeeAll: onOpenEvents),
+                      title: l10n.sellerEventsPreviewTitle, seeAllLabel: l10n.seeAllCta, onSeeAll: widget.onOpenEvents),
                 ),
                 const SizedBox(height: 12),
                 ...List.generate(previewEvents.length, (i) {
@@ -94,9 +125,9 @@ class SellerDashboardPage extends StatelessWidget {
                       child: MarketEventCard(
                         event: event,
                         reserved: reserved,
-                        onTap: () => onOpenEventDetail(event.id),
-                        onReserve: () => sl<SellerCubit>().reserveEvent(event.id),
-                        onCancel: () => sl<SellerCubit>().cancelReservation(event.id),
+                        onTap: () => widget.onOpenEventDetail(event.id),
+                        onReserve: () => runSellerAction(context, sl<SellerCubit>().reserveEvent(event.id)),
+                        onCancel: () => runSellerAction(context, sl<SellerCubit>().cancelReservation(event.id)),
                       ),
                     ),
                   );

@@ -140,7 +140,7 @@ class FamilySetPage extends StatelessWidget {
             const SizedBox(height: 20),
             PrimaryButton(
               label: l10n.familyOrderCta,
-              onPressed: () {
+              onPressed: () async {
                 final items = _members.map((m) {
                   return CartItem(
                     id: 'family-${m.initial.en}-${DateTime.now().millisecondsSinceEpoch}',
@@ -151,8 +151,13 @@ class FamilySetPage extends StatelessWidget {
                     priceAed: m.priceAed,
                     imageGradient: _designGradient,
                   );
-                });
-                sl<CartCubit>().addItems(items);
+                }).toList();
+                final error = await sl<CartCubit>().addCustomItems(items);
+                if (!context.mounted) return;
+                if (error != null) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
+                  return;
+                }
                 onOrdered();
               },
             ),

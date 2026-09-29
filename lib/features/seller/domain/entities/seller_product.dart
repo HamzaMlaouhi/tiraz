@@ -25,10 +25,9 @@ class SellerProduct extends Equatable {
   final double sleeveCm;
   final JalabiyaQuality quality;
 
-  /// The chosen photo — either a stock-gallery pick ([imageUrl] alone) or
-  /// a photo uploaded from the device ([imageBytes] takes precedence when
-  /// present; there's no backend to upload it to, so it only lives for the
-  /// session, same as everything else the seller adds).
+  /// The listing's photo. Device photos are uploaded to the backend on
+  /// save, so a listing from the API always has a real [imageUrl];
+  /// [imageBytes] is only ever set on a not-yet-saved local draft.
   final String imageUrl;
   final Uint8List? imageBytes;
 

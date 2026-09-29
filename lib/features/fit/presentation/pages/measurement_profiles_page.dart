@@ -5,7 +5,9 @@ import '../../../../core/di/injection_container.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/value_objects/localized_text.dart';
 import '../../../../core/widgets/dotted_add_button.dart';
+import '../../../../core/widgets/primary_button.dart';
 import '../cubit/fit_cubit.dart';
 
 class MeasurementProfilesPage extends StatelessWidget {
@@ -22,10 +24,21 @@ class MeasurementProfilesPage extends StatelessWidget {
   }
 }
 
-class _FitView extends StatelessWidget {
+class _FitView extends StatefulWidget {
   final void Function(String profileId, String profileName) onOpenEntry;
 
   const _FitView({required this.onOpenEntry});
+
+  @override
+  State<_FitView> createState() => _FitViewState();
+}
+
+class _FitViewState extends State<_FitView> {
+  @override
+  void initState() {
+    super.initState();
+    sl<FitCubit>().load();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +50,7 @@ class _FitView extends StatelessWidget {
         child: BlocBuilder<FitCubit, FitState>(
           bloc: sl<FitCubit>(),
           builder: (context, state) {
-            if (state.status == FitStatus.loading) {
+            if (state.status == FitStatus.initial || state.status == FitStatus.loading) {
               return const Center(child: CircularProgressIndicator(color: AppColors.teal));
             }
             if (state.status == FitStatus.error) {
@@ -74,7 +87,7 @@ class _FitView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(14),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(14),
-                        onTap: () => onOpenEntry(profile.id, profile.name.resolve(locale)),
+                        onTap: () => widget.onOpenEntry(profile.id, profile.name.resolve(locale)),
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.border)),
@@ -109,7 +122,16 @@ class _FitView extends StatelessWidget {
                   );
                 }),
                 const SizedBox(height: 4),
-                DottedAddButton(label: l10n.fitAddProfileCta),
+                DottedAddButton(
+                  label: l10n.fitAddProfileCta,
+                  onTap: () => showModalBottomSheet<void>(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: AppColors.card,
+                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+                    builder: (_) => const _NewProfileSheet(),
+                  ),
+                ),
                 const SizedBox(height: 16),
                 Container(
                   width: double.infinity,
@@ -121,6 +143,70 @@ class _FitView extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _NewProfileSheet extends StatefulWidget {
+  const _NewProfileSheet();
+
+  @override
+  State<_NewProfileSheet> createState() => _NewProfileSheetState();
+}
+
+class _NewProfileSheetState extends State<_NewProfileSheet> {
+  final _controller = TextEditingController();
+  bool _saving = false;
+  String? _error;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _create() async {
+    final name = _controller.text.trim();
+    if (name.isEmpty) return;
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
+    // The name is the user's own label, so it's stored the same in both languages.
+    final error = await sl<FitCubit>().createProfile(LocalizedText(ar: name, en: name));
+    if (!mounted) return;
+    if (error == null) {
+      Navigator.of(context).pop();
+    } else {
+      setState(() {
+        _saving = false;
+        _error = error;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Padding(
+      padding: EdgeInsets.fromLTRB(18, 18, 18, 18 + MediaQuery.of(context).viewInsets.bottom),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(l10n.fitNewProfileTitle, style: AppTextStyles.h3),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _controller,
+            autofocus: true,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (_) => _create(),
+            decoration: InputDecoration(hintText: l10n.fitProfileNameHint, errorText: _error),
+          ),
+          const SizedBox(height: 14),
+          PrimaryButton(label: l10n.fitCreateProfileCta, onPressed: _saving ? null : _create, loading: _saving),
+        ],
       ),
     );
   }

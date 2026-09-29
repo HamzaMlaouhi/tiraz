@@ -6,9 +6,11 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/currency.dart';
+import '../../../../core/widgets/dotted_add_button.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/round_icon_button.dart';
 import '../../../addresses/presentation/cubit/addresses_cubit.dart';
+import '../../../addresses/presentation/widgets/address_form_sheet.dart';
 import '../../../cart/presentation/cubit/cart_cubit.dart';
 import '../../../orders/presentation/cubit/orders_cubit.dart';
 import '../cubit/checkout_cubit.dart';
@@ -26,7 +28,7 @@ class CheckoutPage extends StatelessWidget {
       providers: [
         BlocProvider<CheckoutCubit>(create: (_) => CheckoutCubit()),
         BlocProvider<CartCubit>.value(value: sl<CartCubit>()),
-        BlocProvider<AddressesCubit>.value(value: sl<AddressesCubit>()),
+        BlocProvider<AddressesCubit>.value(value: sl<AddressesCubit>()..load()),
         BlocProvider<OrdersCubit>.value(value: sl<OrdersCubit>()),
       ],
       child: _CheckoutView(onBack: onBack, onChangeAddress: onChangeAddress, onOrderPlaced: onOrderPlaced),
@@ -34,12 +36,38 @@ class CheckoutPage extends StatelessWidget {
   }
 }
 
-class _CheckoutView extends StatelessWidget {
+class _CheckoutView extends StatefulWidget {
   final VoidCallback onBack;
   final VoidCallback onChangeAddress;
   final void Function(String orderId) onOrderPlaced;
 
   const _CheckoutView({required this.onBack, required this.onChangeAddress, required this.onOrderPlaced});
+
+  @override
+  State<_CheckoutView> createState() => _CheckoutViewState();
+}
+
+class _CheckoutViewState extends State<_CheckoutView> {
+  bool _placing = false;
+
+  Future<void> _placeOrder(String addressId) async {
+    setState(() => _placing = true);
+    final paymentIndex = context.read<CheckoutCubit>().state;
+    final result = await context.read<OrdersCubit>().placeOrder(
+          addressId: addressId,
+          paymentMethod: CheckoutCubit.paymentKeys[paymentIndex],
+        );
+    if (!mounted) return;
+    setState(() => _placing = false);
+    final orderId = result.orderId;
+    if (orderId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result.error ?? '')));
+      return;
+    }
+    // The server emptied the cart as part of placing the order.
+    context.read<CartCubit>().reset();
+    widget.onOrderPlaced(orderId);
+  }
 
   (String, String) _paymentCopy(AppLocalizations l10n, String key) {
     switch (key) {
@@ -69,37 +97,44 @@ class _CheckoutView extends StatelessWidget {
           children: [
             Row(
               children: [
-                RoundIconButton.back(onPressed: onBack),
+                RoundIconButton.back(onPressed: widget.onBack),
                 const SizedBox(width: 10),
                 Text(l10n.checkoutTitle, style: AppTextStyles.h2),
               ],
             ),
             const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              decoration: BoxDecoration(
-                color: AppColors.card,
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: AppColors.border),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(addresses.defaultAddress.label.resolve(locale), style: AppTextStyles.label.copyWith(fontSize: 13)),
-                        Text(addresses.defaultAddress.line.resolve(locale), style: AppTextStyles.caption.copyWith(fontSize: 11.5, height: 1.6)),
-                      ],
+            if (addresses.defaultAddress case final address?)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                decoration: BoxDecoration(
+                  color: AppColors.card,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(address.label.resolve(locale), style: AppTextStyles.label.copyWith(fontSize: 13)),
+                          Text(address.line.resolve(locale),
+                              style: AppTextStyles.caption.copyWith(fontSize: 11.5, height: 1.6)),
+                        ],
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: onChangeAddress,
-                    child: Text(l10n.changeLabel, style: AppTextStyles.buttonSecondary.copyWith(color: AppColors.teal, fontSize: 12)),
-                  ),
-                ],
-              ),
-            ),
+                    TextButton(
+                      onPressed: widget.onChangeAddress,
+                      child: Text(l10n.changeLabel,
+                          style: AppTextStyles.buttonSecondary.copyWith(color: AppColors.teal, fontSize: 12)),
+                    ),
+                  ],
+                ),
+              )
+            else if (addresses.status == AddressesStatus.loaded)
+              DottedAddButton(label: l10n.checkoutAddAddressPrompt, onTap: () => showAddressFormSheet(context))
+            else
+              const SizedBox(height: 48, child: Center(child: CircularProgressIndicator())),
             const SizedBox(height: 12),
             Container(
               width: double.infinity,
@@ -169,18 +204,10 @@ class _CheckoutView extends StatelessWidget {
             const SizedBox(height: 12),
             PrimaryButton(
               label: l10n.checkoutPlaceOrderCta(formatAed(cart.totalAed, locale)),
-              onPressed: cart.items.isEmpty
+              loading: _placing,
+              onPressed: cart.items.isEmpty || addresses.defaultAddress == null || _placing
                   ? null
-                  : () {
-                      final first = cart.items.first;
-                      final orderId = context.read<OrdersCubit>().placeOrder(
-                            itemName: first.itemName,
-                            sellerMeta: first.seller,
-                            imageGradient: first.imageGradient,
-                          );
-                      context.read<CartCubit>().clear();
-                      onOrderPlaced(orderId);
-                    },
+                  : () => _placeOrder(addresses.defaultAddress!.id),
             ),
           ],
         ),

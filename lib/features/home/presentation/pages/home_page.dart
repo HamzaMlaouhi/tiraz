@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/injection_container.dart';
+import '../../../../core/session/session_store.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -12,6 +13,8 @@ import '../../domain/entities/home_data.dart';
 import '../../domain/entities/product_summary.dart';
 import '../../domain/entities/store.dart';
 import '../cubit/home_cubit.dart';
+import '../cubit/product_list_cubit.dart';
+import '../cubit/recently_viewed_cubit.dart';
 import '../widgets/drop_card.dart';
 import '../widgets/eid_banner.dart';
 import '../widgets/family_banner.dart';
@@ -50,14 +53,37 @@ class _HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<_HomeView> {
+  final ProductListCubit _search = sl<ProductListCubit>();
+
+  @override
+  void initState() {
+    super.initState();
+    sl<RecentlyViewedCubit>().load();
+    // The cart badge needs the server cart; guests have none (JWT-guarded).
+    if (sl<SessionStore>().isLoggedIn) sl<CartCubit>().load();
+  }
+
+  @override
+  void dispose() {
+    _search.close();
+    super.dispose();
+  }
+
   String _query = '';
+
+  /// Every product tap on Home (rows, search, store sheet) goes through
+  /// here, so the "Recently viewed" row can remember it.
+  void _openProduct(ProductSummary product) {
+    sl<RecentlyViewedCubit>().record(product);
+    widget.onOpenProduct(product.id);
+  }
 
   void _openStore(BuildContext context, Store store) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => StoreSheet(store: store, onOpenProduct: widget.onOpenProduct),
+      builder: (_) => StoreSheet(store: store, onOpenProduct: _openProduct),
     );
   }
 
@@ -67,21 +93,36 @@ class _HomeViewState extends State<_HomeView> {
   List<Store> _matchingStores(HomeData data, String query) =>
       data.stores.where((s) => _matches(s.name, query) || _matches(s.emirate, query)).toList();
 
-  List<ProductSummary> _matchingProducts(HomeData data, String query) {
-    // New drops and every store's preview overlap (the same piece can
-    // appear in both) — dedupe by id before filtering.
-    final byId = <String, ProductSummary>{};
+  /// Server matches (whole catalog, by name/description) first, then any
+  /// already-loaded pieces whose *seller* matches — the API doesn't search
+  /// seller names. Deduped by id, since the same piece can appear in both.
+  List<ProductSummary> _matchingProducts(HomeData data, String query, List<ProductSummary> serverResults) {
+    final byId = <String, ProductSummary>{for (final p in serverResults) p.id: p};
     for (final p in [...data.newDrops, ...data.stores.expand((s) => s.products)]) {
-      byId[p.id] = p;
+      if (_matches(p.name, query) || _matches(p.seller, query)) byId.putIfAbsent(p.id, () => p);
     }
-    return byId.values.where((p) => _matches(p.name, query) || _matches(p.seller, query)).toList();
+    return byId.values.toList();
   }
 
   Widget _buildSearchResults(BuildContext context, HomeData data) {
+    return BlocBuilder<ProductListCubit, ProductListState>(
+      bloc: _search,
+      builder: (context, searchState) => _buildSearchResultsFor(context, data, searchState),
+    );
+  }
+
+  Widget _buildSearchResultsFor(BuildContext context, HomeData data, ProductListState searchState) {
     final l10n = AppLocalizations.of(context);
     final query = _query.trim().toLowerCase();
     final stores = _matchingStores(data, query);
-    final products = _matchingProducts(data, query);
+    final products = _matchingProducts(data, query, searchState.products);
+
+    if (stores.isEmpty && products.isEmpty && searchState.status == ProductListStatus.loading) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 56),
+        child: Center(child: CircularProgressIndicator(color: AppColors.teal)),
+      );
+    }
 
     if (stores.isEmpty && products.isEmpty) {
       return Padding(
@@ -118,7 +159,7 @@ class _HomeViewState extends State<_HomeView> {
           Wrap(
             spacing: 12,
             runSpacing: 16,
-            children: products.map((p) => DropCard(product: p, onTap: () => widget.onOpenProduct(p.id))).toList(),
+            children: products.map((p) => DropCard(product: p, onTap: () => _openProduct(p))).toList(),
           ),
         ],
       ],
@@ -205,6 +246,40 @@ class _HomeViewState extends State<_HomeView> {
             ],
           ),
         ),
+        BlocBuilder<RecentlyViewedCubit, List<ProductSummary>>(
+          bloc: sl<RecentlyViewedCubit>(),
+          builder: (context, recent) {
+            if (recent.isEmpty) return const SizedBox.shrink();
+            return Padding(
+              padding: const EdgeInsets.only(top: 22),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(child: Text(l10n.recentlyViewedTitle, style: AppTextStyles.sectionTitle)),
+                      TextButton(
+                        onPressed: sl<RecentlyViewedCubit>().clear,
+                        child: Text(l10n.recentlyViewedClear,
+                            style: AppTextStyles.buttonSecondary.copyWith(color: AppColors.teal, fontSize: 12)),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  SizedBox(
+                    height: 256,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: recent.length,
+                      separatorBuilder: (_, __) => const SizedBox(width: 12),
+                      itemBuilder: (context, i) => DropCard(product: recent[i], onTap: () => _openProduct(recent[i])),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
         const SizedBox(height: 22),
         FadeSlideIn(
           delay: const Duration(milliseconds: 280),
@@ -225,7 +300,7 @@ class _HomeViewState extends State<_HomeView> {
                   separatorBuilder: (_, __) => const SizedBox(width: 12),
                   itemBuilder: (context, i) {
                     final drop = data.newDrops[i];
-                    return DropCard(product: drop, onTap: () => widget.onOpenProduct(drop.id));
+                    return DropCard(product: drop, onTap: () => _openProduct(drop));
                   },
                 ),
               ),
@@ -351,7 +426,10 @@ class _HomeViewState extends State<_HomeView> {
                   SliverPadding(
                     padding: EdgeInsets.fromLTRB(horizontalPadding, 14, horizontalPadding, 0),
                     sliver: SliverToBoxAdapter(
-                      child: HomeSearchBar(onChanged: (q) => setState(() => _query = q)),
+                      child: HomeSearchBar(onChanged: (q) {
+                        setState(() => _query = q);
+                        _search.search(q);
+                      }),
                     ),
                   ),
                   BlocBuilder<HomeCubit, HomeState>(

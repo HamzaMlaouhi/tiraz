@@ -4,20 +4,24 @@ import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 
 /// The dashed "+ add" affordance used on Measurement profiles and
-/// Addresses — a deliberately inert stub in the design too (no add
-/// flow behind it yet).
+/// Addresses. Inert when [onTap] is null.
 class DottedAddButton extends StatelessWidget {
   final String label;
-  const DottedAddButton({super.key, required this.label});
+  final VoidCallback? onTap;
+  const DottedAddButton({super.key, required this.label, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return DottedBorder(
-      child: SizedBox(
-        width: double.infinity,
-        height: 48,
-        child:
-            Center(child: Text(label, style: AppTextStyles.label.copyWith(color: AppColors.textMuted, fontSize: 13))),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(14),
+      child: DottedBorder(
+        child: SizedBox(
+          width: double.infinity,
+          height: 48,
+          child: Center(
+              child: Text(label, style: AppTextStyles.label.copyWith(color: AppColors.textMuted, fontSize: 13))),
+        ),
       ),
     );
   }

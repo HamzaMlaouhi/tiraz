@@ -107,6 +107,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get newFromDesigners => 'جديد من مصمّماتك';
 
   @override
+  String get recentlyViewedTitle => 'شاهدتِها مؤخراً';
+
+  @override
+  String get recentlyViewedClear => 'مسح';
+
+  @override
   String get mtmBadge => 'تفصيل';
 
   @override
@@ -210,6 +216,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addedToCart => 'أُضيفت إلى السلة';
 
   @override
+  String shareProductText(String name, String seller, String price) {
+    return '$name من $seller — $price\nوجدتها على طِراز، سوق الجلابيات في الإمارات.';
+  }
+
+  @override
   String get comingSoon => 'قريباً';
 
   @override
@@ -302,6 +313,39 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addressAddCta => '+ إضافة عنوان جديد';
 
   @override
+  String get addressesEmpty => 'لا توجد عناوين محفوظة بعد.';
+
+  @override
+  String get addressFormAddTitle => 'عنوان جديد';
+
+  @override
+  String get addressFormEditTitle => 'تعديل العنوان';
+
+  @override
+  String get addressLabelHome => 'المنزل';
+
+  @override
+  String get addressLabelWork => 'العمل';
+
+  @override
+  String get addressLabelOther => 'أخرى';
+
+  @override
+  String get addressLineHint => 'الشارع، المنطقة، الإمارة';
+
+  @override
+  String get addressSaveCta => 'حفظ العنوان';
+
+  @override
+  String get addressEditAction => 'تعديل';
+
+  @override
+  String get addressDeleteAction => 'حذف';
+
+  @override
+  String get checkoutAddAddressPrompt => 'أضف عنوان التوصيل';
+
+  @override
   String get wishlistTitle => 'المفضّلة';
 
   @override
@@ -351,6 +395,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get fitAddProfileCta => '+ إضافة ملف مقاسات';
+
+  @override
+  String get fitNewProfileTitle => 'ملف مقاسات جديد';
+
+  @override
+  String get fitProfileNameHint => 'لمن هذا الملف؟ (مثلاً: أنا، سارة)';
+
+  @override
+  String get fitCreateProfileCta => 'إنشاء الملف';
 
   @override
   String get fitTip => 'الأسهل؟ قيسي من جلابية مفضّلة مضبوطة المقاس — افرشيها وقيسي خمس نقاط فقط.';
@@ -412,7 +465,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountUserName => 'حمزة';
 
   @override
-  String get accountMemberSince => 'عضو منذ 2026 · أبوظبي';
+  String accountMemberSince(String year, String emirate) {
+    return 'عضو منذ $year · $emirate';
+  }
+
+  @override
+  String get accountEditNameTitle => 'اسمك';
+
+  @override
+  String get accountNameHint => 'أدخل اسمك';
+
+  @override
+  String get accountSaveCta => 'حفظ';
+
+  @override
+  String get accountAddNamePrompt => 'أضف اسمك';
 
   @override
   String get accountOrdersRow => 'طلباتي';

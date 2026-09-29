@@ -6,6 +6,7 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/dotted_add_button.dart';
 import '../cubit/seller_cubit.dart';
+import '../widgets/seller_action.dart';
 import '../widgets/seller_product_tile.dart';
 
 class SellerProductsPage extends StatelessWidget {
@@ -47,7 +48,7 @@ class SellerProductsPage extends StatelessWidget {
                       return SellerProductTile(
                         product: p,
                         onTap: () => onOpenProductDetail(p.id),
-                        onRemove: () => sl<SellerCubit>().removeProduct(p.id),
+                        onRemove: () => runSellerAction(context, sl<SellerCubit>().removeProduct(p.id)),
                       );
                     }).toList(),
                   ),

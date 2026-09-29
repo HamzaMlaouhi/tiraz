@@ -1,13 +1,13 @@
 part of 'fit_cubit.dart';
 
-enum FitStatus { loading, loaded, error }
+enum FitStatus { initial, loading, loaded, error }
 
 class FitState extends Equatable {
   final FitStatus status;
   final List<MeasurementProfile> profiles;
   final String? errorMessage;
 
-  const FitState({this.status = FitStatus.loading, this.profiles = const [], this.errorMessage});
+  const FitState({this.status = FitStatus.initial, this.profiles = const [], this.errorMessage});
 
   FitState copyWith({FitStatus? status, List<MeasurementProfile>? profiles, String? errorMessage}) {
     return FitState(

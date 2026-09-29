@@ -6,15 +6,27 @@ import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/currency.dart';
+import '../../../../core/widgets/fade_in_network_image.dart';
 import '../../../../core/widgets/round_icon_button.dart';
 import '../cubit/wishlist_cubit.dart';
 import '../../domain/entities/wishlist_item.dart';
 
-class WishlistPage extends StatelessWidget {
+class WishlistPage extends StatefulWidget {
   final VoidCallback onBack;
   final VoidCallback onBrowse;
 
   const WishlistPage({super.key, required this.onBack, required this.onBrowse});
+
+  @override
+  State<WishlistPage> createState() => _WishlistPageState();
+}
+
+class _WishlistPageState extends State<WishlistPage> {
+  @override
+  void initState() {
+    super.initState();
+    sl<WishlistCubit>().load();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +43,7 @@ class WishlistPage extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    RoundIconButton.back(onPressed: onBack),
+                    RoundIconButton.back(onPressed: widget.onBack),
                     const SizedBox(width: 10),
                     Text(l10n.wishlistTitle, style: AppTextStyles.h2),
                   ],
@@ -42,7 +54,7 @@ class WishlistPage extends StatelessWidget {
                     children: [
                       Text(l10n.wishlistEmptyMessage, textAlign: TextAlign.center, style: AppTextStyles.bodyMuted.copyWith(height: 1.6)),
                       const SizedBox(height: 14),
-                      ElevatedButton(onPressed: onBrowse, child: Text(l10n.browseDesigns, style: AppTextStyles.buttonPrimary)),
+                      ElevatedButton(onPressed: widget.onBrowse, child: Text(l10n.browseDesigns, style: AppTextStyles.buttonPrimary)),
                     ],
                   ),
                 ] else ...[
@@ -61,11 +73,15 @@ class WishlistPage extends StatelessWidget {
                           Expanded(
                             child: Stack(
                               children: [
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    gradient: LinearGradient(colors: item.imageGradient),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: FadeInNetworkImage(
+                                    url: item.imageUrl,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    fallback: DecoratedBox(
+                                      decoration: BoxDecoration(gradient: LinearGradient(colors: item.imageGradient)),
+                                    ),
                                   ),
                                 ),
                                 PositionedDirectional(

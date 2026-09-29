@@ -27,6 +27,17 @@ class ProductSummaryModel extends ProductSummary {
     );
   }
 
+  /// Same shape [fromJson] reads, so a summary can be stored on-device and
+  /// read back (recently viewed).
+  static Map<String, dynamic> toJson(ProductSummary product) => {
+        'id': product.id,
+        'name': {'ar': product.name.ar, 'en': product.name.en},
+        'seller': {'ar': product.seller.ar, 'en': product.seller.en},
+        'price': {'ar': product.price.ar, 'en': product.price.en},
+        'isMadeToMeasure': product.isMadeToMeasure,
+        'imageUrl': product.imageUrl,
+      };
+
   static List<ProductSummaryModel> listFromJson(List<dynamic> json) =>
       json.map((item) => ProductSummaryModel.fromJson(item as Map<String, dynamic>)).toList();
 }

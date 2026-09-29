@@ -9,11 +9,32 @@ import '../../../../core/widgets/round_icon_button.dart';
 import '../cubit/orders_cubit.dart';
 import '../widgets/timeline_row.dart';
 
-class OrderDetailPage extends StatelessWidget {
+class OrderDetailPage extends StatefulWidget {
   final String orderId;
   final VoidCallback onBack;
 
   const OrderDetailPage({super.key, required this.orderId, required this.onBack});
+
+  @override
+  State<OrderDetailPage> createState() => _OrderDetailPageState();
+}
+
+class _OrderDetailPageState extends State<OrderDetailPage> {
+  String? _loadError;
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  // Always re-fetch: the list copy may be stale (timeline stages move on
+  // the server), and a deep link may arrive before the list has loaded.
+  Future<void> _refresh() async {
+    setState(() => _loadError = null);
+    final error = await sl<OrdersCubit>().loadOne(widget.orderId);
+    if (mounted) setState(() => _loadError = error);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +46,30 @@ class OrderDetailPage extends StatelessWidget {
         child: BlocBuilder<OrdersCubit, OrdersState>(
           bloc: sl<OrdersCubit>(),
           builder: (context, state) {
-            final order = state.byId(orderId);
+            final order = state.byId(widget.orderId);
             if (order == null) {
-              return Center(child: Text(l10n.genericError, style: AppTextStyles.bodyMuted));
+              if (_loadError == null) {
+                return const Center(child: CircularProgressIndicator(color: AppColors.teal));
+              }
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(l10n.genericError, style: AppTextStyles.bodyMuted),
+                    const SizedBox(height: 12),
+                    OutlinedButton(onPressed: _refresh, child: Text(l10n.retry)),
+                  ],
+                ),
+              );
             }
-            final justPlaced = state.justPlacedOrderId == orderId;
+            final justPlaced = state.justPlacedOrderId == widget.orderId;
 
             return ListView(
               padding: const EdgeInsets.fromLTRB(18, 12, 18, 24),
               children: [
                 Row(
                   children: [
-                    RoundIconButton.back(onPressed: onBack),
+                    RoundIconButton.back(onPressed: widget.onBack),
                     const SizedBox(width: 10),
                     Text(l10n.orderDetailTitle, style: AppTextStyles.h2),
                   ],

@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/di/injection_container.dart';
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/fade_in_network_image.dart';
+import '../../domain/entities/product_summary.dart';
 import '../../domain/entities/store.dart';
+import '../cubit/product_list_cubit.dart';
 import 'drop_card.dart';
 
 /// The store's full profile, opened as a modal sheet from its [StoreCard]
-/// on the home feed — banner, logo, rating, and its preview products
-/// (tapping one hands off to the existing product detail route).
+/// on the home feed — banner, logo, rating, and its full catalog from
+/// `GET /products?sellerId=` (tapping one hands off to the existing
+/// product detail route).
 class StoreSheet extends StatelessWidget {
   final Store store;
-  final void Function(String productId) onOpenProduct;
+  final void Function(ProductSummary product) onOpenProduct;
 
   const StoreSheet({super.key, required this.store, required this.onOpenProduct});
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider<ProductListCubit>(
+      create: (_) => sl<ProductListCubit>()..loadSeller(store.id),
+      child: BlocBuilder<ProductListCubit, ProductListState>(
+        builder: (context, catalog) => _buildSheet(context, catalog),
+      ),
+    );
+  }
+
+  Widget _buildSheet(BuildContext context, ProductListState catalog) {
     final locale = Localizations.localeOf(context);
     final l10n = AppLocalizations.of(context);
 
@@ -156,12 +170,14 @@ class StoreSheet extends StatelessWidget {
                         child: Wrap(
                           spacing: 12,
                           runSpacing: 16,
-                          children: store.products
+                          // The store's preview pieces show instantly; the full
+                          // catalog replaces them once it arrives.
+                          children: (catalog.products.isNotEmpty ? catalog.products : store.products)
                               .map((product) => DropCard(
                                     product: product,
                                     onTap: () {
                                       Navigator.of(context).pop();
-                                      onOpenProduct(product.id);
+                                      onOpenProduct(product);
                                     },
                                   ))
                               .toList(),

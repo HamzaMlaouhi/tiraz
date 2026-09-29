@@ -2,7 +2,7 @@ part of 'orders_cubit.dart';
 
 
 
-enum OrdersStatus { loading, loaded, error }
+enum OrdersStatus { initial, loading, loaded, error }
 
 class OrdersState extends Equatable {
   final OrdersStatus status;
@@ -11,7 +11,7 @@ class OrdersState extends Equatable {
   final String? justPlacedOrderId;
 
   const OrdersState({
-    this.status = OrdersStatus.loading,
+    this.status = OrdersStatus.initial,
     this.orders = const [],
     this.errorMessage,
     this.justPlacedOrderId,

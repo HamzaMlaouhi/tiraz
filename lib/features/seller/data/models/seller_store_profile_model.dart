@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-
+import '../../../../core/theme/placeholder_palette.dart';
 import '../../../../core/value_objects/localized_text.dart';
 import '../../domain/entities/seller_store_profile.dart';
 
@@ -14,15 +13,14 @@ class SellerStoreProfileModel extends SellerStoreProfile {
     required super.reviewCount,
   });
 
-  // Ties to the same "Hamza · Abu Dhabi" persona the account page shows —
-  // this is that shopper's own storefront once they switch to selling.
-  static SellerStoreProfileModel mock() => const SellerStoreProfileModel(
-        name: LocalizedText(ar: 'أتيليه حمزة', en: "Hamza's Atelier"),
-        emirate: LocalizedText(ar: 'أبوظبي', en: 'Abu Dhabi'),
-        logoImageUrl: 'https://picsum.photos/seed/tiraz-my-store-logo/160/160',
-        bannerImageUrl: 'https://picsum.photos/seed/tiraz-my-store-banner/700/420',
-        fallbackGradient: [Color(0xFFE3DCE8), Color(0xFFC9BFD6)],
-        rating: 4.7,
-        reviewCount: 12,
+  /// Mirrors `SellersService.toDto` on the backend.
+  factory SellerStoreProfileModel.fromJson(Map<String, dynamic> json) => SellerStoreProfileModel(
+        name: LocalizedText.fromJson(json['name'] as Map<String, dynamic>),
+        emirate: LocalizedText.fromJson(json['emirate'] as Map<String, dynamic>),
+        logoImageUrl: json['logoImageUrl'] as String,
+        bannerImageUrl: json['bannerImageUrl'] as String,
+        fallbackGradient: PlaceholderPalette.gradientFor(json['id'] as String),
+        rating: (json['rating'] as num).toDouble(),
+        reviewCount: json['reviewCount'] as int,
       );
 }

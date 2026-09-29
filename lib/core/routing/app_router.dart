@@ -149,6 +149,7 @@ final GoRouter appRouter = GoRouter(
                 GoRoute(
                   path: 'entry/:id',
                   builder: (context, state) => MeasurementEntryPage(
+                    profileId: state.pathParameters['id']!,
                     profileName: state.uri.queryParameters['name'] ?? '',
                     onBack: () => context.pop(),
                     onDone: () => context.pop(),

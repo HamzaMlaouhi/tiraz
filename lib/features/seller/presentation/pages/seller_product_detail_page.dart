@@ -15,11 +15,32 @@ import '../widgets/seller_product_image.dart';
 /// The full profile of one of the seller's own listings — a bigger photo,
 /// the description, the garment's dimensions, its quality tier, and the
 /// base/handmade/total price breakdown.
-class SellerProductDetailPage extends StatelessWidget {
+class SellerProductDetailPage extends StatefulWidget {
   final String productId;
   final VoidCallback onBack;
 
   const SellerProductDetailPage({super.key, required this.productId, required this.onBack});
+
+  @override
+  State<SellerProductDetailPage> createState() => _SellerProductDetailPageState();
+}
+
+class _SellerProductDetailPageState extends State<SellerProductDetailPage> {
+  String? _loadError;
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  // Always re-fetch on open — the list copy may be stale — and cover the
+  // case where this page is reached before the seller state has loaded.
+  Future<void> _refresh() async {
+    setState(() => _loadError = null);
+    final error = await sl<SellerCubit>().loadProduct(widget.productId);
+    if (mounted) setState(() => _loadError = error);
+  }
 
   String _qualityLabel(AppLocalizations l10n, JalabiyaQuality quality) {
     switch (quality) {
@@ -44,20 +65,23 @@ class SellerProductDetailPage extends StatelessWidget {
           builder: (context, state) {
             SellerProduct? product;
             for (final p in state.products) {
-              if (p.id == productId) {
+              if (p.id == widget.productId) {
                 product = p;
                 break;
               }
             }
 
             if (product == null) {
+              if (_loadError == null) {
+                return const Center(child: CircularProgressIndicator(color: AppColors.teal));
+              }
               return Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(l10n.genericError, style: AppTextStyles.bodyMuted),
                     const SizedBox(height: 12),
-                    OutlinedButton(onPressed: onBack, child: Text(l10n.retry)),
+                    OutlinedButton(onPressed: _refresh, child: Text(l10n.retry)),
                   ],
                 ),
               );
@@ -69,7 +93,7 @@ class SellerProductDetailPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
-                    child: RoundIconButton.back(onPressed: onBack),
+                    child: RoundIconButton.back(onPressed: widget.onBack),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 18),

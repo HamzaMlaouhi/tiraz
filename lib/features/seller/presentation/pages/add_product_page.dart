@@ -10,6 +10,7 @@ import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/round_icon_button.dart';
 import '../../../../core/widgets/selectable_chip.dart';
 import '../../domain/entities/jalabiya_quality.dart';
+import '../../domain/entities/new_seller_product.dart';
 import '../cubit/seller_cubit.dart';
 import '../widgets/seller_product_image.dart';
 
@@ -52,6 +53,7 @@ class _AddProductPageState extends State<AddProductPage> {
   late String _imageUrl = _stockPhotoUrl(_stockPhotoSeeds.first);
   Uint8List? _imageBytes;
   bool _isPickingPhoto = false;
+  bool _isSaving = false;
 
   @override
   void dispose() {
@@ -67,6 +69,7 @@ class _AddProductPageState extends State<AddProductPage> {
 
   bool get _canSave =>
       _nameController.text.trim().isNotEmpty &&
+      _descriptionController.text.trim().isNotEmpty &&
       (double.tryParse(_priceController.text) ?? 0) > 0 &&
       (double.tryParse(_lengthController.text) ?? 0) > 0 &&
       (double.tryParse(_chestController.text) ?? 0) > 0 &&
@@ -107,9 +110,10 @@ class _AddProductPageState extends State<AddProductPage> {
     }
   }
 
-  void _save() {
-    if (!_canSave) return;
-    sl<SellerCubit>().addProduct(
+  Future<void> _save() async {
+    if (!_canSave || _isSaving) return;
+    setState(() => _isSaving = true);
+    final error = await sl<SellerCubit>().addProduct(NewSellerProduct(
       name: _nameController.text,
       description: _descriptionController.text,
       priceAed: double.parse(_priceController.text),
@@ -122,7 +126,13 @@ class _AddProductPageState extends State<AddProductPage> {
       quality: _quality,
       imageUrl: _imageUrl,
       imageBytes: _imageBytes,
-    );
+    ));
+    if (!mounted) return;
+    setState(() => _isSaving = false);
+    if (error != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
+      return;
+    }
     widget.onSaved();
   }
 
@@ -355,7 +365,11 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
               ),
               const SizedBox(height: 12),
-              PrimaryButton(label: l10n.sellerSaveProductCta, onPressed: _canSave ? _save : null),
+              PrimaryButton(
+                label: l10n.sellerSaveProductCta,
+                loading: _isSaving,
+                onPressed: _canSave && !_isSaving ? _save : null,
+              ),
             ],
           ),
         ),

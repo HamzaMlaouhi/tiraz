@@ -107,6 +107,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newFromDesigners => 'New from your designers';
 
   @override
+  String get recentlyViewedTitle => 'Recently viewed';
+
+  @override
+  String get recentlyViewedClear => 'Clear';
+
+  @override
   String get mtmBadge => 'MTM';
 
   @override
@@ -210,6 +216,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addedToCart => 'Added to cart';
 
   @override
+  String shareProductText(String name, String seller, String price) {
+    return '$name by $seller — $price\nFound on Tiraz, the UAE\'s jalabiya marketplace.';
+  }
+
+  @override
   String get comingSoon => 'Coming soon';
 
   @override
@@ -302,6 +313,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addressAddCta => '+ Add a new address';
 
   @override
+  String get addressesEmpty => 'No saved addresses yet.';
+
+  @override
+  String get addressFormAddTitle => 'New address';
+
+  @override
+  String get addressFormEditTitle => 'Edit address';
+
+  @override
+  String get addressLabelHome => 'Home';
+
+  @override
+  String get addressLabelWork => 'Work';
+
+  @override
+  String get addressLabelOther => 'Other';
+
+  @override
+  String get addressLineHint => 'Street, area, emirate';
+
+  @override
+  String get addressSaveCta => 'Save address';
+
+  @override
+  String get addressEditAction => 'Edit';
+
+  @override
+  String get addressDeleteAction => 'Delete';
+
+  @override
+  String get checkoutAddAddressPrompt => 'Add a delivery address';
+
+  @override
   String get wishlistTitle => 'Wishlist';
 
   @override
@@ -351,6 +395,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fitAddProfileCta => '+ Add a measurement profile';
+
+  @override
+  String get fitNewProfileTitle => 'New measurement profile';
+
+  @override
+  String get fitProfileNameHint => 'Who is it for? (e.g. Me, Sara)';
+
+  @override
+  String get fitCreateProfileCta => 'Create profile';
 
   @override
   String get fitTip => 'Easiest way? Measure a favourite, well-fitting jalabiya — lay it flat and measure just five points.';
@@ -412,7 +465,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountUserName => 'Hamza';
 
   @override
-  String get accountMemberSince => 'Member since 2026 · Abu Dhabi';
+  String accountMemberSince(String year, String emirate) {
+    return 'Member since $year · $emirate';
+  }
+
+  @override
+  String get accountEditNameTitle => 'Your name';
+
+  @override
+  String get accountNameHint => 'Enter your name';
+
+  @override
+  String get accountSaveCta => 'Save';
+
+  @override
+  String get accountAddNamePrompt => 'Add your name';
 
   @override
   String get accountOrdersRow => 'My orders';

@@ -45,7 +45,7 @@ class SellerAccountPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(l10n.accountUserName, style: AppTextStyles.h3),
-                        Text(state.store.name.resolve(locale), style: AppTextStyles.caption.copyWith(fontSize: 11.5)),
+                        Text(state.store?.name.resolve(locale) ?? '', style: AppTextStyles.caption.copyWith(fontSize: 11.5)),
                       ],
                     ),
                   ],
@@ -60,7 +60,7 @@ class SellerAccountPage extends StatelessWidget {
                   clipBehavior: Clip.antiAlias,
                   child: Column(
                     children: [
-                      _Row(name: l10n.sellerYourStoreLabel, value: state.store.emirate.resolve(locale)),
+                      _Row(name: l10n.sellerYourStoreLabel, value: state.store?.emirate.resolve(locale) ?? ''),
                       BlocBuilder<LocaleCubit, Locale>(
                         builder: (context, currentLocale) => _Row(
                           name: l10n.accountLanguageRow,

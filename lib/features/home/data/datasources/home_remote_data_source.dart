@@ -8,6 +8,10 @@ import '../models/store_model.dart';
 
 abstract class HomeDataSource {
   Future<HomeData> getHomeData();
+
+  /// `GET /products` — free-text [search] (name/description) and/or one
+  /// seller's full catalog via [sellerId].
+  Future<List<ProductSummaryModel>> getProducts({String? search, String? sellerId});
 }
 
 /// `GET /home` — mirrors `HomeService.getHomeData` on the backend.
@@ -28,6 +32,17 @@ class HomeRemoteDataSourceImpl implements HomeDataSource {
         newDrops: ProductSummaryModel.listFromJson(data['newDrops'] as List<dynamic>),
         stores: StoreModel.listFromJson(data['stores'] as List<dynamic>),
       );
+    });
+  }
+
+  @override
+  Future<List<ProductSummaryModel>> getProducts({String? search, String? sellerId}) {
+    return guardApiCall(() async {
+      final response = await _dio.get<List<dynamic>>('/products', queryParameters: {
+        if (search != null && search.isNotEmpty) 'search': search,
+        if (sellerId != null) 'sellerId': sellerId,
+      });
+      return ProductSummaryModel.listFromJson(response.data!);
     });
   }
 }

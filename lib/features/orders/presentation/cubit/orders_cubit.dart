@@ -1,27 +1,29 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/usecase/usecase.dart';
-import '../../../../core/utils/list_extensions.dart';
-import '../../../../core/value_objects/localized_text.dart';
-import '../../data/models/order_model.dart';
 import '../../domain/entities/order.dart';
+import '../../domain/usecases/get_order.dart';
 import '../../domain/usecases/get_orders.dart';
+import '../../domain/usecases/place_order.dart';
 
 part 'orders_state.dart';
 
-/// Registered as a lazy singleton: Checkout appends a freshly placed
-/// order here, and the Orders tab reads the same list straight back —
-/// no round trip through a "backend" needed for an in-memory MVP.
+/// Registered as a lazy singleton: Checkout prepends a freshly placed
+/// order here, and the Orders tab and Account row read the same list.
 class OrdersCubit extends Cubit<OrdersState> {
   final GetOrders _getOrders;
-  int _nextOrderSeq = 2842;
+  final GetOrder _getOrder;
+  final PlaceOrder _placeOrder;
 
-  OrdersCubit({required GetOrders getOrders}) : _getOrders = getOrders, super(const OrdersState());
+  OrdersCubit({required GetOrders getOrders, required GetOrder getOrder, required PlaceOrder placeOrder})
+      : _getOrders = getOrders,
+        _getOrder = getOrder,
+        _placeOrder = placeOrder,
+        super(const OrdersState());
 
   Future<void> load() async {
-    emit(state.copyWith(status: OrdersStatus.loading));
+    if (state.status != OrdersStatus.loaded) emit(state.copyWith(status: OrdersStatus.loading));
     final result = await _getOrders(const NoParams());
     result.fold(
       (failure) => emit(state.copyWith(status: OrdersStatus.error, errorMessage: failure.message)),
@@ -29,22 +31,38 @@ class OrdersCubit extends Cubit<OrdersState> {
     );
   }
 
-  /// Places a new order for one line item and returns its id.
-  String placeOrder({
-    required LocalizedText itemName,
-    required LocalizedText sellerMeta,
-    required List<Color> imageGradient,
-  }) {
-    final id = 'TRZ-${_nextOrderSeq++}';
-    final order = OrderModel.justPlaced(
-      id: id,
-      itemName: itemName,
-      sellerMeta: sellerMeta,
-      imageGradient: imageGradient,
+  /// Refreshes one order (e.g. the detail page opened from a deep link or
+  /// before the list has loaded) and merges it into the list. Returns the
+  /// failure message, or null on success.
+  Future<String?> loadOne(String id) async {
+    final result = await _getOrder(id);
+    return result.fold((failure) => failure.message, (order) {
+      emit(state.copyWith(orders: _upsert(order)));
+      return null;
+    });
+  }
+
+  /// Places an order for the current server-side cart. Returns the new
+  /// order id on success, or the failure message.
+  Future<({String? orderId, String? error})> placeOrder({
+    required String addressId,
+    required String paymentMethod,
+  }) async {
+    final result = await _placeOrder(PlaceOrderParams(addressId: addressId, paymentMethod: paymentMethod));
+    return result.fold<({String? orderId, String? error})>(
+      (failure) => (orderId: null, error: failure.message),
+      (order) {
+        emit(state.copyWith(orders: _upsert(order), justPlacedOrderId: order.id));
+        return (orderId: order.id, error: null);
+      },
     );
-    emit(state.copyWith(orders: [order, ...state.orders], justPlacedOrderId: id));
-    return id;
   }
 
   void acknowledgePlacement() => emit(state.copyWith(clearJustPlaced: true));
+
+  List<Order> _upsert(Order order) {
+    final index = state.orders.indexWhere((o) => o.id == order.id);
+    if (index == -1) return [order, ...state.orders];
+    return [...state.orders]..[index] = order;
+  }
 }

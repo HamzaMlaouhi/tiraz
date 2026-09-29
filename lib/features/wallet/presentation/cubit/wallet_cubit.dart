@@ -4,8 +4,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/value_objects/localized_text.dart';
+import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/wallet_transaction.dart';
+import '../../domain/usecases/get_wallet.dart';
 
 part 'wallet_state.dart';
 
@@ -14,28 +15,24 @@ part 'wallet_state.dart';
 class WalletCubit extends Cubit<WalletState> {
   Timer? _copiedResetTimer;
 
-  WalletCubit()
-      : super(
-          const WalletState(
-            history: [
-              WalletTransaction(
-                name: LocalizedText(ar: 'مكافأة الترحيب', en: 'Welcome bonus'),
-                date: LocalizedText(ar: '20 ديسمبر', en: 'Dec 20'),
-                amountAed: 20,
-              ),
-              WalletTransaction(
-                name: LocalizedText(ar: 'مكافأة إحالة — سارة', en: 'Referral bonus — Sara'),
-                date: LocalizedText(ar: '2 يناير', en: 'Jan 2'),
-                amountAed: 50,
-              ),
-              WalletTransaction(
-                name: LocalizedText(ar: 'استُخدم في طلب TRZ-2841', en: 'Used on order TRZ-2841'),
-                date: LocalizedText(ar: '15 يناير', en: 'Jan 15'),
-                amountAed: -20,
-              ),
-            ],
-          ),
-        );
+  final GetWallet _getWallet;
+
+  WalletCubit({required GetWallet getWallet})
+      : _getWallet = getWallet,
+        super(const WalletState());
+
+  Future<void> load() async {
+    if (state.status != WalletStatus.loaded) emit(state.copyWith(status: WalletStatus.loading));
+    final result = await _getWallet(const NoParams());
+    result.fold(
+      (failure) => emit(state.copyWith(status: WalletStatus.error, errorMessage: failure.message)),
+      (wallet) => emit(state.copyWith(
+        status: WalletStatus.loaded,
+        balanceAed: wallet.balanceAed,
+        history: wallet.history,
+      )),
+    );
+  }
 
   Future<void> copyInviteLink() async {
     await Clipboard.setData(const ClipboardData(text: 'https://tiraz.app/invite/hamza'));

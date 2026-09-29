@@ -15,39 +15,22 @@ class SellerProductModel extends SellerProduct {
     required super.sleeveCm,
     required super.quality,
     required super.imageUrl,
-    super.imageBytes,
   });
 
-  // A couple of starter pieces so the dashboard/products tab isn't empty
-  // on first visit — everything after this comes from AddProductPage.
-  static List<SellerProductModel> mock() => const [
-        SellerProductModel(
-          id: 'my-jalabiya-1',
-          name: 'Amal jalabiya',
-          description: 'Hand-embroidered neckline over soft linen, cut for warm-weather daily wear.',
-          priceAed: 540,
-          isMadeToMeasure: true,
-          isHandmade: true,
-          handmadeExtraCostAed: 120,
-          lengthCm: 138,
-          chestCm: 104,
-          sleeveCm: 58,
-          quality: JalabiyaQuality.premium,
-          imageUrl: 'https://picsum.photos/seed/tiraz-my-product-1/500/650',
-        ),
-        SellerProductModel(
-          id: 'my-jalabiya-2',
-          name: 'Rawan kaftan',
-          description: 'A relaxed everyday kaftan in breathable cotton blend.',
-          priceAed: 380,
-          isMadeToMeasure: false,
-          isHandmade: false,
-          handmadeExtraCostAed: 0,
-          lengthCm: 132,
-          chestCm: 108,
-          sleeveCm: 55,
-          quality: JalabiyaQuality.standard,
-          imageUrl: 'https://picsum.photos/seed/tiraz-my-product-2/500/650',
-        ),
-      ];
+  /// Mirrors `ProductsService.toSellerDto` on the backend. [quality] comes
+  /// over the wire as the Prisma enum (`STANDARD`/`PREMIUM`/`LUXURY`).
+  factory SellerProductModel.fromJson(Map<String, dynamic> json) => SellerProductModel(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        description: json['description'] as String,
+        priceAed: (json['priceAed'] as num).toDouble(),
+        isMadeToMeasure: json['isMadeToMeasure'] as bool,
+        isHandmade: json['isHandmade'] as bool,
+        handmadeExtraCostAed: (json['handmadeExtraCostAed'] as num).toDouble(),
+        lengthCm: (json['lengthCm'] as num).toDouble(),
+        chestCm: (json['chestCm'] as num).toDouble(),
+        sleeveCm: (json['sleeveCm'] as num).toDouble(),
+        quality: JalabiyaQuality.values.byName((json['quality'] as String).toLowerCase()),
+        imageUrl: json['imageUrl'] as String,
+      );
 }

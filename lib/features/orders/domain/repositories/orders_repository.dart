@@ -5,4 +5,6 @@ import '../entities/order.dart';
 
 abstract class OrdersRepository {
   Future<Either<Failure, List<Order>>> getOrders();
+  Future<Either<Failure, Order>> getOrder(String id);
+  Future<Either<Failure, Order>> placeOrder({required String addressId, required String paymentMethod});
 }

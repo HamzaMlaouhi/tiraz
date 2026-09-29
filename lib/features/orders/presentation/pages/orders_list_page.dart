@@ -8,10 +8,21 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../cubit/orders_cubit.dart';
 import '../widgets/order_card.dart';
 
-class OrdersListPage extends StatelessWidget {
+class OrdersListPage extends StatefulWidget {
   final void Function(String orderId) onOpenOrder;
 
   const OrdersListPage({super.key, required this.onOpenOrder});
+
+  @override
+  State<OrdersListPage> createState() => _OrdersListPageState();
+}
+
+class _OrdersListPageState extends State<OrdersListPage> {
+  @override
+  void initState() {
+    super.initState();
+    sl<OrdersCubit>().load();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +33,7 @@ class OrdersListPage extends StatelessWidget {
         child: BlocBuilder<OrdersCubit, OrdersState>(
           bloc: sl<OrdersCubit>(),
           builder: (context, state) {
-            if (state.status == OrdersStatus.loading) {
+            if (state.status == OrdersStatus.initial || state.status == OrdersStatus.loading) {
               return const Center(child: CircularProgressIndicator(color: AppColors.teal));
             }
             if (state.status == OrdersStatus.error) {
@@ -46,7 +57,7 @@ class OrdersListPage extends StatelessWidget {
                 ...state.orders.map(
                   (order) => Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: OrderCard(order: order, onTap: () => onOpenOrder(order.id)),
+                    child: OrderCard(order: order, onTap: () => widget.onOpenOrder(order.id)),
                   ),
                 ),
               ],

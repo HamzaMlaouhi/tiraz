@@ -9,10 +9,21 @@ import '../../../../core/utils/currency.dart';
 import '../../../../core/widgets/round_icon_button.dart';
 import '../cubit/wallet_cubit.dart';
 
-class WalletPage extends StatelessWidget {
+class WalletPage extends StatefulWidget {
   final VoidCallback onBack;
 
   const WalletPage({super.key, required this.onBack});
+
+  @override
+  State<WalletPage> createState() => _WalletPageState();
+}
+
+class _WalletPageState extends State<WalletPage> {
+  @override
+  void initState() {
+    super.initState();
+    sl<WalletCubit>().load();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +40,7 @@ class WalletPage extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    RoundIconButton.back(onPressed: onBack),
+                    RoundIconButton.back(onPressed: widget.onBack),
                     const SizedBox(width: 10),
                     Text(l10n.walletTitle, style: AppTextStyles.h2),
                   ],
@@ -41,9 +52,11 @@ class WalletPage extends StatelessWidget {
                   decoration: BoxDecoration(color: AppColors.tealBg, borderRadius: BorderRadius.circular(16)),
                   child: Column(
                     children: [
-                      Text(formatAed(state.balanceAed, locale), style: AppTextStyles.h1.copyWith(fontSize: 30, color: AppColors.tealDark)),
+                      Text(formatAed(state.balanceAed, locale),
+                          style: AppTextStyles.h1.copyWith(fontSize: 30, color: AppColors.tealDark)),
                       const SizedBox(height: 4),
-                      Text(l10n.walletBalanceLabel, style: AppTextStyles.caption.copyWith(color: AppColors.tealMuted, fontSize: 12)),
+                      Text(l10n.walletBalanceLabel,
+                          style: AppTextStyles.caption.copyWith(color: AppColors.tealMuted, fontSize: 12)),
                     ],
                   ),
                 ),
@@ -55,61 +68,67 @@ class WalletPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(l10n.walletTip, style: AppTextStyles.bodyMuted.copyWith(color: AppColors.sandText, fontSize: 12)),
+                      Text(l10n.walletTip,
+                          style: AppTextStyles.bodyMuted.copyWith(color: AppColors.sandText, fontSize: 12)),
                       const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () => sl<WalletCubit>().copyInviteLink(),
-                        style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10)),
+                        style:
+                            ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10)),
                         child: Text(l10n.walletInviteCta, style: AppTextStyles.buttonPrimary.copyWith(fontSize: 12.5)),
                       ),
                       if (state.copied) ...[
                         const SizedBox(height: 8),
-                        Text(l10n.walletCopiedMessage, style: AppTextStyles.label.copyWith(color: AppColors.teal, fontSize: 11.5)),
+                        Text(l10n.walletCopiedMessage,
+                            style: AppTextStyles.label.copyWith(color: AppColors.teal, fontSize: 11.5)),
                       ],
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
-                Text(l10n.walletHistoryTitle, style: AppTextStyles.label),
-                const SizedBox(height: 10),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: Column(
-                    children: List.generate(state.history.length, (i) {
-                      final t = state.history[i];
-                      final positive = t.amountAed > 0;
-                      return Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-                        decoration: BoxDecoration(
-                          border: i == state.history.length - 1
-                              ? null
-                              : const Border(bottom: BorderSide(color: Color(0xFFF2EDE3))),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(t.name.resolve(locale), style: AppTextStyles.label.copyWith(fontSize: 12.5)),
-                                  Text(t.date.resolve(locale), style: AppTextStyles.caption.copyWith(fontSize: 11)),
-                                ],
+                if (state.history.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  Text(l10n.walletHistoryTitle, style: AppTextStyles.label),
+                  const SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.card,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: Column(
+                      children: List.generate(state.history.length, (i) {
+                        final t = state.history[i];
+                        final positive = t.amountAed > 0;
+                        return Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+                          decoration: BoxDecoration(
+                            border: i == state.history.length - 1
+                                ? null
+                                : const Border(bottom: BorderSide(color: Color(0xFFF2EDE3))),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(t.name.resolve(locale), style: AppTextStyles.label.copyWith(fontSize: 12.5)),
+                                    Text(t.date.resolve(locale), style: AppTextStyles.caption.copyWith(fontSize: 11)),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Text(
-                              '${positive ? '+' : '−'}${formatAed(t.amountAed.abs(), locale)}',
-                              style: AppTextStyles.label.copyWith(fontSize: 12.5, color: positive ? AppColors.teal : AppColors.error),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
+                              Text(
+                                '${positive ? '+' : '−'}${formatAed(t.amountAed.abs(), locale)}',
+                                style: AppTextStyles.label
+                                    .copyWith(fontSize: 12.5, color: positive ? AppColors.teal : AppColors.error),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    ),
                   ),
-                ),
+                ],
               ],
             );
           },

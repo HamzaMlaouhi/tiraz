@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/di/injection_container.dart';
+
 import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -14,12 +16,20 @@ class MeasurementEntryPage extends StatelessWidget {
   final VoidCallback onBack;
   final VoidCallback onDone;
 
-  const MeasurementEntryPage({super.key, required this.profileName, required this.onBack, required this.onDone});
+  final String profileId;
+
+  const MeasurementEntryPage({
+    super.key,
+    required this.profileId,
+    required this.profileName,
+    required this.onBack,
+    required this.onDone,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MeasurementEntryCubit>(
-      create: (_) => MeasurementEntryCubit(),
+      create: (_) => MeasurementEntryCubit(profileId: profileId, submitMeasurement: sl(), fitCubit: sl()),
       child: _EntryView(profileName: profileName, onBack: onBack, onDone: onDone),
     );
   }
@@ -174,10 +184,19 @@ class _EntryView extends StatelessWidget {
                         flex: 2,
                         child: PrimaryButton(
                           label: l10n.entryNext,
-                          onPressed: () {
-                            final finished = context.read<MeasurementEntryCubit>().next();
-                            if (finished) onDone();
-                          },
+                          loading: state.submitting,
+                          onPressed: state.submitting
+                              ? null
+                              : () async {
+                                  final result = await context.read<MeasurementEntryCubit>().next();
+                                  if (!context.mounted) return;
+                                  if (result.error != null) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(content: Text(result.error!)));
+                                  } else if (result.finished) {
+                                    onDone();
+                                  }
+                                },
                         ),
                       ),
                     ],

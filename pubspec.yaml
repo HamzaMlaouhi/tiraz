@@ -42,6 +42,13 @@ dependencies:
   # Seller product photos — pick an existing image from the device
   image_picker: ^1.1.2
 
+  # On-device "recently viewed" products
+  shared_preferences: ^2.3.3
+
+  # Share a product to WhatsApp/Instagram/…; pinned to 10.x because 12.x fails
+  # the Android build on Flutter 3.22 (needs a newer Flutter Gradle plugin).
+  share_plus: ^10.1.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -12,15 +12,37 @@ import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/round_icon_button.dart';
 import '../../domain/entities/market_event.dart';
 import '../cubit/seller_cubit.dart';
+import '../widgets/seller_action.dart';
 
 /// The full profile of one market event — a bigger photo of the venue,
 /// date/time/place, whether it's free or paid to join, expected
 /// attendance, and the reserve/cancel action.
-class EventDetailPage extends StatelessWidget {
+class EventDetailPage extends StatefulWidget {
   final String eventId;
   final VoidCallback onBack;
 
   const EventDetailPage({super.key, required this.eventId, required this.onBack});
+
+  @override
+  State<EventDetailPage> createState() => _EventDetailPageState();
+}
+
+class _EventDetailPageState extends State<EventDetailPage> {
+  String? _loadError;
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+  }
+
+  // Always re-fetch on open — the list copy may be stale — and cover the
+  // case where this page is reached before the seller state has loaded.
+  Future<void> _refresh() async {
+    setState(() => _loadError = null);
+    final error = await sl<SellerCubit>().loadEvent(widget.eventId);
+    if (mounted) setState(() => _loadError = error);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +56,23 @@ class EventDetailPage extends StatelessWidget {
           builder: (context, state) {
             MarketEvent? event;
             for (final e in state.events) {
-              if (e.id == eventId) {
+              if (e.id == widget.eventId) {
                 event = e;
                 break;
               }
             }
 
             if (event == null) {
+              if (_loadError == null) {
+                return const Center(child: CircularProgressIndicator(color: AppColors.teal));
+              }
               return Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(l10n.genericError, style: AppTextStyles.bodyMuted),
                     const SizedBox(height: 12),
-                    OutlinedButton(onPressed: onBack, child: Text(l10n.retry)),
+                    OutlinedButton(onPressed: _refresh, child: Text(l10n.retry)),
                   ],
                 ),
               );
@@ -62,7 +87,7 @@ class EventDetailPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
-                    child: RoundIconButton.back(onPressed: onBack),
+                    child: RoundIconButton.back(onPressed: widget.onBack),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -141,7 +166,7 @@ class EventDetailPage extends StatelessWidget {
                         const SizedBox(height: 20),
                         if (reserved)
                           OutlinedButton(
-                            onPressed: () => sl<SellerCubit>().cancelReservation(event!.id),
+                            onPressed: () => runSellerAction(context, sl<SellerCubit>().cancelReservation(event!.id)),
                             style: OutlinedButton.styleFrom(
                               minimumSize: const Size.fromHeight(48),
                               backgroundColor: AppColors.card,
@@ -156,7 +181,7 @@ class EventDetailPage extends StatelessWidget {
                         else
                           PrimaryButton(
                             label: l10n.sellerReserveCta,
-                            onPressed: full ? null : () => sl<SellerCubit>().reserveEvent(event!.id),
+                            onPressed: full ? null : () => runSellerAction(context, sl<SellerCubit>().reserveEvent(event!.id)),
                           ),
                       ],
                     ),

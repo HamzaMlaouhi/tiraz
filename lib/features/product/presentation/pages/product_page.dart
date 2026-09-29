@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/session/session_store.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/widgets/image_slot.dart';
@@ -10,8 +13,9 @@ import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/round_icon_button.dart';
 import '../../../../core/widgets/selectable_chip.dart';
 import '../../../../core/value_objects/localized_text.dart';
-import '../../../cart/domain/entities/cart_item.dart';
 import '../../../cart/presentation/cubit/cart_cubit.dart';
+import '../../../wishlist/domain/entities/wishlist_item.dart';
+import '../../../wishlist/presentation/cubit/wishlist_cubit.dart';
 import '../cubit/product_cubit.dart';
 import '../widgets/fit_zone_bar.dart';
 import '../widgets/mode_tabs.dart';
@@ -78,7 +82,18 @@ class _ProductView extends StatelessWidget {
                       children: [
                         RoundIconButton.back(onPressed: onBack),
                         const SizedBox(width: 10),
-                        Text(d.seller.resolve(locale), style: AppTextStyles.label.copyWith(color: AppColors.textMuted)),
+                        Expanded(
+                          child: Text(d.seller.resolve(locale),
+                              style: AppTextStyles.label.copyWith(color: AppColors.textMuted)),
+                        ),
+                        _ShareButton(
+                          text: l10n.shareProductText(d.name.resolve(locale), d.seller.resolve(locale), price.resolve(locale)),
+                        ),
+                        // Wishlist routes are JWT-guarded, so guests get no heart.
+                        if (sl<SessionStore>().isLoggedIn) ...[
+                          const SizedBox(width: 8),
+                          _WishlistHeart(productId: d.id),
+                        ],
                       ],
                     ),
                   ),
@@ -247,8 +262,12 @@ class _ProductView extends StatelessWidget {
                         const SizedBox(height: 20),
                         PrimaryButton(
                           label: isMtm ? l10n.orderMtmCta(price.resolve(locale)) : l10n.addToCartCta(price.resolve(locale)),
-                          onPressed: () {
-                            final priceAed = isMtm ? d.priceMtmAed : d.priceRtwAed;
+                          onPressed: () async {
+                            // Cart routes are JWT-guarded: send guests to sign in first.
+                            if (!sl<SessionStore>().isLoggedIn) {
+                              context.push('/auth');
+                              return;
+                            }
                             final variant = isMtm
                                 ? LocalizedText(
                                     ar: 'تفصيل حسب ملف "${state.selectedProfileIndex == 0 ? l10n.profileMe : l10n.addNewProfile}" — ${d.fabricShort.ar}',
@@ -258,17 +277,16 @@ class _ProductView extends StatelessWidget {
                                     ar: 'مقاس ${d.sizes[state.selectedSizeIndex]} — ${d.fabricShort.ar}',
                                     en: 'Size ${d.sizes[state.selectedSizeIndex]} — ${d.fabricShort.en}',
                                   );
-                            const leadMtm = LocalizedText(ar: 'تفصيل — قبل 8 فبراير', en: 'MTM — before Feb 8');
-                            const leadRtw = LocalizedText(ar: 'جاهز — التوصيل غداً', en: 'RTW — tomorrow');
-                            sl<CartCubit>().addItem(CartItem(
-                              id: '${d.id}-${state.mode.name}-${DateTime.now().millisecondsSinceEpoch}',
-                              seller: d.seller,
-                              leadLabel: isMtm ? leadMtm : leadRtw,
-                              itemName: d.name,
+                            final error = await sl<CartCubit>().addProduct(
+                              productId: d.id,
+                              madeToMeasure: isMtm,
                               variant: variant,
-                              priceAed: priceAed,
-                              imageGradient: d.imageGradient,
-                            ));
+                            );
+                            if (!context.mounted) return;
+                            if (error != null) {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
+                              return;
+                            }
                             context.read<ProductCubit>().addToCart();
                             onOpenCart();
                           },
@@ -282,6 +300,60 @@ class _ProductView extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class _WishlistHeart extends StatefulWidget {
+  final String productId;
+
+  const _WishlistHeart({required this.productId});
+
+  @override
+  State<_WishlistHeart> createState() => _WishlistHeartState();
+}
+
+class _WishlistHeartState extends State<_WishlistHeart> {
+  @override
+  void initState() {
+    super.initState();
+    sl<WishlistCubit>().load();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<WishlistCubit, List<WishlistItem>>(
+      bloc: sl<WishlistCubit>(),
+      builder: (context, items) {
+        final saved = items.any((item) => item.productId == widget.productId);
+        return RoundIconButton(
+          icon: saved ? Icons.favorite : Icons.favorite_border,
+          onPressed: () => sl<WishlistCubit>().toggle(widget.productId),
+        );
+      },
+    );
+  }
+}
+
+/// Opens the system share sheet (WhatsApp, Instagram, Messages, …) with a
+/// short description of the product.
+class _ShareButton extends StatelessWidget {
+  final String text;
+
+  const _ShareButton({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return RoundIconButton(
+      icon: Icons.ios_share_rounded,
+      onPressed: () {
+        // iPad shows the sheet as a popover anchored to this button.
+        final box = context.findRenderObject() as RenderBox?;
+        Share.share(
+          text,
+          sharePositionOrigin: box == null ? null : box.localToGlobal(Offset.zero) & box.size,
+        );
+      },
     );
   }
 }
